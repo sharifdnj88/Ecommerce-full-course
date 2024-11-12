@@ -22,26 +22,66 @@ class ChildcategoryController extends Controller
     }
 
     // All ChildCategory Show Method
-    public function index(Request $request)
+    public function index()
+    {   
+        $data=DB::table('childcategories')->leftJoin('categories','childcategories.category_id','categories.id')->leftJoin('subcategories','childcategories.subcategory_id','subcategories.id')
+    		    ->select('categories.category_name','subcategories.subcategory_name','childcategories.*')->get();
+        $category = DB::table('categories')->get();
+        return view('admin.category.childcategory.index', compact('data', 'category'));
+    }
+
+    // Child-Category Create Method
+    public function store(Request $request)
     {
-        if($request->ajax()){
-            $data=DB::table('childcategories')->leftjoin('categories', 'childcategories.category_id','categories.id')->leftJoin('subcategories', 'childcategories.subcategory_id', 'subcategories.id')->select('categories.category_name', 'subcategories.	subcategory_name', 'childcategories.*')->get();
 
-            return DataTables::of($data)
-                    ->addIndexColumn()
-                    ->addCloumn('action', function($row){
-                        $actionbtn='
-                        <a href="#" class="btn btn-sm btn-warning edit" data-id="{{ $row->id }}"   data-toggle="modal" data-target="#editModal" ><i class="fa fa-edit" ></i></a>
-                        <a href="#" class="btn btn-sm btn-danger" id="delete" ><i class="fa fa-trash" ></i></a>';
+        $validated = $request->validate([
+            'childcategory_name' => 'required|unique:childcategories|max:55',
+        ]);
 
-                        return $actionbtn;
+        $scat=DB::table('subcategories')->where('id',$request->subcategory_id)->first();
 
-                    })
-                    ->rowColumns(['action'])
-                    ->make(true);                    
-                }
+       $data=array();
+       $data['category_id']=$scat->category_id;
+       $data['subcategory_id']=$request->subcategory_id;
+       $data['childcategory_slug']=Str::slug($request->childcategory_name, '-');
+       $data['childcategory_name']=$request->childcategory_name;
+       DB::table('childcategories')->insert($data);
+       $notification=array('messege' => 'Child-Category Inserted!', 'alert-type' => 'success');
+       return redirect()->back()->with($notification);
 
-            return view('admin.category.childcategory.index');
+    }
+
+    // child Category Edit Method
+    public function edit($id)
+    {
+            // Query Builder
+        $category = DB::table('categories')->get();
+        $data = DB::table('childcategories')->where('id', $id)->first();
+
+        return view('admin.category.childcategory.edit', compact('data', 'category'));
+    }
+
+    // CHild Category Update Method
+    public function update(Request $request)
+    {
+        $scat=DB::table('subcategories')->where('id',$request->subcategory_id)->first();
+            // Query Builder System
+        $data=array();
+        $data['category_id']=$scat->category_id;
+        $data['subcategory_id']=$request->subcategory_id;
+        $data['childcategory_slug']=Str::slug($request->childcategory_name, '-');
+        $data['childcategory_name']=$request->childcategory_name;
+        DB::table('childcategories')->where('id', $request->id)->update($data);
+        $notification=array('messege' => 'Child-Category Update!', 'alert-type' => 'success');
+        return redirect()->back()->with($notification);
+    }
+
+    // Child Category Delete Method
+    public function destroy($id)
+    {
+        DB::table('childcategories')->where('id', $id)->delete();
+        $notification=array('messege' => 'Child-Category Deleted!', 'alert-type' => 'success');
+        return redirect()->back()->with($notification);
     }
 
 
