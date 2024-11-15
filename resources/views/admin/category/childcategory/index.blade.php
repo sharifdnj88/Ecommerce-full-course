@@ -9,10 +9,11 @@
             <div class="col-sm-12">
                 <div class="card shadow">
                     <div class="card-header text-center">
-                        <h3 class="card-title btn btn-dark btn-lg">All Child-Categories list here</h3>
-                        <button class="btn btn-info btn-lg" data-toggle="modal" data-target="#childModal"> <i class="fa fa-plus"></i> Add New Subcategory</button>
+                        <h3 class="card-title btn btn-secondary btn-lg">All Child-Categories list here</h3>
+                        <button class="btn btn-danger btn-lg" data-toggle="modal" data-target="#childModal"> <i class="fa fa-plus"></i> Add New Subcategory</button>
                     </div>
                     <div class="card-body">
+                      <span style="text-align:center">@include('validate')</span>
                         <div class="table-responsive">
                             <table class="table mb-0 data-table-said table-bordered table-primary table-sm ytable">
                                 <thead>
@@ -87,7 +88,7 @@
             </div>   
         </div>
         <div class="modal-footer">
-          <button type="Submit" class="btn btn-primary">Submit</button>
+          <button type="Submit" class="btn btn-success">Submit</button>
         </div>
         </form>
       </div>

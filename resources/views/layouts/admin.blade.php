@@ -19,6 +19,11 @@
 		<link rel="stylesheet" type="text/css" href="{{ asset('backend/plugins/toastr/toastr.css') }}">
 		<!-- DataTables -->
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.css"/>	
+		<!-- Photo Preview -->
+		<link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
+		<!-- summernote -->
+		<link rel="stylesheet" href="{{ asset('backend/plugins/summernote/summernote-bs4.css') }}">
+		
 
 		 <!-- DataTables -->
 		 {{-- <link rel="stylesheet" href="{{ asset('backend') }}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -27,8 +32,8 @@
 		<!-- Main CSS -->
         <link rel="stylesheet" href="{{asset('backend/css/style.css')}}">
 		
-    </head>
-    <body>
+</head>
+<body>
 	
 		<!-- Main Wrapper -->
         <div class="main-wrapper">
@@ -60,7 +65,8 @@
 		<script src="{{asset('backend/plugins/morris/morris.min.js')}}"></script>  
 		<script src="{{asset('backend/js/chart.morris.js')}}"></script>
 		<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.js"></script>
-		<script  src="{{asset('backend/js/custom.js')}}"></script>
+		<script  src="{{asset('backend/js/custom.js')}}"></script>		
+		
 		<!-- Toastr Core JS -->
 		<script type="text/javascript" src="{{ asset('backend/plugins/toastr/toastr.min.js') }}"></script>		
 		<!-- sweetalert Core JS -->
@@ -73,7 +79,7 @@
 				   swal({
 					 title: "Are you Want to delete?",
 					 text: "Once Delete, This will be Permanently Delete!",
-					 icon: "warning",
+					 icon: "error",
 					 buttons: true,
 					 dangerMode: true,
 				   })
@@ -132,7 +138,15 @@
 					  break;
 					}
 			@endif
-		  </script>			
+		  </script>		
+		  
+		  <script src="{{ asset('backend/plugins/summernote/summernote-bs4.min.js') }}"></script>
+		  <script>
+			$(function () {
+				// Summernote
+				$('.textarea').summernote()
+			})
+		   </script>
 		  <!-- Costome JS Code Write End -->
 
 		{{-- <script src="{{ asset('backend') }}/plugins/datatables/jquery.dataTables.min.js"></script>
@@ -147,6 +161,11 @@
 		<script src="{{ asset('backend') }}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 		<script src="{{ asset('backend') }}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 		<script src="{{ asset('backend') }}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script> --}}
+
+		<script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
+		<script>
+			$('.dropify').dropify();
+		</script>
 		
 		<!-- Custom JS -->		
 		<script  src="{{asset('backend/js/script.js')}}"></script>

@@ -10,12 +10,14 @@
     });
     })(jQuery)
     
-    (function($){
-    $(document).ready(function(){
-        function printInvoice(){
-            window.print();
-        }
-    });
-    })(jQuery)
+(function($){
+$(document).ready(function(){
+    function printInvoice(){
+        window.print();
+    }
+});
+})(jQuery)
+
+
     
     

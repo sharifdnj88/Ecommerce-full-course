@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -39,7 +40,8 @@ class LoginController extends Controller
         if (auth()->attempt(array('email' => $request->email, 'password' => $request-> password))) {
 
             if (auth()->user()->is_admin==1) {
-                $notification=array('messege' => 'Welcome !', 'alert-type' => 'success');
+                $user=auth()->user()->name;
+                $notification=array('messege' => 'Welcome 🙂 ' . $user, 'alert-type' => 'success');
     	        return redirect()->route('admin.home')->with($notification);
             }else{                
                 return redirect()->route('home');

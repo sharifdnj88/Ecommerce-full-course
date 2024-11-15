@@ -9,8 +9,8 @@
             <div class="col-sm-12">
                 <div class="card shadow">
                     <div class="card-header text-center">
-                        <h3 class="card-title btn btn-secondary btn-lg">All Sub-Categories list here</h3>
-                        <button class="btn btn-danger btn-lg" data-toggle="modal" data-target="#categoryModal"> <i class="fa fa-plus"></i> Add New Subcategory</button>
+                        <h3 class="card-title btn btn-secondary btn-lg">All Pages list here</h3>
+                        <button class="btn btn-danger btn-lg" data-toggle="modal" data-target="#pageModal"> <i class="fa fa-plus"></i> Add New Page</button>
                     </div>
                     <div class="card-body">
                         <span style="text-align:center">@include('validate')</span>
@@ -19,22 +19,20 @@
                                 <thead>
                                     <tr>
                                         <th>SL</th>
-                                        <th>Subcategory Name</th>
-                                        <th>Subcategory Slug</th>
-                                        <th>Category Name</th>
+                                        <th>Page Name</th>
+                                        <th>Page Title</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($data as $item)
+                                    @forelse ($page as $item)
                                         <tr>
                                             <td>{{$loop-> index  + 1}}</td>
-                                            <td>{{ $item -> subcategory_name }}</td>
-                                            <td>{{ $item -> subcategory_slug }}</td>
-                                            <td>{{ $item ->category->category_name }}</td>
+                                            <td>{{ $item -> page_name }}</td>
+                                            <td>{{ $item -> page_title }}</td>                                            
                                             <td>
                                                 <a href="#" class="btn btn-sm btn-warning edit" data-id="{{ $item->id }}" data-toggle="modal" data-target="#editModal" ><i class="fa fa-edit" ></i></a>                                                
-                                                <a href="{{route('subcategory.delete', $item->id)}}" class="btn btn-sm btn-danger" id="delete" ><i class="fa fa-trash" ></i></a>
+                                                <a href="{{route('setting.page.delete', $item->id)}}" class="btn btn-sm btn-danger" id="delete" ><i class="fa fa-trash" ></i></a>
                                         </td>
                                         </tr>    
                                     @empty
@@ -54,32 +52,41 @@
     </div>			
 </div>
 
-{{-- category insert modal --}}
-<div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+{{-- brand insert modal --}}
+<div class="modal fade" id="pageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add New Subcategory</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Add New Page</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="{{route('subcategory.store')}}" method="Post">
+        <form action="{{route('setting.page.store')}}" method="Post">
             @csrf
             <div class="modal-body">
                 <div class="form-group">
-                <label for="category_id">Category Name</label>
-                <select name="category_id" class="form-control" id="" required>
-                    @foreach ($category as $cat)
-                        <option value="{{$cat->id}}">{{$cat->category_name}}</option>                    
-                    @endforeach
-                </select>
-                </div> 
+                    <label for="page_position">Page Position</label>
+                    <select name="page_position" class="form-control">
+                        <option value="1">Line One</option>
+                        <option value="2">Line Two</option>
+                    </select>
+                </div>
                 <div class="form-group">
-                <label for="subcategory_name">Subcategory Name</label>
-                <input type="text" class="form-control" id="subcategory_name" name="subcategory_name" required="">
-                <small id="emailHelp" class="form-text text-muted">This is your main subcategory</small>
-                </div> 
+                    <label for="page_name">Page Name</label>
+                    <input name="page_name" type="text" class="form-control" id="page_name" required="">
+                    <small id="emailHelp" class="form-text text-muted">This is your page name</small>
+                </div>
+                <div class="form-group">
+                    <label for="page_title">Page Title</label>
+                    <input name="page_title" type="text" class="form-control" id="page_title" required="">
+                    <small id="emailHelp" class="form-text text-muted">This is your page name</small>
+                </div>
+                <div class="form-group">
+                    <label for="page_description">Page Description</label>
+                    <textarea name="page_description" class="form-control textarea"></textarea>
+                    <small id="emailHelp" class="form-text text-muted">This data will show on ypur website</small>
+                </div>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -90,19 +97,19 @@
     </div>
 </div>
 
-{{-- Edit category modal --}}
+{{-- Edit brand modal --}}
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Edit Subcategory</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Edit Page</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-            <div id="modal_body">
-                {{-- Data came from edit.blade.php --}}
-            </div>
+        <div id="modal_body">
+            {{-- Data came from edit.blade.php --}}
+        </div>
       </div>
     </div>
 </div>
@@ -110,8 +117,8 @@
 
 <script type="text/javascript">
 	$('body').on('click', '.edit', function(){
-        let subcat_id =$(this).data('id');
-        $.get('subcategory/edit/'+subcat_id, function(data){
+        let page_id =$(this).data('id');
+        $.get('page/edit/'+page_id, function(data){
             $('#modal_body').html(data);
             
         });

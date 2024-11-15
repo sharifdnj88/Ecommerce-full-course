@@ -18,6 +18,6 @@
     </div>
     <div class="modal-footer">
     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-    <button type="Submit" class="btn btn-primary">Update</button>
+    <button type="Submit" class="btn btn-success">Update</button>
     </div>
 </form>

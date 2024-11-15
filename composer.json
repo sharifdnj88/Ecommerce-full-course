@@ -13,7 +13,7 @@
         "laravel/tinker": "^2.5",
         "yajra/laravel-datatables-oracle": "~9.0",
         "laravel/ui": "^3.2",
-        "intervention/image": "^2.5",
+        "intervention/image": "^2.7",
         "bumbummen99/shoppingcart": "^4.0"
     },
     "require-dev": {

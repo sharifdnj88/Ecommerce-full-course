@@ -2,11 +2,11 @@
 			
     <!-- Logo -->
     <div class="header-left">
-        <a href="index.html" class="logo">
-            <img src="backend/img/logo.png" alt="Logo">
+        <a href="{{route('admin.home')}}" class="logo">
+            <img src="{{asset('backend/img/logo.png')}}" alt="Logo">
         </a>
-        <a href="index.html" class="logo logo-small">
-            <img src="backend/img/logo-small.png" alt="Logo" width="30" height="30">
+        <a href="{{route('admin.home')}}" class="logo logo-small">
+            <img src="{{asset('backend/img/logo-small.png')}}" alt="Logo" width="30" height="30">
         </a>
     </div>
     <!-- /Logo -->
@@ -47,7 +47,7 @@
                             <a href="#">
                                 <div class="media">
                                     <span class="avatar avatar-sm">
-                                        <img class="avatar-img rounded-circle" alt="User Image" src="backend/img/doctors/doctor-thumb-01.jpg">
+                                        <img class="avatar-img rounded-circle" alt="User Image" src="{{asset('backend/img/doctors/doctor-thumb-01.jpg')}}">
                                     </span>
                                     <div class="media-body">
                                         <p class="noti-details"><span class="noti-title">Dr. Ruby Perrin</span> Schedule <span class="noti-title">her appointment</span></p>
@@ -60,7 +60,7 @@
                             <a href="#">
                                 <div class="media">
                                     <span class="avatar avatar-sm">
-                                        <img class="avatar-img rounded-circle" alt="User Image" src="backend/img/patients/patient1.jpg">
+                                        <img class="avatar-img rounded-circle" alt="User Image" src="{{asset('backend/img/patients/patient1.jpg')}}">
                                     </span>
                                     <div class="media-body">
                                         <p class="noti-details"><span class="noti-title">Charlene Reed</span> has booked her appointment to <span class="noti-title">Dr. Ruby Perrin</span></p>
@@ -73,7 +73,7 @@
                             <a href="#">
                                 <div class="media">
                                     <span class="avatar avatar-sm">
-                                        <img class="avatar-img rounded-circle" alt="User Image" src="backend/img/patients/patient2.jpg">
+                                        <img class="avatar-img rounded-circle" alt="User Image" src="{{asset('backend/img/patients/patient1.jpg')}}">
                                     </span>
                                     <div class="media-body">
                                     <p class="noti-details"><span class="noti-title">Travis Trimble</span> sent a amount of $210 for his <span class="noti-title">appointment</span></p>
@@ -86,7 +86,7 @@
                             <a href="#">
                                 <div class="media">
                                     <span class="avatar avatar-sm">
-                                        <img class="avatar-img rounded-circle" alt="User Image" src="backend/img/patients/patient3.jpg">
+                                        <img class="avatar-img rounded-circle" alt="User Image" src="{{asset('backend/img/patients/patient1.jpg')}}">
                                     </span>
                                     <div class="media-body">
                                         <p class="noti-details"><span class="noti-title">Carl Kelly</span> send a message <span class="noti-title"> to his doctor</span></p>
@@ -107,19 +107,19 @@
         <!-- User Menu -->
         <li class="nav-item dropdown has-arrow">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                <span class="user-img"><img class="rounded-circle" src="backend/img/profiles/avatar-01.jpg" width="31" alt="Ryan Taylor"></span>
+                <span class="user-img"><img class="rounded-circle" src="{{asset('backend/img/profiles/avatar-01.jpg')}}" width="31" alt="Ryan Taylor"></span>
             </a>
             <div class="dropdown-menu">
                 <div class="user-header">
                     <div class="avatar avatar-sm">
-                        <img src="backend/img/profiles/avatar-01.jpg" alt="User Image" class="avatar-img rounded-circle">
+                        <img src="{{asset('backend/img/profiles/avatar-01.jpg')}}" alt="User Image" class="avatar-img rounded-circle">
                     </div>
                     <div class="user-text">
                         <h6>{{auth()->user()->name}}</h6>
                         <p class="text-muted mb-0">Administrator</p>
                     </div>
                 </div>
-                <a class="dropdown-item" href="#">My Profile</a>
+                <a class="dropdown-item" href="{{route('admin.profile')}}">My Profile</a>
                 <a class="dropdown-item" href="#">Settings</a>
                 <a class="dropdown-item" id="logout" href="{{ route('admin.logout') }}">
                     {{ __('Logout') }}
