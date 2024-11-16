@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class SettingController extends Controller
 {
@@ -43,6 +44,131 @@ class SettingController extends Controller
         $notification=array('messege' => 'SEO Setting Updated!', 'alert-type' => 'success');
         return redirect()->back()->with($notification);
     }
+
+    // Setting Website Home Method
+    public function websiteIndex()
+    {
+        $website=DB::table('websites')->latest()->get();
+        return view('admin.settings.website.index', compact('website'));
+    }
+
+    // Website setting Edit Method
+    public function websiteEdit($id)
+    {
+        $edit=DB::table('websites')->where('id', $id)->first();
+        return view('admin.settings.website.edit', compact('edit'));
+    }
+
+    // Wetting Website Store Method
+    public function websiteUpdate(Request $request)
+    {
+        $website=array();
+        $website['currency']=$request->currency;
+        $website['phone_one']=$request->phone_one;
+        $website['phone_two']=$request->phone_two;
+        $website['main_email']=$request->main_email;
+        $website['support_email']=$request->support_email;
+        $website['address']=$request->address;
+        $website['facebook']=$request->facebook;
+        $website['twitter']=$request->twitter;
+        $website['instagram']=$request->instagram;
+        $website['linkedin']=$request->linkedin;
+        $website['youtube']=$request->youtube;
+
+        if ($request->logo) {
+            if ($request->old_logo ) {
+                unlink('storage/setting/'. $request->old_logo);
+            }
+            // Website logo upload
+            $slug='sharif_ecommerce_logo';
+            $w_logo=$request->logo;
+            $photoname=$slug.'_'.md5( time(). rand() ).'.'.$w_logo->getClientOriginalExtension();
+            Image::make($w_logo)->resize(320,120)->save( storage_path('app/public/setting/'). $photoname );
+            $website['logo']=$photoname; 
+        }else{
+            $website['logo']=$request->old_logo; 
+        }
+
+        if ($request->favicon) {
+            if ($request->old_logo ) {
+                unlink('storage/setting/'. $request->old_favicon);
+            }
+            // Website logo upload
+            $slug='sharif_ecommerce_favicon';
+            $w_icon=$request->favicon;
+            $photoname=$slug.'_'.md5( time(). rand() ).'.'.$w_icon->getClientOriginalExtension();
+            Image::make($w_icon)->resize(32,32)->save( storage_path('app/public/setting/'). $photoname );
+            $website['favicon']=$photoname; 
+        }else{
+            $website['favicon']=$request->old_favicon; 
+        }         
+
+         DB::table('websites')->where('id', $request->id)->update($website);
+
+         $notification=array('messege' => 'Website Setting Update!', 'alert-type' => 'success');
+         return redirect()->back()->with($notification);
+        
+    }
+
+    // Website Setting Update Method
+    public function websiteStore(Request $request)
+    {
+        $website=array();
+        $website['currency']=$request->currency;
+        $website['phone_one']=$request->phone_one;
+        $website['phone_two']=$request->phone_two;
+        $website['main_email']=$request->main_email;
+        $website['support_email']=$request->support_email;
+        $website['address']=$request->address;
+        $website['facebook']=$request->facebook;
+        $website['twitter']=$request->twitter;
+        $website['instagram']=$request->instagram;
+        $website['linkedin']=$request->linkedin;
+        $website['youtube']=$request->youtube;
+
+         // Website logo upload
+         $slug='sharif_ecommerce_logo';
+         $w_logo=$request->logo;
+         $photoname=$slug.'_'.md5( time(). rand() ).'.'.$w_logo->getClientOriginalExtension();
+         Image::make($w_logo)->resize(320,120)->save( storage_path('app/public/setting/'). $photoname );
+         $website['logo']=$photoname; 
+
+         // Website logo upload
+         $slug='sharif_ecommerce_favicon';
+         $w_icon=$request->favicon;
+         $photoname=$slug.'_'.md5( time(). rand() ).'.'.$w_icon->getClientOriginalExtension();
+         Image::make($w_logo)->resize(32,32)->save( storage_path('app/public/setting/'). $photoname );
+         $website['favicon']=$photoname; 
+
+         DB::table('websites')->insert($website);
+
+         $notification=array('messege' => 'Website Setting Inserted!', 'alert-type' => 'success');
+         return redirect()->back()->with($notification);
+    }
+
+    // Setting Website Delete Method
+    public function websiteDestroy($id)
+    {
+        $website=DB::table('websites')->where('id', $id)->first();
+        DB::table('websites')->where('id', $id)->delete();       
+
+        // Website Logo delete
+        $logo=$website->logo;
+        if ($logo) {
+            unlink('storage/setting/'. $logo);
+        }
+
+        // Website favicon delete
+        $icon=$website->favicon;
+        if ($icon) {
+            unlink('storage/setting/'. $icon);
+        }
+
+        $notification=array('messege' => 'Website Setting Delete!', 'alert-type' => 'success');
+        return redirect()->back()->with($notification);
+
+    }
+    
 
     // Setting SMTP Home Method
     public function smtpIndex()
@@ -120,6 +246,7 @@ class SettingController extends Controller
         $notification=array('messege' => 'Page Updated!', 'alert-type' => 'success');
         return redirect()->back()->with($notification);
     }
+
 
 
 

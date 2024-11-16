@@ -49,6 +49,15 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin', 'middleware'=>'is_admin
         Route::post('/update','BrandController@update')->name('brand.update');
     });
 
+    // Warehouse Category Route
+    Route::group(['prefix'=>'warehouse'], function(){
+        Route::get('/','warehouseController@index')->name('warehouse.index');
+        // Route::post('/store','BrandController@store')->name('brand.store');
+        // Route::get('/delete/{id}','BrandController@destroy')->name('brand.delete');
+        // Route::get('/edit/{id}','BrandController@edit');
+        // Route::post('/update','BrandController@update')->name('brand.update');
+    });
+
     // Setting Route
     Route::group(['prefix'=>'setting'], function(){        
         // Setting SEO Route
@@ -60,6 +69,14 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin', 'middleware'=>'is_admin
         Route::group(['prefix'=>'smtp'], function(){
             Route::get('/','SettingController@smtpIndex')->name('setting.smtp.index');
             Route::post('/update/{id}','SettingController@smtpUpdate')->name('setting.smtp.update');
+        });
+        // Setting Website Route
+        Route::group(['prefix'=>'website'], function(){
+            Route::get('/','SettingController@websiteIndex')->name('setting.website.index');
+            Route::post('/store','SettingController@websiteStore')->name('setting.website.store');
+            Route::get('/delete/{id}','SettingController@websiteDestroy')->name('setting.website.delete');
+            Route::get('/edit/{id}','SettingController@websiteEdit');
+            Route::post('/update','SettingController@websiteUpdate')->name('setting.website.update');
         });
         // Setting Page Route
         Route::group(['prefix'=>'page'], function(){
