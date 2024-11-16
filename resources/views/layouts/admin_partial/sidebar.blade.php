@@ -7,7 +7,8 @@
                 </li>
                 <li class="{{ request()->is('admin-home') ? 'active' : '' }}"> 
                     <a href="{{route('admin.home')}}"><i class="fa fa-folder"></i> <span>Dashboard</span></a>
-                </li>               
+                </li>        
+                {{-- =========================Category Code Start========================= --}}       
                 <li class="submenu">
                     <a class="{{ request()->is('category') ? 's_active' : '' }} {{ request()->is('subcategory') ? 's_active' : '' }} {{ request()->is('childcategory') ? 's_active' : '' }} {{ request()->is('brand') ? 's_active' : '' }} {{ request()->is('warehouse') ? 's_active' : '' }}" href="#"><i class="fa fa-folder"></i> <span> Category</span> <span class="menu-arrow"></span></a>
                     <ul style="display: none;">
@@ -18,6 +19,7 @@
                         <li class="{{ request()->is('warehouse') ? 'active' : '' }}"><a href="{{route('warehouse.index')}}"><i class="fa fa-circle-o"></i> Warehouse</a></li>
                     </ul>
                 </li>
+                {{-- =========================Offer Code Start========================= --}}
                 <li class="submenu">
                     <a class="{{ request()->is('coupon') ? 's_active' : '' }}" href="#"><i class="fa fa-folder"></i> <span> Offer</span> <span class="menu-arrow"></span></a>
                     <ul style="display: none;">
@@ -25,9 +27,17 @@
                         <li><a href="#"><i class="fa fa-circle-o"></i> E Campaign</a></li>                        
                     </ul>
                 </li>
+                {{-- =========================Pickup Point Code Start========================= --}}
+                <li class="submenu">
+                    <a class="{{ request()->is('pickup-point') ? 's_active' : '' }}" href="#"><i class="fa fa-folder"></i> <span> Pickup Point</span> <span class="menu-arrow"></span></a>
+                    <ul style="display: none;">
+                        <li class="{{ request()->is('pickup-point') ? 'active' : '' }}"><a href="{{route('pickup.point.index')}}"><i class="fa fa-circle-o"></i> P_Point</a></li>                                                
+                    </ul>
+                </li>
                 <li class="menu-title"> 
                     <span>Profile</span>
                 </li>
+                {{-- =========================Settings Code Start========================= --}}
                 <li class="submenu">
                     <a class="{{ request()->is('setting/website') ? 's_active' : '' }} {{ request()->is('setting/seo') ? 's_active' : '' }} {{ request()->is('setting/smtp') ? 's_active' : '' }} {{ request()->is('setting/page') ? 's_active' : '' }}" href="#"><i class="fa fa-folder"></i> <span> Settings</span> <span class="menu-arrow"></span></a>
                     <ul style="display: none;">
