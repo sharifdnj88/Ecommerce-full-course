@@ -18,6 +18,13 @@
                         <li class="{{ request()->is('warehouse') ? 'active' : '' }}"><a href="{{route('warehouse.index')}}"><i class="fa fa-circle-o"></i> Warehouse</a></li>
                     </ul>
                 </li>
+                <li class="submenu">
+                    <a class="{{ request()->is('coupon') ? 's_active' : '' }}" href="#"><i class="fa fa-folder"></i> <span> Offer</span> <span class="menu-arrow"></span></a>
+                    <ul style="display: none;">
+                        <li class="{{ request()->is('coupon') ? 'active' : '' }}"><a href="{{route('coupon.index')}}"><i class="fa fa-circle-o"></i> Coupon</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> E Campaign</a></li>                        
+                    </ul>
+                </li>
                 <li class="menu-title"> 
                     <span>Profile</span>
                 </li>

@@ -5,9 +5,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
         <title>Doccure - Dashboard</title>
-		
+		@php
+        	$website=DB::table('websites')->first();
+    	@endphp
 		<!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{{asset('backend/img/favicon.png')}}">		
+        <link rel="shortcut icon" type="image/x-icon" href="{{url('storage/setting/' .$website->favicon )}}">		
 		<!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{{asset('backend/css/bootstrap.min.css')}}">		
 		<!-- Fontawesome CSS -->

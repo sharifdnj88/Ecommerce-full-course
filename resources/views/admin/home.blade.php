@@ -9,7 +9,7 @@
 
         <div class="row">
             <div class="col-xl-3 col-sm-6 col-12">
-                <div class="card">
+                <div class="card shadow-lg">
                     <div class="card-body">
                         <div class="dash-widget-header">
                             <span class="dash-widget-icon text-primary border-primary">
@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="col-xl-3 col-sm-6 col-12">
-                <div class="card">
+                <div class="card shadow-lg">
                     <div class="card-body">
                         <div class="dash-widget-header">
                             <span class="dash-widget-icon text-success">
@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div class="col-xl-3 col-sm-6 col-12">
-                <div class="card">
+                <div class="card shadow-lg">
                     <div class="card-body">
                         <div class="dash-widget-header">
                             <span class="dash-widget-icon text-danger border-danger">
@@ -71,7 +71,7 @@
                 </div>
             </div>
             <div class="col-xl-3 col-sm-6 col-12">
-                <div class="card">
+                <div class="card shadow-lg">
                     <div class="card-body">
                         <div class="dash-widget-header">
                             <span class="dash-widget-icon text-warning border-warning">
@@ -96,7 +96,7 @@
             <div class="col-md-12 col-lg-6">
             
                 <!-- Sales Chart -->
-                <div class="card card-chart">
+                <div class="card card-chart shadow-lg">
                     <div class="card-header">
                         <h4 class="card-title">Revenue</h4>
                     </div>
@@ -110,7 +110,7 @@
             <div class="col-md-12 col-lg-6">
             
                 <!-- Invoice Chart -->
-                <div class="card card-chart">
+                <div class="card card-chart shadow-lg">
                     <div class="card-header">
                         <h4 class="card-title">Status</h4>
                     </div>

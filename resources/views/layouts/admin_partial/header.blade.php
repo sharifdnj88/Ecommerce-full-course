@@ -1,12 +1,14 @@
 <div class="header">
-			
+    @php
+        $website=DB::table('websites')->first();
+    @endphp
     <!-- Logo -->
     <div class="header-left">
         <a href="{{route('admin.home')}}" class="logo">
-            <img src="{{asset('backend/img/logo.png')}}" alt="Logo">
+            <img src="{{url('storage/setting/' . $website->logo )}}" alt="Logo">
         </a>
         <a href="{{route('admin.home')}}" class="logo logo-small">
-            <img src="{{asset('backend/img/logo-small.png')}}" alt="Logo" width="30" height="30">
+            <img src="{{url('storage/setting/' . $website->favicon )}}" alt="Logo" width="30" height="30">
         </a>
     </div>
     <!-- /Logo -->

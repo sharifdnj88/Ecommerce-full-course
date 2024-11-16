@@ -52,11 +52,20 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin', 'middleware'=>'is_admin
     // Warehouse Category Route
     Route::group(['prefix'=>'warehouse'], function(){
         Route::get('/','warehouseController@index')->name('warehouse.index');
-        // Route::post('/store','BrandController@store')->name('brand.store');
-        // Route::get('/delete/{id}','BrandController@destroy')->name('brand.delete');
-        // Route::get('/edit/{id}','BrandController@edit');
-        // Route::post('/update','BrandController@update')->name('brand.update');
+        Route::post('/store','warehouseController@store')->name('warehouse.store');
+        Route::get('/delete/{id}','warehouseController@destroy')->name('warehouse.delete');
+        Route::get('/edit/{id}','warehouseController@edit');
+        Route::post('/update','warehouseController@update')->name('warehouse.update');
     });
+
+    //Coupon Routes
+	Route::group(['prefix'=>'coupon'], function(){
+		Route::get('/','CouponController@index')->name('coupon.index');
+		Route::post('/store','CouponController@store')->name('coupon.store');
+		Route::delete('/delete/{id}','CouponController@destroy')->name('coupon.delete');
+		Route::get('/edit/{id}','CouponController@edit');
+		Route::post('/update','CouponController@update')->name('coupon.update');
+	});
 
     // Setting Route
     Route::group(['prefix'=>'setting'], function(){        

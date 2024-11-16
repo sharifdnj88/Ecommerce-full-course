@@ -4185,3 +4185,12 @@ table.table-inbox tbody tr.checked {
 	background-color: #B2123B!important;
 }
 
+.ytable >thead >tr >th{
+	text-align: center!important;
+	background-color: #131039!important;
+	color:#FFF!important;
+}
+
+.ytable >tbody >tr >td{
+	text-align: center!important;
+}

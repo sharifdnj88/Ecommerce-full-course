@@ -8,7 +8,7 @@
     
         // Code Write End Here
     });
-    })(jQuery)
+})(jQuery)
     
 (function($){
 $(document).ready(function(){
