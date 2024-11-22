@@ -13,6 +13,25 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin', 'middleware'=>'is_admin
     Route::get('/admin-profile','AdminController@profile')->name('admin.profile');
     Route::post('/admin-profile-password','AdminController@profilePasswordChange')->name('admin.password.update');
 
+    // Product Route
+    Route::group(['prefix'=>'product'], function(){
+        Route::get('/','productController@index')->name('product.index');
+        Route::get('/create','productController@create')->name('product.create');
+        Route::post('/store','productController@store')->name('product.store');
+        Route::delete('/delete/{id}','productController@destroy')->name('product.delete');
+        // Route::get('/edit/{id}','CategoryController@edit');
+        // Route::post('/update','CategoryController@update')->name('category.update');
+        Route::get('/featured-deactive/{id}','productController@featuredDeactive');
+        Route::get('/featured-active/{id}','productController@featuredActive');
+        Route::get('/today-deal-deactive/{id}','productController@todaydealDeactive');
+        Route::get('/today-deal-active/{id}','productController@todaydealActive');
+        Route::get('/status-deactive/{id}','productController@statusDeactive');
+        Route::get('/status-active/{id}','productController@statusActive');
+    });
+
+    //global route
+	Route::get('/get-child-category/{id}','CategoryController@GetChildCategory');
+
     // Category Route
     Route::group(['prefix'=>'category'], function(){
         Route::get('/','CategoryController@index')->name('category.index');

@@ -13,8 +13,8 @@
         <div class="form-group">
             <label for="type">Coupon Type</label>
             <select name="type" class="form-control">
-                <option value="1" @if ($edit->status=="1") selected @endif>Fixed</option>
-                <option value="2" @if ($edit->status=="2") selected @endif>Percentage</option>
+                <option value="1" @if ($edit->type=="1") selected @endif>Fixed</option>
+                <option value="2" @if ($edit->type=="2") selected @endif>Percentage</option>
             </select>
             <small id="emailHelp" class="form-text text-muted">This is your coupon type</small>
         </div>                 

@@ -8,7 +8,9 @@
             <img src="{{url('storage/setting/' . $website->logo )}}" alt="Logo">
         </a>
         <a href="{{route('admin.home')}}" class="logo logo-small">
-            <img src="{{url('storage/setting/' . $website->favicon )}}" alt="Logo" width="30" height="30">
+            @if ($website->favicon)
+            <img src="{{url('storage/setting/' . $website->favicon )}}" alt="Logo" width="30" height="30">                
+            @endif
         </a>
     </div>
     <!-- /Logo -->

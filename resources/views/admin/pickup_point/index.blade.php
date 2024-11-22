@@ -75,7 +75,7 @@
                     <small id="emailHelp" class="form-text text-muted">This is your pickup point phone</small>
                 </div>   
                 <div class="form-group">
-                    <label for="pickup_point_phone_two">Pickpoint Phone</label>
+                    <label for="pickup_point_phone_two"> Another Pickpoint Phone</label>
                     <input name="pickup_point_phone_two" type="text" class="form-control" id="pickup_point_phone_two" required="">
                     <small id="emailHelp" class="form-text text-muted">This is your pickup point another phone</small>
                 </div>   

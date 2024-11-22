@@ -4173,6 +4173,7 @@ table.table-inbox tbody tr.checked {
 .brand-table tbody tr> td >img{
 	margin-top: -20px!important;
 	box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5)!important;
+	border-radius: 5px;
 }
 
 .submenu >ul li> a>i{
@@ -4194,3 +4195,4 @@ table.table-inbox tbody tr.checked {
 .ytable >tbody >tr >td{
 	text-align: center!important;
 }
+

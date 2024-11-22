@@ -7,7 +7,16 @@
                 </li>
                 <li class="{{ request()->is('admin-home') ? 'active' : '' }}"> 
                     <a href="{{route('admin.home')}}"><i class="fa fa-folder"></i> <span>Dashboard</span></a>
-                </li>        
+                </li> 
+                {{-- =========================Product Code Start========================= --}}       
+                <li class="submenu">
+                    <a class="{{ request()->is('product/create') ? 's_active' : '' }} {{ request()->is('product') ? 's_active' : '' }}" href="#"><i class="fa fa-folder"></i> <span> Product</span> <span class="menu-arrow"></span></a>
+                    <ul style="display: none;">
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Product</a></li>
+                        <li class="{{ request()->is('product') ? 'active' : '' }}"><a href="{{route('product.index')}}"><i class="fa fa-circle-o"></i> Manage Product</a></li>
+                        <li class="{{ request()->is('product/create') ? 'active' : '' }}"><a href="{{route('product.create')}}"><i class="fa fa-circle-o"></i> New Product</a></li>
+                    </ul>
+                </li>       
                 {{-- =========================Category Code Start========================= --}}       
                 <li class="submenu">
                     <a class="{{ request()->is('category') ? 's_active' : '' }} {{ request()->is('subcategory') ? 's_active' : '' }} {{ request()->is('childcategory') ? 's_active' : '' }} {{ request()->is('brand') ? 's_active' : '' }} {{ request()->is('warehouse') ? 's_active' : '' }}" href="#"><i class="fa fa-folder"></i> <span> Category</span> <span class="menu-arrow"></span></a>

@@ -25,6 +25,12 @@
 		<link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
 		<!-- summernote -->
 		<link rel="stylesheet" href="{{ asset('backend/plugins/summernote/summernote-bs4.css') }}">
+		{{-- Bootstrap switch --}}
+		{{-- Select Tag CSS --}}
+		<link rel="stylesheet" href="{{ asset('backend/css/bootstrap-tagsinput.css') }}">
+		{{-- Bootstrap Switch --}}
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-switch@3.4.0/dist/css/bootstrap3/bootstrap-switch.min.css">
+		<link rel="stylesheet" href="{{ asset('backend/plugins/bootstrap-switch/css/bootstrap-switch.min.js') }}">
 		
 
 		 <!-- DataTables -->
@@ -57,7 +63,7 @@
 		<!-- /Main Wrapper -->		
 		
 		<!-- jQuery -->
-        <script src="{{asset('backend/js/jquery-3.2.1.min.js')}}"></script>		
+        <script src="{{asset('backend/js/jquery-3.2.1.min.js')}}"></script>				
 		<!-- Bootstrap Core JS -->
         <script src="{{asset('backend/js/popper.min.js')}}"></script>
         <script src="{{asset('backend/js/bootstrap.min.js')}}"></script>		
@@ -66,13 +72,17 @@
 		<script src="{{asset('backend/plugins/raphael/raphael.min.js')}}"></script>    
 		<script src="{{asset('backend/plugins/morris/morris.min.js')}}"></script>  
 		<script src="{{asset('backend/js/chart.morris.js')}}"></script>
-		<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.js"></script>		
+				
 		<script  src="{{asset('backend/js/custom.js')}}"></script>		
+		<script  src="{{asset('backend/js/bootstrap-tagsinput.min.js')}}"></script>		
 		
 		<!-- Toastr Core JS -->
 		<script type="text/javascript" src="{{ asset('backend/plugins/toastr/toastr.min.js') }}"></script>		
 		<!-- sweetalert Core JS -->
 		<script src="{{ asset('backend/plugins/sweetalert/sweetalert.min.js') }}"></script>
+		{{-- Select Tag JS --}}
+		<script src="{{ asset('backend/js/select2.min.js') }}"></script>		
 		<!-- Costome JS Code Write Start -->
 		<script>  
 			$(document).on("click", "#delete", function(e){
@@ -170,7 +180,7 @@
 		</script>
 		
 		<!-- Custom JS -->		
-		<script  src="{{asset('backend/js/script.js')}}"></script>
+		<script  src="{{asset('backend/js/script.js')}}"></script>		
 		
     </body>
 
