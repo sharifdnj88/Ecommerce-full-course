@@ -152,15 +152,19 @@
                                           </tr>  
                                         </table>    
                                       </div>
-                                      <div class="form-group font-weight-bold">
+                                      <div class="form-group font-weight-bold form-border">
                                         <label>Featured Product</label> <br>                                        
                                         <input type="checkbox" name="featured" value="1" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">
                                     </div>
-                                    <div class="form-group font-weight-bold">
+                                    <div class="form-group font-weight-bold form-border">
                                         <label>Today Deal</label> <br>
                                         <input type="checkbox" name="today_deal" value="1" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">                                        
                                     </div>
-                                    <div class="form-group font-weight-bold">
+                                    <div class="form-group font-weight-bold form-border">
+                                        <label>Product Slider</label> <br>
+                                        <input type="checkbox" name="product_slider" value="1" data-bootstrap-switch data-off-color="danger" data-on-color="success">                                        
+                                    </div>
+                                    <div class="form-group font-weight-bold form-border">
                                         <label>Status</label> <br>
                                         <input type="checkbox" name="status" value="1" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">                                        
                                     </div>
@@ -169,7 +173,7 @@
                            
                             <div class="row">
                                 <div class="col-md-8">
-                                    <div class="form-group font-weight-bold">
+                                    <div class="form-group font-weight-bold p_details" style="margin-top: -200px">
                                         <label>Product Details <span class="text-danger">*</span> </label>
                                         <textarea name="description" class="form-control textarea">{{ old('description') }}</textarea>
                                     </div>

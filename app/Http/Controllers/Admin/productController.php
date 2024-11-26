@@ -187,7 +187,6 @@ class productController extends Controller
     {
         $validated = $request->validate([
             'name'          => 'required',
-            // 'code'          => 'required|unique:products|max:55',
             'subcategory_id'=> 'required',
             'brand_id'      => 'required',
             'unit'          => 'required',
@@ -222,6 +221,7 @@ class productController extends Controller
         $data['color']=$request->color;
         $data['size']=$request->size;
         $data['featured']=$request->featured;
+        $data['product_slider']=$request->product_slider;
         $data['today_deal']=$request->today_deal;
         $data['status']=$request->status;
         $data['admin_id']=Auth::id();

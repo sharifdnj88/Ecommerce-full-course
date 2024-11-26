@@ -1,5 +1,6 @@
+<link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/css/style.min.css">
+<link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/css/demo1.min.css">
 @extends('layouts.app')
-
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
