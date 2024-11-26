@@ -19,7 +19,7 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin', 'middleware'=>'is_admin
         Route::get('/create','productController@create')->name('product.create');
         Route::post('/store','productController@store')->name('product.store');
         Route::delete('/delete/{id}','productController@destroy')->name('product.delete');
-        // Route::get('/edit/{id}','CategoryController@edit');
+        Route::get('/edit/{id}','productController@edit')->name('product.edit');
         // Route::post('/update','CategoryController@update')->name('category.update');
         Route::get('/featured-deactive/{id}','productController@featuredDeactive');
         Route::get('/featured-active/{id}','productController@featuredActive');

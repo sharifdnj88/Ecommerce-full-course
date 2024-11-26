@@ -4,14 +4,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function () {
-    return view('frontend.index');
-});
-
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/frontend-product', function () {
-    return view('frontend.product_details');
+Route::group(['namespace'=>'App\Http\Controllers\Front'], function(){
+    Route::get('/', 'FrontendController@home');
+    Route::get('/product-details/{slug}', 'FrontendController@productDetails')->name('product.details');
 });
+

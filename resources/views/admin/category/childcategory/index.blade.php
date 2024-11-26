@@ -10,7 +10,7 @@
                 <div class="card shadow">
                     <div class="card-header text-center">
                         <h3 class="card-title btn btn-secondary btn-lg">All Child-Categories list here</h3>
-                        <button class="btn btn-danger btn-lg" data-toggle="modal" data-target="#childModal"> <i class="fa fa-plus"></i> Add New Subcategory</button>
+                        <button class="btn btn-danger btn-lg" data-toggle="modal" data-target="#childModal"> <i class="fa fa-plus"></i> Add New Childcategory</button>
                     </div>
                     <div class="card-body">
                       <span style="text-align:center">@include('validate')</span>

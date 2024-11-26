@@ -111,7 +111,7 @@ class productController extends Controller
                     })
                     ->addColumn('action', function($row){
                         $actionbtn='
-                        <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                        <a href="'.route('product.edit', [$row->id]).'" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
                         <a href="#" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
                         <a href="'.route('product.delete', [$row->id]).'"  class="btn btn-danger btn-sm" id="product_delete"><i class="fa fa-trash"></i>
                         </a>';
@@ -254,6 +254,19 @@ class productController extends Controller
         return redirect()->back()->with($notification);
 
 
+    }
+
+    // Product Edit Method
+    public function edit($id)
+    {
+        $edit=DB::table('products')->where('id', $id)->first();
+        $category=DB::table('categories')->get();
+        $brand=DB::table('brands')->get();
+        $pickup_point=DB::table('pickup_points')->get();
+        $warehouse=DB::table('warehouses')->get();
+        $childcategory=DB::table('childcategories')->where('category_id',$edit->category_id)->get();
+
+        return view('admin.product.edit', compact('edit','category','brand','pickup_point','warehouse','childcategory'));
     }
 
     // Product Delete Method
