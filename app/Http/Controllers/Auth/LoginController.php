@@ -44,7 +44,7 @@ class LoginController extends Controller
                 $notification=array('messege' => 'Welcome 🙂 ' . $user, 'alert-type' => 'success');
     	        return redirect()->route('admin.home')->with($notification);
             }else{                
-                return redirect()->route('home');
+                return redirect()->back();
             }
 
         }else{

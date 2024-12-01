@@ -4,1560 +4,854 @@
 @endsection
 @section('content')
 
-<!-- Start of Main -->
-<main class="main mb-10 pb-1">
-    <!-- Start of Breadcrumb -->
-    <nav class="breadcrumb-nav container">
-        <ul class="breadcrumb bb-no">
-            <li><a href="demo1.html">Home</a></li>
-            <li>Products</li>
-        </ul>
-        <ul class="product-nav list-style-none">
-            <li class="product-nav-prev">
-                <a href="#">
-                    <i class="w-icon-angle-left"></i>
-                </a>
-                <span class="product-nav-popup">
-                    <img src="{{ asset('frontend') }}/images/products/product-nav-prev.jpg" alt="Product" width="110"
-                        height="110" />
-                    <span class="product-name">Soft Sound Maker</span>
-                </span>
-            </li>
-            <li class="product-nav-next">
-                <a href="#">
-                    <i class="w-icon-angle-right"></i>
-                </a>
-                <span class="product-nav-popup">
-                    <img src="{{ asset('frontend') }}/images/products/product-nav-next.jpg" alt="Product" width="110"
-                        height="110" />
-                    <span class="product-name">Fabulous Sound Speaker</span>
-                </span>
-            </li>
-        </ul>
-    </nav>
-    <!-- End of Breadcrumb -->
-
-    <!-- Start of Page Content -->
-    <div class="page-content">
-        <div class="container">
-            <div class="row gutter-lg">
-                <div class="main-content">
-                    <div class="product product-single row">
-                        <div class="col-md-6 mb-6">
-                            <div class="product-gallery product-gallery-sticky">
-                                <div class="swiper-container product-single-swiper swiper-theme nav-inner swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events" data-swiper-options="{
-                                    'navigation': {
-                                        'nextEl': '.swiper-button-next',
-                                        'prevEl': '.swiper-button-prev'
-                                    }
-                                }">
-                                    <div class="swiper-wrapper " id="swiper-wrapper-1041a64d4a82a19df" aria-live="polite" style="transform: translate3d(-1365px, 0px, 0px); transition-duration: 0ms;">
-                                        @php
-                                            $gallery_photo = json_decode($product -> images);
-                                        @endphp
-                                        @foreach ($gallery_photo as $gallery)
-                                        <div class="swiper-slide" role="group" aria-label="1 / 6" style="width: 455px;">
-                                            <figure class="product-image" style="position: relative; overflow: hidden; cursor: pointer;">
-                                                <img src="{{url('storage/products/' .$gallery)}}" data-zoom-image="{{url('storage/products/' .$gallery)}}" alt="Electronics Black Wrist Watch" width="800" height="900">
-                                            <img role="presentation" alt="Electronics Black Wrist Watch" src="{{url('storage/products/' .$gallery)}}" class="zoomImg" style="position: absolute; top: 0px; left: 0px; opacity: 0; width: 880px; height: 990px; border: none; max-width: none; max-height: none;"></figure>
-                                        </div>                                   
-                                        @endforeach
-                                    </div>
-                                    <button class="swiper-button-next" tabindex="0" aria-label="Next slide" aria-controls="swiper-wrapper-1041a64d4a82a19df" aria-disabled="false"></button>
-                                    <button class="swiper-button-prev" tabindex="0" aria-label="Previous slide" aria-controls="swiper-wrapper-1041a64d4a82a19df" aria-disabled="false"></button>
-                                    {{-- <a href="#product-thumbs-wrap" class="product-gallery-btn product-image-full"><i class="w-icon-zoom"></i></a> --}}
-                                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
-                                <div class="product-thumbs-wrap swiper-container swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events swiper-container-free-mode swiper-container-thumbs" data-swiper-options="{
-                                    'navigation': {
-                                        'nextEl': '.swiper-button-next',
-                                        'prevEl': '.swiper-button-prev'
-                                    }
-                                }">
-                                    <div class="product-thumbs swiper-wrapper" id="swiper-wrapper-1851371739441084b" aria-live="polite" style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
-                                        @foreach ($gallery_photo as $gallery)
-                                        <div class="product-thumb swiper-slide swiper-slide-visible swiper-slide-active" role="group" aria-label="1 / 6" style="width: 106.25px; margin-right: 10px;">
-                                            <img src="{{url('storage/products/' .$gallery)}}" alt="Product Thumb" width="800" height="900">
-                                        </div>
-                                        @endforeach
-                                    </div>
-                                    <button class="swiper-button-next" tabindex="0" aria-label="Next slide" aria-controls="swiper-wrapper-1851371739441084b" aria-disabled="false"></button>
-                                    <button class="swiper-button-prev swiper-button-disabled" disabled="" tabindex="-1" aria-label="Previous slide" aria-controls="swiper-wrapper-1851371739441084b" aria-disabled="true"></button>
-                                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-4 mb-md-6">
-                            <div class="product-details" data-sticky-options="{'minWidth': 767}">
-                                <h1 class="product-title">{{$product->name}}</h1>
-                                <div class="product-bm-wrapper">
-                                    <figure class="brand">
-                                        <img src="{{url('storage/brands/' .$brand-> brand_logo)}}" alt="{{$brand->brand_name}}"
-                                            width="102" height="48" />
-                                    </figure>
-                                    <div class="product-meta">
-                                        <div class="product-categories">
-                                            Category:
-                                            <span class="product-category"><a href="#">{{ $cat->category_name }}->{{ $subcat->subcategory_name }} </a></span>
-                                        </div>
-                                        <div class="product-sku">
-                                            @if ($product->stock_quantity>1)
-                                            SKU: <span class="badge badge-success">In Stock {{$product->stock_quantity}}{{$product->unit}}</span>  
-                                            @else
-                                                SKU: <span class="badge badge-danger">Out of Stock</span>                                                
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <hr class="product-divider">
-
-                                <div class="product-price">
-                                    @if($product->discount_price==null)
-                                        <ins class="new-price">{{$setting->currency}}{{$product->selling_price}}</ins>
-                                    @else
-                                        <ins class="new-price">{{$setting->currency}}{{$product->selling_price}}</ins>
-                                        <del class="old-price">{{$setting->currency}}{{$product->discount_price}}</del>
-                                    @endif
-                                </div>
-
-                                <div class="ratings-container">
-                                    <div class="ratings-full">
-                                        <span class="ratings" style="width: 80%;"></span>
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div>
-                                    <a href="#product-tab-reviews" class="rating-reviews scroll-to">(3
-                                        Reviews)</a>
-                                </div>
-
-                                <div class="product-short-desc">
-                                    <ul class="list-type-check list-style-none">
-                                        <li>{!! Str::of( htmlspecialchars_decode( $product->description ) ) !!}</li>                                        
-                                    </ul>
-                                </div>
-
-                                <hr class="product-divider">
-
-                                <div class="product-form product-variation-form product-color-swatch">
-                                    <label>Color:</label>
-                                    <div class="d-flex align-items-center product-variations">
-                                        {{-- @foreach ($color as $item)
-                                            
-                                        @endforeach --}}
-                                        <a href="#" class="color" style="background-color: #ffcc01"></a>
-                                    </div>
-                                </div>
-                                <div class="product-form product-variation-form product-size-swatch">
-                                    <label class="mb-1">Size:</label>
-                                    <div class="flex-wrap d-flex align-items-center product-variations">
-                                        <a href="#" class="size">Small</a>
-                                        <a href="#" class="size">Medium</a>
-                                        <a href="#" class="size">Large</a>
-                                        <a href="#" class="size">Extra Large</a>
-                                    </div>
-                                    <a href="#" class="product-variation-clean">Clean All</a>
-                                </div>
-
-                                <div class="product-variation-price">
-                                    <span></span>
-                                </div>
-
-                                <div class="fix-bottom product-sticky-content sticky-content">
-                                    <div class="product-form container">
-                                        <div class="product-qty-form">
-                                            <div class="input-group">
-                                                <input class="quantity form-control" type="number" min="1"
-                                                    max="10000000">
-                                                <button class="quantity-plus w-icon-plus"></button>
-                                                <button class="quantity-minus w-icon-minus"></button>
-                                            </div>
-                                        </div>
-                                        <button class="btn btn-primary btn-cart">
-                                            <i class="w-icon-cart"></i>
-                                            <span>Add to Cart</span>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="social-links-wrapper">
-                                    <div class="social-links">
-                                        <div class="social-icons social-no-color border-thin">
-                                            <a href="#" class="social-icon social-facebook w-icon-facebook"></a>
-                                            <a href="#" class="social-icon social-twitter w-icon-twitter"></a>
-                                            <a href="#"
-                                                class="social-icon social-pinterest fab fa-pinterest-p"></a>
-                                            <a href="#" class="social-icon social-whatsapp fab fa-whatsapp"></a>
-                                            <a href="#"
-                                                class="social-icon social-youtube fab fa-linkedin-in"></a>
-                                        </div>
-                                    </div>
-                                    <span class="divider d-xs-show"></span>
-                                    <div class="product-link-wrapper d-flex">
-                                        <a href="#"
-                                            class="btn-product-icon btn-wishlist w-icon-heart"><span></span></a>
-                                        <a href="#"
-                                            class="btn-product-icon btn-compare btn-icon-left w-icon-compare"><span></span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="frequently-bought-together mt-5">
-                        <h2 class="title title-underline">Frequently Bought Together</h2>
-                        <div class="bought-together-products row mt-8 pb-4">
-                            <div class="product product-wrap text-center">
-                                <figure class="product-media">
-                                    <img src="{{ asset('frontend') }}/images/products/default/bought-1.jpg" alt="Product"
-                                        width="138" height="138" />
-                                    <div class="product-checkbox">
-                                        <input type="checkbox" class="custom-checkbox" id="product_check1"
-                                            name="product_check1">
-                                        <label></label>
-                                    </div>
-                                </figure>
-                                <div class="product-details">
-                                    <h4 class="product-name">
-                                        <a href="#">{{$product->name}}</a>
-                                    </h4>
-                                    <div class="product-price">$40.00</div>
-                                </div>
-                            </div>
-                            <div class="product product-wrap text-center">
-                                <figure class="product-media">
-                                    <img src="{{ asset('frontend') }}/images/products/default/bought-2.jpg" alt="Product"
-                                        width="138" height="138" />
-                                    <div class="product-checkbox">
-                                        <input type="checkbox" class="custom-checkbox" id="product_check2"
-                                            name="product_check2">
-                                        <label></label>
-                                    </div>
-                                </figure>
-                                <div class="product-details">
-                                    <h4 class="product-name">
-                                        <a href="#">Apple Laptop</a>
-                                    </h4>
-                                    <div class="product-price">$1,800.00</div>
-                                </div>
-                            </div>
-                            <div class="product product-wrap text-center">
-                                <figure class="product-media">
-                                    <img src="{{ asset('frontend') }}/images/products/default/bought-3.jpg" alt="Product"
-                                        width="138" height="138" />
-                                    <div class="product-checkbox">
-                                        <input type="checkbox" class="custom-checkbox" id="product_check3"
-                                            name="product_check3">
-                                        <label></label>
-                                    </div>
-                                </figure>
-                                <div class="product-details">
-                                    <h4 class="product-name">
-                                        <a href="#">White Lenovo Headphone</a>
-                                    </h4>
-                                    <div class="product-price">$34.00</div>
-                                </div>
-                            </div>
-                            <div class="product-button">
-                                <div class="bought-price font-weight-bolder text-primary ls-50">$1,874.00</div>
-                                <div class="bought-count">For 3 items</div>
-                                <a href="cart.html" class="btn btn-dark btn-rounded">Add All To Cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab tab-nav-boxed tab-nav-underline product-tabs">
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item">
-                                <a href="#product-tab-description" class="nav-link active">Description</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#product-tab-specification" class="nav-link">Specification</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#product-tab-vendor" class="nav-link">Vendor Info</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#product-tab-reviews" class="nav-link">Customer Reviews (3)</a>
-                            </li>
+<!-- breadcrumb area start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb-wrap">
+                    <nav aria-label="breadcrumb">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">shop</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">product details</li>
                         </ul>
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="product-tab-description">
-                                <div class="row mb-4">
-                                    <div class="col-md-6 mb-5">
-                                        <h4 class="title tab-pane-title font-weight-bold mb-2">Detail</h4>
-                                        <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                            sed do eiusmod tempor incididunt arcu cursus vitae congue mauris.
-                                            Sagittis id consectetur purus ut. Tellus rutrum tellus pelle Vel
-                                            pretium lectus quam id leo in vitae turpis massa.</p>
-                                        <ul class="list-type-check">
-                                            <li>Nunc nec porttitor turpis. In eu risus enim. In vitae mollis
-                                                elit.
-                                            </li>
-                                            <li>Vivamus finibus vel mauris ut vehicula.</li>
-                                            <li>Nullam a magna porttitor, dictum risus nec, faucibus sapien.
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-6 mb-5">
-                                        <div class="banner banner-video product-video br-xs">
-                                            <figure class="banner-media">
-                                                <a href="#">
-                                                    <img src="{{ asset('frontend') }}/images/products/video-banner-610x300.jpg"
-                                                        alt="banner" width="610" height="300"
-                                                        style="background-color: #bebebe;">
-                                                </a>
-                                                <a class="btn-play-video btn-iframe"
-                                                    href="{{ asset('frontend') }}/video/memory-of-a-woman.mp4"></a>
-                                            </figure>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row cols-md-3">
-                                    <div class="mb-3">
-                                        <h5 class="sub-title font-weight-bold"><span class="mr-3">1.</span>Free
-                                            Shipping &amp; Return</h5>
-                                        <p class="detail pl-5">We offer free shipping for products on orders
-                                            above 50$ and offer free delivery for all orders in US.</p>
-                                    </div>
-                                    <div class="mb-3">
-                                        <h5 class="sub-title font-weight-bold"><span>2.</span>Free and Easy
-                                            Returns</h5>
-                                        <p class="detail pl-5">We guarantee our products and you could get back
-                                            all of your money anytime you want in 30 days.</p>
-                                    </div>
-                                    <div class="mb-3">
-                                        <h5 class="sub-title font-weight-bold"><span>3.</span>Special Financing
-                                        </h5>
-                                        <p class="detail pl-5">Get 20%-50% off items over 50$ for a month or
-                                            over 250$ for a year with our special credit card.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="product-tab-specification">
-                                <ul class="list-none">
-                                    <li>
-                                        <label>Model</label>
-                                        <p>Skysuite 320</p>
-                                    </li>
-                                    <li>
-                                        <label>Color</label>
-                                        <p>Black</p>
-                                    </li>
-                                    <li>
-                                        <label>Size</label>
-                                        <p>Large, Small</p>
-                                    </li>
-                                    <li>
-                                        <label>Guarantee Time</label>
-                                        <p>3 Months</p>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="tab-pane" id="product-tab-vendor">
-                                <div class="row mb-3">
-                                    <div class="col-md-6 mb-4">
-                                        <figure class="vendor-banner br-sm">
-                                            <img src="{{ asset('frontend') }}/images/products/vendor-banner.jpg"
-                                                alt="Vendor Banner" width="610" height="295"
-                                                style="background-color: #353B55;" />
-                                        </figure>
-                                    </div>
-                                    <div class="col-md-6 pl-2 pl-md-6 mb-4">
-                                        <div class="vendor-user">
-                                            <figure class="vendor-logo mr-4">
-                                                <a href="#">
-                                                    <img src="{{ asset('frontend') }}/images/products/vendor-logo.jpg"
-                                                        alt="Vendor Logo" width="80" height="80" />
-                                                </a>
-                                            </figure>
-                                            <div>
-                                                <div class="vendor-name"><a href="#">Jone Doe</a></div>
-                                                <div class="ratings-container">
-                                                    <div class="ratings-full">
-                                                        <span class="ratings" style="width: 90%;"></span>
-                                                        <span class="tooltiptext tooltip-top"></span>
-                                                    </div>
-                                                    <a href="#" class="rating-reviews">(32 Reviews)</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <ul class="vendor-info list-style-none">
-                                            <li class="store-name">
-                                                <label>Store Name:</label>
-                                                <span class="detail">OAIO Store</span>
-                                            </li>
-                                            <li class="store-address">
-                                                <label>Address:</label>
-                                                <span class="detail">Steven Street, El Carjon, CA 92020, United
-                                                    States (US)</span>
-                                            </li>
-                                            <li class="store-phone">
-                                                <label>Phone:</label>
-                                                <a href="#tel:">1234567890</a>
-                                            </li>
-                                        </ul>
-                                        <a href="vendor-dokan-store.html"
-                                            class="btn btn-dark btn-link btn-underline btn-icon-right">Visit
-                                            Store<i class="w-icon-long-arrow-right"></i></a>
-                                    </div>
-                                </div>
-                                <p class="mb-5"><strong class="text-dark">L</strong>orem ipsum dolor sit amet,
-                                    consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua.
-                                    Venenatis tellus in metus vulputate eu scelerisque felis. Vel pretium
-                                    lectus quam id leo in vitae turpis massa. Nunc id cursus metus aliquam.
-                                    Libero id faucibus nisl tincidunt eget. Aliquam id diam maecenas ultricies
-                                    mi eget mauris. Volutpat ac tincidunt vitae semper quis lectus. Vestibulum
-                                    mattis ullamcorper velit sed. A arcu cursus vitae congue mauris.
-                                </p>
-                                <p class="mb-2"><strong class="text-dark">A</strong> arcu cursus vitae congue
-                                    mauris. Sagittis id consectetur purus
-                                    ut. Tellus rutrum tellus pellentesque eu tincidunt tortor aliquam nulla.
-                                    Diam in
-                                    arcu cursus euismod quis. Eget sit amet tellus cras adipiscing enim eu. In
-                                    fermentum et sollicitudin ac orci phasellus. A condimentum vitae sapien
-                                    pellentesque
-                                    habitant morbi tristique senectus et. In dictum non consectetur a erat. Nunc
-                                    scelerisque viverra mauris in aliquam sem fringilla.</p>
-                            </div>
-                            <div class="tab-pane" id="product-tab-reviews">
-                                <div class="row mb-4">
-                                    <div class="col-xl-4 col-lg-5 mb-4">
-                                        <div class="ratings-wrapper">
-                                            <div class="avg-rating-container">
-                                                <h4 class="avg-mark font-weight-bolder ls-50">3.3</h4>
-                                                <div class="avg-rating">
-                                                    <p class="text-dark mb-1">Average Rating</p>
-                                                    <div class="ratings-container">
-                                                        <div class="ratings-full">
-                                                            <span class="ratings" style="width: 60%;"></span>
-                                                            <span class="tooltiptext tooltip-top"></span>
-                                                        </div>
-                                                        <a href="#" class="rating-reviews">(3 Reviews)</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div
-                                                class="ratings-value d-flex align-items-center text-dark ls-25">
-                                                <span
-                                                    class="text-dark font-weight-bold">66.7%</span>Recommended<span
-                                                    class="count">(2 of 3)</span>
-                                            </div>
-                                            <div class="ratings-list">
-                                                <div class="ratings-container">
-                                                    <div class="ratings-full">
-                                                        <span class="ratings" style="width: 100%;"></span>
-                                                        <span class="tooltiptext tooltip-top"></span>
-                                                    </div>
-                                                    <div class="progress-bar progress-bar-sm ">
-                                                        <span></span>
-                                                    </div>
-                                                    <div class="progress-value">
-                                                        <mark>70%</mark>
-                                                    </div>
-                                                </div>
-                                                <div class="ratings-container">
-                                                    <div class="ratings-full">
-                                                        <span class="ratings" style="width: 80%;"></span>
-                                                        <span class="tooltiptext tooltip-top"></span>
-                                                    </div>
-                                                    <div class="progress-bar progress-bar-sm ">
-                                                        <span></span>
-                                                    </div>
-                                                    <div class="progress-value">
-                                                        <mark>30%</mark>
-                                                    </div>
-                                                </div>
-                                                <div class="ratings-container">
-                                                    <div class="ratings-full">
-                                                        <span class="ratings" style="width: 60%;"></span>
-                                                        <span class="tooltiptext tooltip-top"></span>
-                                                    </div>
-                                                    <div class="progress-bar progress-bar-sm ">
-                                                        <span></span>
-                                                    </div>
-                                                    <div class="progress-value">
-                                                        <mark>40%</mark>
-                                                    </div>
-                                                </div>
-                                                <div class="ratings-container">
-                                                    <div class="ratings-full">
-                                                        <span class="ratings" style="width: 40%;"></span>
-                                                        <span class="tooltiptext tooltip-top"></span>
-                                                    </div>
-                                                    <div class="progress-bar progress-bar-sm ">
-                                                        <span></span>
-                                                    </div>
-                                                    <div class="progress-value">
-                                                        <mark>0%</mark>
-                                                    </div>
-                                                </div>
-                                                <div class="ratings-container">
-                                                    <div class="ratings-full">
-                                                        <span class="ratings" style="width: 20%;"></span>
-                                                        <span class="tooltiptext tooltip-top"></span>
-                                                    </div>
-                                                    <div class="progress-bar progress-bar-sm ">
-                                                        <span></span>
-                                                    </div>
-                                                    <div class="progress-value">
-                                                        <mark>0%</mark>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-8 col-lg-7 mb-4">
-                                        <div class="review-form-wrapper">
-                                            <h3 class="title tab-pane-title font-weight-bold mb-1">Submit Your
-                                                Review</h3>
-                                            <p class="mb-3">Your email address will not be published. Required
-                                                fields are marked *</p>
-                                            <form action="#" method="POST" class="review-form">
-                                                <div class="rating-form">
-                                                    <label for="rating">Your Rating Of This Product :</label>
-                                                    <span class="rating-stars">
-                                                        <a class="star-1" href="#">1</a>
-                                                        <a class="star-2" href="#">2</a>
-                                                        <a class="star-3" href="#">3</a>
-                                                        <a class="star-4" href="#">4</a>
-                                                        <a class="star-5" href="#">5</a>
-                                                    </span>
-                                                    <select name="rating" id="rating" required=""
-                                                        style="display: none;">
-                                                        <option value="">Rate…</option>
-                                                        <option value="5">Perfect</option>
-                                                        <option value="4">Good</option>
-                                                        <option value="3">Average</option>
-                                                        <option value="2">Not that bad</option>
-                                                        <option value="1">Very poor</option>
-                                                    </select>
-                                                </div>
-                                                <textarea cols="30" rows="6"
-                                                    placeholder="Write Your Review Here..." class="form-control"
-                                                    id="review"></textarea>
-                                                <div class="row gutter-md">
-                                                    <div class="col-md-6">
-                                                        <input type="text" class="form-control"
-                                                            placeholder="Your Name" id="author">
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <input type="text" class="form-control"
-                                                            placeholder="Your Email" id="email_1">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="checkbox" class="custom-checkbox"
-                                                        id="save-checkbox">
-                                                    <label for="save-checkbox">Save my name, email, and website
-                                                        in this browser for the next time I comment.</label>
-                                                </div>
-                                                <button type="submit" class="btn btn-dark">Submit
-                                                    Review</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tab tab-nav-boxed tab-nav-outline tab-nav-center">
-                                    <ul class="nav nav-tabs" role="tablist">
-                                        <li class="nav-item">
-                                            <a href="#show-all" class="nav-link active">Show All</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#helpful-positive" class="nav-link">Most Helpful
-                                                Positive</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#helpful-negative" class="nav-link">Most Helpful
-                                                Negative</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#highest-rating" class="nav-link">Highest Rating</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#lowest-rating" class="nav-link">Lowest Rating</a>
-                                        </li>
-                                    </ul>
-                                    <div class="tab-content">
-                                        <div class="tab-pane active" id="show-all">
-                                            <ul class="comments list-style-none">
-                                                <li class="comment">
-                                                    <div class="comment-body">
-                                                        <figure class="comment-avatar">
-                                                            <img src="{{ asset('frontend') }}/images/agents/1-100x100.png"
-                                                                alt="Commenter Avatar" width="90" height="90">
-                                                        </figure>
-                                                        <div class="comment-content">
-                                                            <h4 class="comment-author">
-                                                                <a href="#">John Doe</a>
-                                                                <span class="comment-date">March 22, 2021 at
-                                                                    1:54 pm</span>
-                                                            </h4>
-                                                            <div class="ratings-container comment-rating">
-                                                                <div class="ratings-full">
-                                                                    <span class="ratings"
-                                                                        style="width: 60%;"></span>
-                                                                    <span
-                                                                        class="tooltiptext tooltip-top"></span>
-                                                                </div>
-                                                            </div>
-                                                            <p>pellentesque habitant morbi tristique senectus
-                                                                et. In dictum non consectetur a erat.
-                                                                Nunc ultrices eros in cursus turpis massa
-                                                                tincidunt ante in nibh mauris cursus mattis.
-                                                                Cras ornare arcu dui vivamus arcu felis bibendum
-                                                                ut tristique.</p>
-                                                            <div class="comment-action">
-                                                                <a href="#"
-                                                                    class="btn btn-secondary btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize">
-                                                                    <i class="far fa-thumbs-up"></i>Helpful (1)
-                                                                </a>
-                                                                <a href="#"
-                                                                    class="btn btn-dark btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize">
-                                                                    <i class="far fa-thumbs-down"></i>Unhelpful
-                                                                    (0)
-                                                                </a>
-                                                                <div class="review-image">
-                                                                    <a href="#">
-                                                                        <figure>
-                                                                            <img src="{{ asset('frontend') }}/images/products/default/review-img-1.jpg"
-                                                                                width="60" height="60"
-                                                                                alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                                                                data-zoom-image="{{ asset('frontend') }}/images/products/default/review-img-1-800x900.jpg" />
-                                                                        </figure>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="comment">
-                                                    <div class="comment-body">
-                                                        <figure class="comment-avatar">
-                                                            <img src="{{ asset('frontend') }}/images/agents/2-100x100.png"
-                                                                alt="Commenter Avatar" width="90" height="90">
-                                                        </figure>
-                                                        <div class="comment-content">
-                                                            <h4 class="comment-author">
-                                                                <a href="#">John Doe</a>
-                                                                <span class="comment-date">March 22, 2021 at
-                                                                    1:52 pm</span>
-                                                            </h4>
-                                                            <div class="ratings-container comment-rating">
-                                                                <div class="ratings-full">
-                                                                    <span class="ratings"
-                                                                        style="width: 80%;"></span>
-                                                                    <span
-                                                                        class="tooltiptext tooltip-top"></span>
-                                                                </div>
-                                                            </div>
-                                                            <p>Nullam a magna porttitor, dictum risus nec,
-                                                                faucibus sapien.
-                                                                Ultrices eros in cursus turpis massa tincidunt
-                                                                ante in nibh mauris cursus mattis.
-                                                                Cras ornare arcu dui vivamus arcu felis bibendum
-                                                                ut tristique.</p>
-                                                            <div class="comment-action">
-                                                                <a href="#"
-                                                                    class="btn btn-secondary btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize">
-                                                                    <i class="far fa-thumbs-up"></i>Helpful (1)
-                                                                </a>
-                                                                <a href="#"
-                                                                    class="btn btn-dark btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize">
-                                                                    <i class="far fa-thumbs-down"></i>Unhelpful
-                                                                    (0)
-                                                                </a>
-                                                                <div class="review-image">
-                                                                    <a href="#">
-                                                                        <figure>
-                                                                            <img src="{{ asset('frontend') }}/images/products/default/review-img-2.jpg"
-                                                                                width="60" height="60"
-                                                                                alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                                                                data-zoom-image="{{ asset('frontend') }}/images/products/default/review-img-2.jpg" />
-                                                                        </figure>
-                                                                    </a>
-                                                                    <a href="#">
-                                                                        <figure>
-                                                                            <img src="{{ asset('frontend') }}/images/products/default/review-img-3.jpg"
-                                                                                width="60" height="60"
-                                                                                alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                                                                data-zoom-image="{{ asset('frontend') }}/images/products/default/review-img-3.jpg" />
-                                                                        </figure>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="comment">
-                                                    <div class="comment-body">
-                                                        <figure class="comment-avatar">
-                                                            <img src="{{ asset('frontend') }}/images/agents/3-100x100.png"
-                                                                alt="Commenter Avatar" width="90" height="90">
-                                                        </figure>
-                                                        <div class="comment-content">
-                                                            <h4 class="comment-author">
-                                                                <a href="#">John Doe</a>
-                                                                <span class="comment-date">March 22, 2021 at
-                                                                    1:21 pm</span>
-                                                            </h4>
-                                                            <div class="ratings-container comment-rating">
-                                                                <div class="ratings-full">
-                                                                    <span class="ratings"
-                                                                        style="width: 60%;"></span>
-                                                                    <span
-                                                                        class="tooltiptext tooltip-top"></span>
-                                                                </div>
-                                                            </div>
-                                                            <p>In fermentum et sollicitudin ac orci phasellus. A
-                                                                condimentum vitae
-                                                                sapien pellentesque habitant morbi tristique
-                                                                senectus et. In dictum
-                                                                non consectetur a erat. Nunc scelerisque viverra
-                                                                mauris in aliquam sem fringilla.</p>
-                                                            <div class="comment-action">
-                                                                <a href="#"
-                                                                    class="btn btn-secondary btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize">
-                                                                    <i class="far fa-thumbs-up"></i>Helpful (0)
-                                                                </a>
-                                                                <a href="#"
-                                                                    class="btn btn-dark btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize">
-                                                                    <i class="far fa-thumbs-down"></i>Unhelpful
-                                                                    (1)
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="tab-pane" id="helpful-positive">
-                                            <ul class="comments list-style-none">
-                                                <li class="comment">
-                                                    <div class="comment-body">
-                                                        <figure class="comment-avatar">
-                                                            <img src="{{ asset('frontend') }}/images/agents/1-100x100.png"
-                                                                alt="Commenter Avatar" width="90" height="90">
-                                                        </figure>
-                                                        <div class="comment-content">
-                                                            <h4 class="comment-author">
-                                                                <a href="#">John Doe</a>
-                                                                <span class="comment-date">March 22, 2021 at
-                                                                    1:54 pm</span>
-                                                            </h4>
-                                                            <div class="ratings-container comment-rating">
-                                                                <div class="ratings-full">
-                                                                    <span class="ratings"
-                                                                        style="width: 60%;"></span>
-                                                                    <span
-                                                                        class="tooltiptext tooltip-top"></span>
-                                                                </div>
-                                                            </div>
-                                                            <p>pellentesque habitant morbi tristique senectus
-                                                                et. In dictum non consectetur a erat.
-                                                                Nunc ultrices eros in cursus turpis massa
-                                                                tincidunt ante in nibh mauris cursus mattis.
-                                                                Cras ornare arcu dui vivamus arcu felis bibendum
-                                                                ut tristique.</p>
-                                                            <div class="comment-action">
-                                                                <a href="#"
-                                                                    class="btn btn-secondary btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize">
-                                                                    <i class="far fa-thumbs-up"></i>Helpful (1)
-                                                                </a>
-                                                                <a href="#"
-                                                                    class="btn btn-dark btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize">
-                                                                    <i class="far fa-thumbs-down"></i>Unhelpful
-                                                                    (0)
-                                                                </a>
-                                                                <div class="review-image">
-                                                                    <a href="#">
-                                                                        <figure>
-                                                                            <img src="{{ asset('frontend') }}/images/products/default/review-img-1.jpg"
-                                                                                width="60" height="60"
-                                                                                alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                                                                data-zoom-image="{{ asset('frontend') }}/images/products/default/review-img-1.jpg" />
-                                                                        </figure>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="comment">
-                                                    <div class="comment-body">
-                                                        <figure class="comment-avatar">
-                                                            <img src="{{ asset('frontend') }}/images/agents/2-100x100.png"
-                                                                alt="Commenter Avatar" width="90" height="90">
-                                                        </figure>
-                                                        <div class="comment-content">
-                                                            <h4 class="comment-author">
-                                                                <a href="#">John Doe</a>
-                                                                <span class="comment-date">March 22, 2021 at
-                                                                    1:52 pm</span>
-                                                            </h4>
-                                                            <div class="ratings-container comment-rating">
-                                                                <div class="ratings-full">
-                                                                    <span class="ratings"
-                                                                        style="width: 80%;"></span>
-                                                                    <span
-                                                                        class="tooltiptext tooltip-top"></span>
-                                                                </div>
-                                                            </div>
-                                                            <p>Nullam a magna porttitor, dictum risus nec,
-                                                                faucibus sapien.
-                                                                Ultrices eros in cursus turpis massa tincidunt
-                                                                ante in nibh mauris cursus mattis.
-                                                                Cras ornare arcu dui vivamus arcu felis bibendum
-                                                                ut tristique.</p>
-                                                            <div class="comment-action">
-                                                                <a href="#"
-                                                                    class="btn btn-secondary btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize">
-                                                                    <i class="far fa-thumbs-up"></i>Helpful (1)
-                                                                </a>
-                                                                <a href="#"
-                                                                    class="btn btn-dark btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize">
-                                                                    <i class="far fa-thumbs-down"></i>Unhelpful
-                                                                    (0)
-                                                                </a>
-                                                                <div class="review-image">
-                                                                    <a href="#">
-                                                                        <figure>
-                                                                            <img src="{{ asset('frontend') }}/images/products/default/review-img-2.jpg"
-                                                                                width="60" height="60"
-                                                                                alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                                                                data-zoom-image="{{ asset('frontend') }}/images/products/default/review-img-2-800x900.jpg" />
-                                                                        </figure>
-                                                                    </a>
-                                                                    <a href="#">
-                                                                        <figure>
-                                                                            <img src="{{ asset('frontend') }}/images/products/default/review-img-3.jpg"
-                                                                                width="60" height="60"
-                                                                                alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                                                                data-zoom-image="{{ asset('frontend') }}/images/products/default/review-img-3-800x900.jpg" />
-                                                                        </figure>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="tab-pane" id="helpful-negative">
-                                            <ul class="comments list-style-none">
-                                                <li class="comment">
-                                                    <div class="comment-body">
-                                                        <figure class="comment-avatar">
-                                                            <img src="{{ asset('frontend') }}/images/agents/3-100x100.png"
-                                                                alt="Commenter Avatar" width="90" height="90">
-                                                        </figure>
-                                                        <div class="comment-content">
-                                                            <h4 class="comment-author">
-                                                                <a href="#">John Doe</a>
-                                                                <span class="comment-date">March 22, 2021 at
-                                                                    1:21 pm</span>
-                                                            </h4>
-                                                            <div class="ratings-container comment-rating">
-                                                                <div class="ratings-full">
-                                                                    <span class="ratings"
-                                                                        style="width: 60%;"></span>
-                                                                    <span
-                                                                        class="tooltiptext tooltip-top"></span>
-                                                                </div>
-                                                            </div>
-                                                            <p>In fermentum et sollicitudin ac orci phasellus. A
-                                                                condimentum vitae
-                                                                sapien pellentesque habitant morbi tristique
-                                                                senectus et. In dictum
-                                                                non consectetur a erat. Nunc scelerisque viverra
-                                                                mauris in aliquam sem fringilla.</p>
-                                                            <div class="comment-action">
-                                                                <a href="#"
-                                                                    class="btn btn-secondary btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize">
-                                                                    <i class="far fa-thumbs-up"></i>Helpful (0)
-                                                                </a>
-                                                                <a href="#"
-                                                                    class="btn btn-dark btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize">
-                                                                    <i class="far fa-thumbs-down"></i>Unhelpful
-                                                                    (1)
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="tab-pane" id="highest-rating">
-                                            <ul class="comments list-style-none">
-                                                <li class="comment">
-                                                    <div class="comment-body">
-                                                        <figure class="comment-avatar">
-                                                            <img src="{{ asset('frontend') }}/images/agents/2-100x100.png"
-                                                                alt="Commenter Avatar" width="90" height="90">
-                                                        </figure>
-                                                        <div class="comment-content">
-                                                            <h4 class="comment-author">
-                                                                <a href="#">John Doe</a>
-                                                                <span class="comment-date">March 22, 2021 at
-                                                                    1:52 pm</span>
-                                                            </h4>
-                                                            <div class="ratings-container comment-rating">
-                                                                <div class="ratings-full">
-                                                                    <span class="ratings"
-                                                                        style="width: 80%;"></span>
-                                                                    <span
-                                                                        class="tooltiptext tooltip-top"></span>
-                                                                </div>
-                                                            </div>
-                                                            <p>Nullam a magna porttitor, dictum risus nec,
-                                                                faucibus sapien.
-                                                                Ultrices eros in cursus turpis massa tincidunt
-                                                                ante in nibh mauris cursus mattis.
-                                                                Cras ornare arcu dui vivamus arcu felis bibendum
-                                                                ut tristique.</p>
-                                                            <div class="comment-action">
-                                                                <a href="#"
-                                                                    class="btn btn-secondary btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize">
-                                                                    <i class="far fa-thumbs-up"></i>Helpful (1)
-                                                                </a>
-                                                                <a href="#"
-                                                                    class="btn btn-dark btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize">
-                                                                    <i class="far fa-thumbs-down"></i>Unhelpful
-                                                                    (0)
-                                                                </a>
-                                                                <div class="review-image">
-                                                                    <a href="#">
-                                                                        <figure>
-                                                                            <img src="{{ asset('frontend') }}/images/products/default/review-img-2.jpg"
-                                                                                width="60" height="60"
-                                                                                alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                                                                data-zoom-image="{{ asset('frontend') }}/images/products/default/review-img-2-800x900.jpg" />
-                                                                        </figure>
-                                                                    </a>
-                                                                    <a href="#">
-                                                                        <figure>
-                                                                            <img src="{{ asset('frontend') }}/images/products/default/review-img-3.jpg"
-                                                                                width="60" height="60"
-                                                                                alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                                                                data-zoom-image="{{ asset('frontend') }}/images/products/default/review-img-3-800x900.jpg" />
-                                                                        </figure>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="tab-pane" id="lowest-rating">
-                                            <ul class="comments list-style-none">
-                                                <li class="comment">
-                                                    <div class="comment-body">
-                                                        <figure class="comment-avatar">
-                                                            <img src="{{ asset('frontend') }}/images/agents/1-100x100.png"
-                                                                alt="Commenter Avatar" width="90" height="90">
-                                                        </figure>
-                                                        <div class="comment-content">
-                                                            <h4 class="comment-author">
-                                                                <a href="#">John Doe</a>
-                                                                <span class="comment-date">March 22, 2021 at
-                                                                    1:54 pm</span>
-                                                            </h4>
-                                                            <div class="ratings-container comment-rating">
-                                                                <div class="ratings-full">
-                                                                    <span class="ratings"
-                                                                        style="width: 60%;"></span>
-                                                                    <span
-                                                                        class="tooltiptext tooltip-top"></span>
-                                                                </div>
-                                                            </div>
-                                                            <p>pellentesque habitant morbi tristique senectus
-                                                                et. In dictum non consectetur a erat.
-                                                                Nunc ultrices eros in cursus turpis massa
-                                                                tincidunt ante in nibh mauris cursus mattis.
-                                                                Cras ornare arcu dui vivamus arcu felis bibendum
-                                                                ut tristique.</p>
-                                                            <div class="comment-action">
-                                                                <a href="#"
-                                                                    class="btn btn-secondary btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize">
-                                                                    <i class="far fa-thumbs-up"></i>Helpful (1)
-                                                                </a>
-                                                                <a href="#"
-                                                                    class="btn btn-dark btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize">
-                                                                    <i class="far fa-thumbs-down"></i>Unhelpful
-                                                                    (0)
-                                                                </a>
-                                                                <div class="review-image">
-                                                                    <a href="#">
-                                                                        <figure>
-                                                                            <img src="{{ asset('frontend') }}/images/products/default/review-img-3.jpg"
-                                                                                width="60" height="60"
-                                                                                alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                                                                data-zoom-image="{{ asset('frontend') }}/images/products/default/review-img-3-800x900.jpg" />
-                                                                        </figure>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <section class="vendor-product-section">
-                        <div class="title-link-wrapper mb-4">
-                            <h4 class="title text-left">More Products From This Vendor</h4>
-                            <a href="#" class="btn btn-dark btn-link btn-slide-right btn-icon-right">More
-                                Products<i class="w-icon-long-arrow-right"></i></a>
-                        </div>
-                        <div class="swiper-container swiper-theme" data-swiper-options="{
-                            'spaceBetween': 20,
-                            'slidesPerView': 2,
-                            'breakpoints': {
-                                '576': {
-                                    'slidesPerView': 3
-                                },
-                                '768': {
-                                    'slidesPerView': 4
-                                },
-                                '992': {
-                                    'slidesPerView': 3
-                                }
-                            }
-                        }">
-                            <div class="swiper-wrapper row cols-lg-3 cols-md-4 cols-sm-3 cols-2">
-                                <div class="swiper-slide product">
-                                    <figure class="product-media">
-                                        <a href="product-default.html">
-                                            <img src="{{ asset('frontend') }}/images/products/default/1-1.jpg" alt="Product"
-                                                width="300" height="338" />
-                                            <img src="{{ asset('frontend') }}/images/products/default/1-2.jpg" alt="Product"
-                                                width="300" height="338" />
-                                        </a>
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                                title="Add to cart"></a>
-                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                title="Add to wishlist"></a>
-                                            <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                                title="Add to Compare"></a>
-                                        </div>
-                                        <div class="product-action">
-                                            <a href="#" class="btn-product btn-quickview" title="Quick View">Quick
-                                                View</a>
-                                        </div>
-                                    </figure>
-                                    <div class="product-details">
-                                        <div class="product-cat"><a href="shop-banner-sidebar.html">Accessories</a>
-                                        </div>
-                                        <h4 class="product-name"><a href="product-default.html">Sticky Pencil</a>
-                                        </h4>
-                                        <div class="ratings-container">
-                                            <div class="ratings-full">
-                                                <span class="ratings" style="width: 100%;"></span>
-                                                <span class="tooltiptext tooltip-top"></span>
-                                            </div>
-                                            <a href="product-default.html" class="rating-reviews">(3 reviews)</a>
-                                        </div>
-                                        <div class="product-pa-wrapper">
-                                            <div class="product-price">$20.00</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide product">
-                                    <figure class="product-media">
-                                        <a href="product-default.html">
-                                            <img src="{{ asset('frontend') }}/images/products/default/2.jpg" alt="Product"
-                                                width="300" height="338" />
-                                        </a>
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                                title="Add to cart"></a>
-                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                title="Add to wishlist"></a>
-                                            <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                                title="Add to Compare"></a>
-                                        </div>
-                                        <div class="product-action">
-                                            <a href="#" class="btn-product btn-quickview" title="Quick View">Quick
-                                                View</a>
-                                        </div>
-                                    </figure>
-                                    <div class="product-details">
-                                        <div class="product-cat"><a href="shop-banner-sidebar.html">Electronics</a>
-                                        </div>
-                                        <h4 class="product-name"><a href="product-default.html">Mini
-                                                Multi-Functional Cooker</a></h4>
-                                        <div class="ratings-container">
-                                            <div class="ratings-full">
-                                                <span class="ratings" style="width: 80%;"></span>
-                                                <span class="tooltiptext tooltip-top"></span>
-                                            </div>
-                                            <a href="product-default.html" class="rating-reviews">(5 reviews)</a>
-                                        </div>
-                                        <div class="product-pa-wrapper">
-                                            <div class="product-price">
-                                                <ins class="new-price">$480.00</ins><del
-                                                    class="old-price">$534.00</del>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide product">
-                                    <figure class="product-media">
-                                        <a href="product-default.html">
-                                            <img src="{{ asset('frontend') }}/images/products/default/3.jpg" alt="Product"
-                                                width="300" height="338" />
-                                        </a>
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                                title="Add to cart"></a>
-                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                title="Add to wishlist"></a>
-                                            <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                                title="Add to Compare"></a>
-                                        </div>
-                                        <div class="product-action">
-                                            <a href="#" class="btn-product btn-quickview" title="Quick View">Quick
-                                                View</a>
-                                        </div>
-                                    </figure>
-                                    <div class="product-details">
-                                        <div class="product-cat"><a href="shop-banner-sidebar.html">Sports</a></div>
-                                        <h4 class="product-name"><a href="product-default.html">Skate Pan</a></h4>
-                                        <div class="ratings-container">
-                                            <div class="ratings-full">
-                                                <span class="ratings" style="width: 100%;"></span>
-                                                <span class="tooltiptext tooltip-top"></span>
-                                            </div>
-                                            <a href="product-default.html" class="rating-reviews">(3 reviews)</a>
-                                        </div>
-                                        <div class="product-pa-wrapper">
-                                            <div class="product-price">
-                                                <ins class="new-price">$278.00</ins><del
-                                                    class="old-price">$310.00</del>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide product">
-                                    <figure class="product-media">
-                                        <a href="product-default.html">
-                                            <img src="{{ asset('frontend') }}/images/products/default/4-1.jpg" alt="Product"
-                                                width="300" height="338" />
-                                            <img src="{{ asset('frontend') }}/images/products/default/4-2.jpg" alt="Product"
-                                                width="300" height="338" />
-                                        </a>
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                                title="Add to cart"></a>
-                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                title="Add to wishlist"></a>
-                                            <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                                title="Add to Compare"></a>
-                                        </div>
-                                        <div class="product-action">
-                                            <a href="#" class="btn-product btn-quickview" title="Quick View">Quick
-                                                View</a>
-                                        </div>
-                                    </figure>
-                                    <div class="product-details">
-                                        <div class="product-cat"><a href="shop-banner-sidebar.html">Accessories</a>
-                                        </div>
-                                        <h4 class="product-name"><a href="product-default.html">Clip Attachment</a>
-                                        </h4>
-                                        <div class="ratings-container">
-                                            <div class="ratings-full">
-                                                <span class="ratings" style="width: 100%;"></span>
-                                                <span class="tooltiptext tooltip-top"></span>
-                                            </div>
-                                            <a href="product-default.html" class="rating-reviews">(5 reviews)</a>
-                                        </div>
-                                        <div class="product-pa-wrapper">
-                                            <div class="product-price">$40.00</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <section class="related-product-section">
-                        <div class="title-link-wrapper mb-4">
-                            <h4 class="title">Related Products</h4>
-                            <a href="#" class="btn btn-dark btn-link btn-slide-right btn-icon-right">More
-                                Products<i class="w-icon-long-arrow-right"></i></a>
-                        </div>
-                        <div class="swiper-container swiper-theme" data-swiper-options="{
-                            'spaceBetween': 20,
-                            'slidesPerView': 2,
-                            'breakpoints': {
-                                '576': {
-                                    'slidesPerView': 3
-                                },
-                                '768': {
-                                    'slidesPerView': 4
-                                },
-                                '992': {
-                                    'slidesPerView': 3
-                                }
-                            }
-                        }">
-                            <div class="swiper-wrapper row cols-lg-3 cols-md-4 cols-sm-3 cols-2">
-                                <div class="swiper-slide product">
-                                    <figure class="product-media">
-                                        <a href="product-default.html">
-                                            <img src="{{ asset('frontend') }}/images/products/default/5.jpg" alt="Product"
-                                                width="300" height="338" />
-                                        </a>
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                                title="Add to cart"></a>
-                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                title="Add to wishlist"></a>
-                                            <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                                title="Add to Compare"></a>
-                                        </div>
-                                        <div class="product-action">
-                                            <a href="#" class="btn-product btn-quickview" title="Quick View">Quick
-                                                View</a>
-                                        </div>
-                                    </figure>
-                                    <div class="product-details">
-                                        <h4 class="product-name"><a href="product-default.html">Drone</a></h4>
-                                        <div class="ratings-container">
-                                            <div class="ratings-full">
-                                                <span class="ratings" style="width: 100%;"></span>
-                                                <span class="tooltiptext tooltip-top"></span>
-                                            </div>
-                                            <a href="product-default.html" class="rating-reviews">(3 reviews)</a>
-                                        </div>
-                                        <div class="product-pa-wrapper">
-                                            <div class="product-price">$632.00</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide product">
-                                    <figure class="product-media">
-                                        <a href="product-default.html">
-                                            <img src="{{ asset('frontend') }}/images/products/default/6.jpg" alt="Product"
-                                                width="300" height="338" />
-                                        </a>
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                                title="Add to cart"></a>
-                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                title="Add to wishlist"></a>
-                                            <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                                title="Add to Compare"></a>
-                                        </div>
-                                        <div class="product-action">
-                                            <a href="#" class="btn-product btn-quickview" title="Quick View">Quick
-                                                View</a>
-                                        </div>
-                                    </figure>
-                                    <div class="product-details">
-                                        <h4 class="product-name"><a href="product-default.html">Official Camera</a>
-                                        </h4>
-                                        <div class="ratings-container">
-                                            <div class="ratings-full">
-                                                <span class="ratings" style="width: 100%;"></span>
-                                                <span class="tooltiptext tooltip-top"></span>
-                                            </div>
-                                            <a href="product-default.html" class="rating-reviews">(3 reviews)</a>
-                                        </div>
-                                        <div class="product-pa-wrapper">
-                                            <div class="product-price">
-                                                <ins class="new-price">$263.00</ins><del
-                                                    class="old-price">$300.00</del>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide product">
-                                    <figure class="product-media">
-                                        <a href="product-default.html">
-                                            <img src="{{ asset('frontend') }}/images/products/default/7-1.jpg" alt="Product"
-                                                width="300" height="338" />
-                                            <img src="{{ asset('frontend') }}/images/products/default/7-2.jpg" alt="Product"
-                                                width="300" height="338" />
-                                        </a>
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                                title="Add to cart"></a>
-                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                title="Add to wishlist"></a>
-                                            <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                                title="Add to Compare"></a>
-                                        </div>
-                                        <div class="product-action">
-                                            <a href="#" class="btn-product btn-quickview" title="Quick View">Quick
-                                                View</a>
-                                        </div>
-                                    </figure>
-                                    <div class="product-details">
-                                        <h4 class="product-name"><a href="product-default.html">Phone Charge Pad</a>
-                                        </h4>
-                                        <div class="ratings-container">
-                                            <div class="ratings-full">
-                                                <span class="ratings" style="width: 80%;"></span>
-                                                <span class="tooltiptext tooltip-top"></span>
-                                            </div>
-                                            <a href="product-default.html" class="rating-reviews">(8 reviews)</a>
-                                        </div>
-                                        <div class="product-pa-wrapper">
-                                            <div class="product-price">$23.00</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide product">
-                                    <figure class="product-media">
-                                        <a href="product-default.html">
-                                            <img src="{{ asset('frontend') }}/images/products/default/8.jpg" alt="Product"
-                                                width="300" height="338" />
-                                        </a>
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                                title="Add to cart"></a>
-                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                title="Add to wishlist"></a>
-                                            <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                                title="Add to Compare"></a>
-                                        </div>
-                                        <div class="product-action">
-                                            <a href="#" class="btn-product btn-quickview" title="Quick View">Quick
-                                                View</a>
-                                        </div>
-                                    </figure>
-                                    <div class="product-details">
-                                        <h4 class="product-name"><a href="product-default.html">Fashionalble
-                                                Pencil</a></h4>
-                                        <div class="ratings-container">
-                                            <div class="ratings-full">
-                                                <span class="ratings" style="width: 100%;"></span>
-                                                <span class="tooltiptext tooltip-top"></span>
-                                            </div>
-                                            <a href="product-default.html" class="rating-reviews">(9 reviews)</a>
-                                        </div>
-                                        <div class="product-pa-wrapper">
-                                            <div class="product-price">$50.00</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+                    </nav>
                 </div>
-                <!-- End of Main Content -->
-                <aside class="sidebar product-sidebar sidebar-fixed right-sidebar sticky-sidebar-wrapper">
-                    <div class="sidebar-overlay"></div>
-                    <a class="sidebar-close" href="#"><i class="close-icon"></i></a>
-                    <a href="#" class="sidebar-toggle d-flex d-lg-none"><i class="fas fa-chevron-left"></i></a>
-                    <div class="sidebar-content scrollable">
-                        <div class="sticky-sidebar">
-                            <div class="widget widget-icon-box mb-6">
-                                <div class="icon-box icon-box-side">
-                                    <span class="icon-box-icon text-dark">
-                                        <i class="w-icon-truck"></i>
-                                    </span>
-                                    <div class="icon-box-content">
-                                        <h4 class="icon-box-title">Free Shipping & Returns</h4>
-                                        <p>For all orders over $99</p>
-                                    </div>
-                                </div>
-                                <div class="icon-box icon-box-side">
-                                    <span class="icon-box-icon text-dark">
-                                        <i class="w-icon-bag"></i>
-                                    </span>
-                                    <div class="icon-box-content">
-                                        <h4 class="icon-box-title">Secure Payment</h4>
-                                        <p>We ensure secure payment</p>
-                                    </div>
-                                </div>
-                                <div class="icon-box icon-box-side">
-                                    <span class="icon-box-icon text-dark">
-                                        <i class="w-icon-money"></i>
-                                    </span>
-                                    <div class="icon-box-content">
-                                        <h4 class="icon-box-title">Money Back Guarantee</h4>
-                                        <p>Any back within 30 days</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End of Widget Icon Box -->
-
-                            <div class="widget widget-banner mb-9">
-                                <div class="banner banner-fixed br-sm">
-                                    <figure>
-                                        <img src="{{ asset('frontend') }}/images/shop/banner3.jpg" alt="Banner" width="266"
-                                            height="220" style="background-color: #1D2D44;" />
-                                    </figure>
-                                    <div class="banner-content">
-                                        <div class="banner-price-info font-weight-bolder text-white lh-1 ls-25">
-                                            40<sup class="font-weight-bold">%</sup><sub
-                                                class="font-weight-bold text-uppercase ls-25">Off</sub>
-                                        </div>
-                                        <h4
-                                            class="banner-subtitle text-white font-weight-bolder text-uppercase mb-0">
-                                            Ultimate Sale</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End of Widget Banner -->
-
-                            <div class="widget widget-products">
-                                <div class="title-link-wrapper mb-2">
-                                    <h4 class="title title-link font-weight-bold">More Products</h4>
-                                </div>
-
-                                <div class="swiper nav-top">
-                                    <div class="swiper-container swiper-theme nav-top" data-swiper-options = "{
-                                        'slidesPerView': 1,
-                                        'spaceBetween': 20,
-                                        'navigation': {
-                                            'prevEl': '.swiper-button-prev',
-                                            'nextEl': '.swiper-button-next'
-                                        }
-                                    }">
-                                        <div class="swiper-wrapper">
-                                            <div class="widget-col swiper-slide">
-                                                <div class="product product-widget">
-                                                    <figure class="product-media">
-                                                        <a href="#">
-                                                            <img src="{{ asset('frontend') }}/images/shop/13.jpg" alt="Product"
-                                                                width="100" height="113" />
-                                                        </a>
-                                                    </figure>
-                                                    <div class="product-details">
-                                                        <h4 class="product-name">
-                                                            <a href="#">Smart Watch</a>
-                                                        </h4>
-                                                        <div class="ratings-container">
-                                                            <div class="ratings-full">
-                                                                <span class="ratings" style="width: 100%;"></span>
-                                                                <span class="tooltiptext tooltip-top"></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-price">$80.00 - $90.00</div>
-                                                    </div>
-                                                </div>
-                                                <div class="product product-widget">
-                                                    <figure class="product-media">
-                                                        <a href="#">
-                                                            <img src="{{ asset('frontend') }}/images/shop/14.jpg" alt="Product"
-                                                                width="100" height="113" />
-                                                        </a>
-                                                    </figure>
-                                                    <div class="product-details">
-                                                        <h4 class="product-name">
-                                                            <a href="#">Sky Medical Facility</a>
-                                                        </h4>
-                                                        <div class="ratings-container">
-                                                            <div class="ratings-full">
-                                                                <span class="ratings" style="width: 80%;"></span>
-                                                                <span class="tooltiptext tooltip-top"></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-price">$58.00</div>
-                                                    </div>
-                                                </div>
-                                                <div class="product product-widget">
-                                                    <figure class="product-media">
-                                                        <a href="#">
-                                                            <img src="{{ asset('frontend') }}/images/shop/15.jpg" alt="Product"
-                                                                width="100" height="113" />
-                                                        </a>
-                                                    </figure>
-                                                    <div class="product-details">
-                                                        <h4 class="product-name">
-                                                            <a href="#">Black Stunt Motor</a>
-                                                        </h4>
-                                                        <div class="ratings-container">
-                                                            <div class="ratings-full">
-                                                                <span class="ratings" style="width: 60%;"></span>
-                                                                <span class="tooltiptext tooltip-top"></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-price">$374.00</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="widget-col swiper-slide">
-                                                <div class="product product-widget">
-                                                    <figure class="product-media">
-                                                        <a href="#">
-                                                            <img src="{{ asset('frontend') }}/images/shop/16.jpg" alt="Product"
-                                                                width="100" height="113" />
-                                                        </a>
-                                                    </figure>
-                                                    <div class="product-details">
-                                                        <h4 class="product-name">
-                                                            <a href="#">Skate Pan</a>
-                                                        </h4>
-                                                        <div class="ratings-container">
-                                                            <div class="ratings-full">
-                                                                <span class="ratings" style="width: 100%;"></span>
-                                                                <span class="tooltiptext tooltip-top"></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-price">$278.00</div>
-                                                    </div>
-                                                </div>
-                                                <div class="product product-widget">
-                                                    <figure class="product-media">
-                                                        <a href="#">
-                                                            <img src="{{ asset('frontend') }}/images/shop/17.jpg" alt="Product"
-                                                                width="100" height="113" />
-                                                        </a>
-                                                    </figure>
-                                                    <div class="product-details">
-                                                        <h4 class="product-name">
-                                                            <a href="#">Modern Cooker</a>
-                                                        </h4>
-                                                        <div class="ratings-container">
-                                                            <div class="ratings-full">
-                                                                <span class="ratings" style="width: 80%;"></span>
-                                                                <span class="tooltiptext tooltip-top"></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-price">$324.00</div>
-                                                    </div>
-                                                </div>
-                                                <div class="product product-widget">
-                                                    <figure class="product-media">
-                                                        <a href="#">
-                                                            <img src="{{ asset('frontend') }}/images/shop/18.jpg" alt="Product"
-                                                                width="100" height="113" />
-                                                        </a>
-                                                    </figure>
-                                                    <div class="product-details">
-                                                        <h4 class="product-name">
-                                                            <a href="#">CT Machine</a>
-                                                        </h4>
-                                                        <div class="ratings-container">
-                                                            <div class="ratings-full">
-                                                                <span class="ratings" style="width: 100%;"></span>
-                                                                <span class="tooltiptext tooltip-top"></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-price">$236.00</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button class="swiper-button-next"></button>
-                                        <button class="swiper-button-prev"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </aside>
-                <!-- End of Sidebar -->
             </div>
         </div>
     </div>
-    <!-- End of Page Content -->
-</main>
+</div>
+<!-- breadcrumb area end -->
+@php
+    $gallery_photo = json_decode($product -> images);
+    $colors=explode(',',$product->color);
+    $sizes=explode(',',$product->size);
+@endphp
+
+@php
+    $review_5=App\Models\Review::where('product_id',$product->id)->where('rating',5)->count();
+    $review_4=App\Models\Review::where('product_id',$product->id)->where('rating',4)->count();
+    $review_3=App\Models\Review::where('product_id',$product->id)->where('rating',3)->count();
+    $review_2=App\Models\Review::where('product_id',$product->id)->where('rating',2)->count();
+    $review_1=App\Models\Review::where('product_id',$product->id)->where('rating',1)->count();
+
+    $sum_rating=App\Models\Review::where('product_id',$product->id)->sum('rating');
+    $count_rating=App\Models\Review::where('product_id',$product->id)->count('rating');
+@endphp
+<!-- product details wrapper start -->
+<div class="product-details-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <!-- product details inner end -->
+                <div class="product-details-inner">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="product-large-slider mb-20 slick-arrow-style_2">
+                                @foreach ($gallery_photo as $gallery)
+                                <div class="pro-large-img img-zoom" id="img1">
+                                    <img src="{{url('storage/products/' .$gallery)}}" alt="{{$product->name}}" />
+                                </div>                               
+                                @endforeach
+                            </div>
+                            <div class="pro-nav slick-padding2 slick-arrow-style_2">
+                                @foreach ($gallery_photo as $gallery)
+                                <div class="pro-nav-thumb"><img src="{{url('storage/products/' .$gallery)}}" alt="{{$product->name}}" /></div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="product-details-des mt-md-34 mt-sm-34">
+                                <h3><a href="#">{{$product->name}}</a></h3>
+                                <div class="brand d-flex">
+                                    <img src="{{url('storage/brands/' .$brand-> brand_logo)}}" alt="{{$brand->brand_name}}"
+                                            width="102" height="48" />
+                                    <div class="brand-info d-flex flex-column">
+                                        <span>Category: {{ $cat->category_name }} <i class="fa fa-chevron-right" style="font-size: 11px;color:#555"></i> {{ $subcat->subcategory_name }}</span>
+                                        <span>SKC: {{$product->code}}</span>
+                                    </div>
+                                </div>
+                                <div class="brand-hr"></div>
+                                <div class="pricebox">
+                                    @if($product->discount_price==null)
+                                        <span class="regular-price">{{$setting->currency}}{{$product->selling_price}}</span>
+                                    @else
+                                        <span class="regular-price">{{$setting->currency}}{{$product->selling_price}}</span>
+                                        <del class="old-price">{{$setting->currency}}{{$product->discount_price}}</del>
+                                    @endif
+                                </div>
+                                <div class="ratings">
+                                    <span class="good"><i class="fa fa-star"></i></span>
+                                    <span class="good"><i class="fa fa-star"></i></span>
+                                    <span class="good"><i class="fa fa-star"></i></span>
+                                    <span class="good"><i class="fa fa-star"></i></span>
+                                    <span><i class="fa fa-star"></i></span>
+                                    <div class="pro-review">
+                                        <span class="ratings-count">(3 Reviews)</span>
+                                    </div>
+                                </div>
+                                <div class="availability mt-10">
+                                    @if ($product->stock_quantity>1)
+                                    <h5>Availability:</h5> 
+                                    <span class="badge badge-success badge-sm text-white">{{$product->stock_quantity}} {{$product->unit}} in Stock </span>                                        
+                                    @else
+                                    <h5>Availability:</h5> 
+                                    <span class="badge badge-danger text-white">Out of Stock</span>                                                
+                                    @endif
+                                </div>
+                                
+                                <p>{!! Str::of( htmlspecialchars_decode( $product->description ))-> words(20, '...') !!}</p>
+                                <div class="brand-hr"></div>
+                                <div class="brand-color-size d-flex" style="gap: 20px">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            @isset($product->color)
+                                            <div class="form-group d-flex flex-column">
+                                                <label>Color</label>
+                                                <select name="" class="form-control">
+                                                    @foreach ($colors as $item)
+                                                        <option value="{{$item}}">{{$item}}</option>         
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            @endisset
+                                        </div>
+                                        <div class="col-md-6">
+                                            @isset($product->size)
+                                            <div class="form-group d-flex flex-column">
+                                                <label>Size</label>
+                                                <select name="" class="form-control">
+                                                    @foreach ($sizes as $item)
+                                                        <option value="{{$item}}">{{$item}}</option> 
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            @endisset
+                                        </div>
+                                    </div>                                    
+                                </div>
+                                <div class="quantity-cart-box d-flex align-items-center">
+                                    <div class="quantity">
+                                        <div class="pro-qty"><input type="text" value="1"></div>
+                                    </div>
+                                    <div class="action_link w-100">
+                                        <a class="buy-btn w-100" href="#">add to cart<i class="fa fa-shopping-cart"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- product details inner end -->
+
+                <!-- product details reviews start -->
+                <div class="product-details-reviews mt-34">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="product-review-info">
+                                <ul class="nav review-tab">
+                                    <li>
+                                        <a class="active" data-toggle="tab" href="#tab_one">description</a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" href="#tab_two">information</a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" href="#tab_three">reviews</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content reviews-tab">
+                                    <div class="tab-pane fade show active" id="tab_one">
+                                        <div class="tab-one">
+                                            <p>{!! Str::of( htmlspecialchars_decode( $product->description )) !!}</p>                                                                                       
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="tab_two">
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                                @isset($product->color)
+                                                <tr>
+                                                    <td>color</td>
+                                                    <td>{{$product->color}}</td>
+                                                </tr>
+                                                @endisset
+                                                @isset($product->size)
+                                                <tr>
+                                                    <td>size</td>
+                                                    <td>{{$product->size}}</td>
+                                                </tr>
+                                                @endisset
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane fade" id="tab_three">                                       
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="brand-rating-details d-flex">
+                                                 <span class="text-danger font-weight-bold" style="font-size:40px;margin-right:10px;margin-top:10px">{{round($sum_rating/$count_rating)}}</span>
+                                                <div class="brand-rating d-flex flex-column">
+                                                    <div class="review-box">
+                                                        <strong>Avarage Ratings</strong>
+                                                        @if(intval($sum_rating/$count_rating) >= 5)
+                                                        <div class="ratings" data-toggle="tooltip" title="5.00" >
+                                                            <span class="one_star"><i class="fa fa-star"></i></span>
+                                                            <span class="two_star"><i class="fa fa-star"></i></span>
+                                                            <span class="three_star"><i class="fa fa-star"></i></span>
+                                                            <span class="four_star"><i class="fa fa-star"></i></span>
+                                                            <span class="five_star"><i class="fa fa-star"></i></span>
+                                                            <span class="ratings-count">({{$sum_rating}} Rating)</span>
+                                                        </div>
+                                                        @elseif(intval($sum_rating/$count_rating) >= 4 && intval($sum_rating/5) <$count_rating)
+                                                        <div class="ratings" data-toggle="tooltip" title="4.00" >
+                                                            <span class="one_star"><i class="fa fa-star"></i></span>
+                                                            <span class="two_star"><i class="fa fa-star"></i></span>
+                                                            <span class="three_star"><i class="fa fa-star"></i></span>
+                                                            <span class="four_star"><i class="fa fa-star"></i></span>
+                                                            <span><i class="fa fa-star"></i></span>
+                                                            <span class="ratings-count">({{$sum_rating}} Rating)</span>
+                                                        </div>
+                                                        @elseif(intval($sum_rating/$count_rating) >= 3 && intval($sum_rating/5) <$count_rating)
+                                                        <div class="ratings" data-toggle="tooltip" title="3.00" >
+                                                            <span class="one_star"><i class="fa fa-star"></i></span>
+                                                            <span class="two_star"><i class="fa fa-star"></i></span>
+                                                            <span class="three_star"><i class="fa fa-star"></i></span>
+                                                            <span><i class="fa fa-star"></i></span>
+                                                            <span><i class="fa fa-star"></i></span>
+                                                            <span class="ratings-count">({{$sum_rating}} Rating)</span>
+                                                        </div>
+                                                        @elseif(intval($sum_rating/$count_rating) >= 2 && intval($sum_rating/5) <$count_rating)
+                                                        <div class="ratings" data-toggle="tooltip" title="2.00" >
+                                                            <span class="one_star"><i class="fa fa-star"></i></span>
+                                                            <span class="two_star"><i class="fa fa-star"></i></span>
+                                                            <span><i class="fa fa-star"></i></span>
+                                                            <span><i class="fa fa-star"></i></span>
+                                                            <span><i class="fa fa-star"></i></span>
+                                                            <span class="ratings-count">({{$sum_rating}} Rating)</span>
+                                                        </div>
+                                                        @else
+                                                        <div class="ratings" data-toggle="tooltip" title="1.00" >
+                                                            <span class="one_star"><i class="fa fa-star"></i></span>
+                                                            <span><i class="fa fa-star"></i></span>
+                                                            <span><i class="fa fa-star"></i></span>
+                                                            <span><i class="fa fa-star"></i></span>
+                                                            <span><i class="fa fa-star"></i></span>
+                                                            <span class="ratings-count">({{$sum_rating}} Rating)</span>
+                                                        </div>
+                                                        @endif                                                       
+                                                    </div>
+                                                </div>
+                                                </div>
+
+                                                {{-- Total Review --}}
+                                                <div class="total-review my-5">
+                                                    <strong>Total Review of this Product</strong>
+                                                    <div class="brand-hr"></div>
+                                                    {{-- review 5 star --}}
+                                                    <div class="review-box d-flex">
+                                                        <div class="ratings" data-toggle="tooltip" title="5.00">
+                                                            <span class="one_star"><i class="fa fa-star"></i></span>
+                                                            <span class="two_star"><i class="fa fa-star"></i></span>
+                                                            <span class="three_star"><i class="fa fa-star"></i></span>
+                                                            <span class="four_star"><i class="fa fa-star"></i></span>
+                                                            <span class="five_star"><i class="fa fa-star"></i></span>                                                            
+                                                        </div>
+                                                        <h5>Total <i class="fa fa-hand-o-right"></i> {{$review_5}}</h5>
+                                                    </div>
+                                                    {{-- review 4 star --}}
+                                                    <div class="review-box d-flex">
+                                                        <div class="ratings" data-toggle="tooltip" title="4.00">
+                                                            <span class="one_star"><i class="fa fa-star"></i></span>
+                                                            <span class="two_star"><i class="fa fa-star"></i></span>
+                                                            <span class="three_star"><i class="fa fa-star"></i></span>
+                                                            <span class="four_star"><i class="fa fa-star"></i></span>
+                                                            <span class=""><i class="fa fa-star"></i></span>                                                            
+                                                        </div>
+                                                        <h5>Total <i class="fa fa-hand-o-right"></i> {{$review_4}}</h5>
+                                                    </div>
+                                                    {{-- review 3 star --}}
+                                                    <div class="review-box d-flex">
+                                                        <div class="ratings" data-toggle="tooltip" title="3.00">
+                                                            <span class="one_star"><i class="fa fa-star"></i></span>
+                                                            <span class="two_star"><i class="fa fa-star"></i></span>
+                                                            <span class="three_star"><i class="fa fa-star"></i></span>
+                                                            <span class=""><i class="fa fa-star"></i></span>
+                                                            <span class=""><i class="fa fa-star"></i></span>                                                            
+                                                        </div>
+                                                        <h5>Total <i class="fa fa-hand-o-right"></i> {{$review_3}}</h5>
+                                                    </div>
+                                                    {{-- review 2 star --}}
+                                                    <div class="review-box d-flex">
+                                                        <div class="ratings" data-toggle="tooltip" title="2.00">
+                                                            <span class="one_star"><i class="fa fa-star"></i></span>
+                                                            <span class="two_star"><i class="fa fa-star"></i></span>
+                                                            <span class=""><i class="fa fa-star"></i></span>
+                                                            <span class=""><i class="fa fa-star"></i></span>
+                                                            <span class=""><i class="fa fa-star"></i></span>                                                            
+                                                        </div>
+                                                        <h5>Total <i class="fa fa-hand-o-right"></i> {{$review_2}}</h5>
+                                                    </div>
+                                                    {{-- review 1 star --}}
+                                                    <div class="review-box d-flex">
+                                                        <div class="ratings" data-toggle="tooltip" title="1.00">
+                                                            <span class="one_star"><i class="fa fa-star"></i></span>
+                                                            <span class=""><i class="fa fa-star"></i></span>
+                                                            <span class=""><i class="fa fa-star"></i></span>
+                                                            <span class=""><i class="fa fa-star"></i></span>
+                                                            <span class=""><i class="fa fa-star"></i></span>                                                            
+                                                        </div>
+                                                        <h5>Total <i class="fa fa-hand-o-right"></i> {{$review_1}}</h5>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <form action="{{route('review.store')}}" id="review_form" method="POST">
+                                                    @csrf
+                                                    <div class="form-group">
+                                                        <label for="exampleFormControlTextarea1">Write your Review <span class="text-danger">*</span> </label>
+                                                        <textarea name="review" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                      </div>
+                                                      <input type="hidden" name="product_id" value="{{$product->id}}">
+                                                      <div class="form-group d-flex flex-column">
+                                                        <label>Select your Rating <span class="text-danger">*</span> </label>
+                                                        <select name="rating" class="form-control">
+                                                            <option value="5">5 Star</option>
+                                                            <option value="4">4 Star</option>
+                                                            <option value="3">3 Star</option>
+                                                            <option value="2">2 Star</option>
+                                                            <option value="1">1 Star</option>
+                                                        </select>
+                                                      </div>
+                                                      <div class="form-group">
+                                                        @if (Auth::check())
+                                                            <button type="submit" class="btn btn-danger"><i class="fa fa-star"></i> Submit</button>                                                            
+                                                        @else
+                                                        <span class="btn btn-success"><i class="fa fa-star"></i> Please login first</span>
+                                                        @endif
+                                                      </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                        <strong class="text-center d-block">All Reviews of Product: {{$product->name}}</strong> <hr>
+                                        <div class="review-section">
+                                            <div class="row">
+                                                @foreach ($reviews as $item)
+                                                <div class="col-md-6">
+                                                    <div class="card mb-3">
+                                                        <div class="card-header">
+                                                            <div class="review-details d-flex align-items-center">
+                                                                <img src="{{asset('frontend/img/review.png')}}" width="70" height="70" alt="">
+                                                                <div class="review-info d-flex flex-column">
+                                                                    <h4>{{$item->user->name}}</h4>
+                                                                    <p>{{date('d F, Y'), strtotime($item->review_date)}}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <p>{{$item->review}}</p> 
+                                                            
+                                                            @if ($item->rating==5)
+                                                            <div class="ratings">
+                                                                <span class="one_star"><i class="fa fa-star"></i></span>
+                                                                <span class="two_star"><i class="fa fa-star"></i></span>
+                                                                <span class="three_star"><i class="fa fa-star"></i></span>
+                                                                <span class="four_star"><i class="fa fa-star"></i></span>
+                                                                <span class="five_star"><i class="fa fa-star"></i></span>
+                                                            </div>
+                                                            @elseif($item->rating==4)
+                                                            <div class="ratings">
+                                                                <span class="one_star"><i class="fa fa-star"></i></span>
+                                                                <span class="two_star"><i class="fa fa-star"></i></span>
+                                                                <span class="three_star"><i class="fa fa-star"></i></span>
+                                                                <span class="four_star"><i class="fa fa-star"></i></span>
+                                                                <span><i class="fa fa-star"></i></span>
+                                                            </div>
+                                                            @elseif($item->rating==3)
+                                                            <div class="ratings">
+                                                                <span class="one_star"><i class="fa fa-star"></i></span>
+                                                                <span class="two_star"><i class="fa fa-star"></i></span>
+                                                                <span class="three_star"><i class="fa fa-star"></i></span>
+                                                                <span><i class="fa fa-star"></i></span>
+                                                                <span><i class="fa fa-star"></i></span>
+                                                            </div>
+                                                            @elseif($item->rating==2)
+                                                            <div class="ratings">
+                                                                <span class="one_star"><i class="fa fa-star"></i></span>
+                                                                <span class="two_star"><i class="fa fa-star"></i></span>
+                                                                <span><i class="fa fa-star"></i></span>
+                                                                <span><i class="fa fa-star"></i></span>
+                                                                <span><i class="fa fa-star"></i></span>
+                                                            </div>
+                                                            @elseif($item->rating==1)
+                                                            <div class="ratings">
+                                                                <span class="one_star"><i class="fa fa-star"></i></span>  
+                                                                <span><i class="fa fa-star"></i></span>
+                                                                <span><i class="fa fa-star"></i></span>
+                                                                <span><i class="fa fa-star"></i></span>
+                                                                <span><i class="fa fa-star"></i></span>                                                              
+                                                            </div>
+                                                            @endif
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <!-- product details reviews end --> 
+
+                <!-- related products area start -->
+                <div class="related-products-area mt-34">
+                    <div class="section-title mb-30">
+                        <div class="title-icon">
+                            <i class="fa fa-desktop"></i>
+                        </div>
+                        <h3>related products</h3>
+                    </div> <!-- section title end -->
+                    <!-- featured category start -->
+                    <div class="featured-carousel-active slick-padding slick-arrow-style">
+                        <!-- product single item start -->
+                        @foreach ($related_product as $item)   
+                        <div class="product-item fix">
+                            <div class="product-thumb">
+                                <a href="#">                                       
+                                    <img src="{{url('storage/products/' .$item-> thumbnail)}}" class="img-pri" alt="">
+                                    {{-- <img src="{{ asset('frontend') }}/img/product/product-img2.jpg" class="img-sec" alt=""> --}}
+                                </a>
+                                <div class="product-label">
+                                    <span>New</span>
+                                </div>
+                                <div class="product-action-link">
+                                    <a href="#" data-toggle="modal" data-target="#quick_view"> <span data-toggle="tooltip" data-placement="left" title="Quick view"><i class="fa fa-search"></i></span> </a>
+                                    <a href="#" data-toggle="tooltip" data-placement="left" title="Wishlist"><i class="fa fa-heart-o"></i></a>
+                                    <a href="#" data-toggle="tooltip" data-placement="left" title="Compare"><i class="fa fa-refresh"></i></a>
+                                    <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>
+                                </div>
+                            </div>
+                            <div class="product-content">
+                                <h4><a href="{{route('product.details', $item->slug)}}"> {!! Str::of( htmlspecialchars_decode( $item->name ))-> words(3, '...') !!} </a></h4>
+                                <div class="pricebox">
+                                    <span class="regular-price">
+                                    @if($product->discount_price==null)
+                                        <span class="regular-price">{{$setting->currency}}{{$product->selling_price}}</span>
+                                    @else
+                                        <span class="regular-price">{{$setting->currency}}{{$product->selling_price}}</span>
+                                        <del class="old-price">{{$setting->currency}}{{$product->discount_price}}</del>
+                                    @endif
+                                    </span>
+                                    <div class="ratings">
+                                        <span class="good"><i class="fa fa-star"></i></span>
+                                        <span class="good"><i class="fa fa-star"></i></span>
+                                        <span class="good"><i class="fa fa-star"></i></span>
+                                        <span class="good"><i class="fa fa-star"></i></span>
+                                        <span><i class="fa fa-star"></i></span>
+                                        <div class="pro-review">
+                                            <span class="ratings-count">10 (Reviews)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                    <!-- featured category end -->
+                </div>
+                <!-- related products area end -->
+            </div>
+
+            <!-- sidebar start -->
+            <div class="col-lg-3">
+                <div class="shop-sidebar-wrap fix mt-md-22 mt-sm-22">
+                    <!-- featured category start -->
+                    <div class="sidebar-widget mb-22">
+                        <div class="section-title-2 d-flex justify-content-between mb-28">
+                            <h3>featured</h3>
+                            <div class="category-append"></div>
+                        </div> <!-- section title end -->
+                        <div class="category-carousel-active row" data-row="2">
+                            <div class="col">
+                                <div class="category-item">
+                                    <div class="category-thumb">
+                                        <a href="product-details.html">
+                                            <img src="{{ asset('frontend') }}/img/product/product-img1.jpg" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="category-content">
+                                        <h4><a href="product-details.html">Virtual Product 01</a></h4>
+                                        <div class="price-box">
+                                            <div class="regular-price">
+                                                $150.00
+                                            </div>
+                                            <div class="old-price">
+                                                <del>$180.00</del>
+                                            </div>
+                                        </div>
+                                        <div class="ratings">
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <div class="pro-review">
+                                                <span class="ratings-count">1 review(s)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- end single item -->
+                            </div> <!-- end single item column -->
+                            <div class="col">
+                                <div class="category-item">
+                                    <div class="category-thumb">
+                                        <a href="product-details.html">
+                                            <img src="{{ asset('frontend') }}/img/product/product-img2.jpg" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="category-content">
+                                        <h4><a href="product-details.html">Virtual Product 01</a></h4>
+                                        <div class="price-box">
+                                            <div class="regular-price">
+                                                $150.00
+                                            </div>
+                                            <div class="old-price">
+                                                <del>$180.00</del>
+                                            </div>
+                                        </div>
+                                        <div class="ratings">
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <div class="pro-review">
+                                                <span class="ratings-count">1 review(s)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- end single item -->
+                            </div> <!-- end single item column -->
+                            <div class="col">
+                                <div class="category-item">
+                                    <div class="category-thumb">
+                                        <a href="product-details.html">
+                                            <img src="{{ asset('frontend') }}/img/product/product-img3.jpg" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="category-content">
+                                        <h4><a href="product-details.html">Virtual Product 01</a></h4>
+                                        <div class="price-box">
+                                            <div class="regular-price">
+                                                $150.00
+                                            </div>
+                                            <div class="old-price">
+                                                <del>$180.00</del>
+                                            </div>
+                                        </div>
+                                        <div class="ratings">
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <div class="pro-review">
+                                                <span class="ratings-count">1 review(s)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- end single item -->
+                            </div> <!-- end single item column -->
+                            <div class="col">
+                                <div class="category-item">
+                                    <div class="category-thumb">
+                                        <a href="product-details.html">
+                                            <img src="{{ asset('frontend') }}/img/product/product-img4.jpg" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="category-content">
+                                        <h4><a href="product-details.html">Virtual Product 01</a></h4>
+                                        <div class="price-box">
+                                            <div class="regular-price">
+                                                $150.00
+                                            </div>
+                                            <div class="old-price">
+                                                <del>$180.00</del>
+                                            </div>
+                                        </div>
+                                        <div class="ratings">
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <div class="pro-review">
+                                                <span class="ratings-count">1 review(s)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- end single item -->
+                            </div> <!-- end single item column -->
+                            <div class="col">
+                                <div class="category-item">
+                                    <div class="category-thumb">
+                                        <a href="product-details.html">
+                                            <img src="{{ asset('frontend') }}/img/product/product-img5.jpg" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="category-content">
+                                        <h4><a href="product-details.html">Virtual Product 01</a></h4>
+                                        <div class="price-box">
+                                            <div class="regular-price">
+                                                $150.00
+                                            </div>
+                                            <div class="old-price">
+                                                <del>$180.00</del>
+                                            </div>
+                                        </div>
+                                        <div class="ratings">
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <div class="pro-review">
+                                                <span class="ratings-count">1 review(s)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- end single item -->
+                            </div> <!-- end single item column -->
+                            <div class="col">
+                                <div class="category-item">
+                                    <div class="category-thumb">
+                                        <a href="product-details.html">
+                                            <img src="{{ asset('frontend') }}/img/product/product-img6.jpg" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="category-content">
+                                        <h4><a href="product-details.html">Virtual Product 01</a></h4>
+                                        <div class="price-box">
+                                            <div class="regular-price">
+                                                $150.00
+                                            </div>
+                                            <div class="old-price">
+                                                <del>$180.00</del>
+                                            </div>
+                                        </div>
+                                        <div class="ratings">
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <div class="pro-review">
+                                                <span class="ratings-count">1 review(s)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- end single item -->
+                            </div> <!-- end single item column -->
+                            <div class="col">
+                                <div class="category-item">
+                                    <div class="category-thumb">
+                                        <a href="product-details.html">
+                                            <img src="{{ asset('frontend') }}/img/product/product-img10.jpg" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="category-content">
+                                        <h4><a href="product-details.html">simple Product 01</a></h4>
+                                        <div class="price-box">
+                                            <div class="regular-price">
+                                                $150.00
+                                            </div>
+                                            <div class="old-price">
+                                                <del>$180.00</del>
+                                            </div>
+                                        </div>
+                                        <div class="ratings">
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <div class="pro-review">
+                                                <span class="ratings-count">1 review(s)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- end single item -->
+                            </div> <!-- end single item column -->
+                            <div class="col">
+                                <div class="category-item">
+                                    <div class="category-thumb">
+                                        <a href="product-details.html">
+                                            <img src="{{ asset('frontend') }}/img/product/product-img12.jpg" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="category-content">
+                                        <h4><a href="product-details.html">external Product 01</a></h4>
+                                        <div class="price-box">
+                                            <div class="regular-price">
+                                                $140.00
+                                            </div>
+                                            <div class="old-price">
+                                                <del>$160.00</del>
+                                            </div>
+                                        </div>
+                                        <div class="ratings">
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <div class="pro-review">
+                                                <span class="ratings-count">1 review(s)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- end single item -->
+                            </div> <!-- end single item column -->
+                        </div>
+                    </div>
+                    <!-- featured category end -->
+
+                    <!-- manufacturer start -->
+                    <div class="sidebar-widget mb-22">
+                        <div class="sidebar-title mb-10">
+                            <h3>Other Information</h3>
+                        </div>
+                        <div class="sidebar-widget-body">
+                            <ul>
+                                <li><i class="fa fa-truck text-danger"></i> Pickup Point of this Product</li>
+                                <li>
+                                    <i class="fa fa-long-arrow-right"></i> {{$pick_point->pickup_point_name}} <br>
+                                    <i class="fa fa-long-arrow-right"></i> {{$pick_point->pickup_point_address}}
+                                </li>
+                                <li><i class="fa fa-truck text-danger"></i> Home Delivery</li>
+                                <li>
+                                    <i class="fa fa-long-arrow-right"></i> (4-8) days after the order place <br>
+                                    <i class="fa fa-long-arrow-right"></i> Cash on delivery available
+                                </li>
+                                <li><i class="fa fa-truck text-danger"></i> Product Return & Warrenty</li>
+                                <li>
+                                    <i class="fa fa-long-arrow-right"></i> 7 days return guarranty <br>
+                                    <i class="fa fa-long-arrow-right"></i> Warrenty not available
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- manufacturer end -->
+
+                    <!-- product Video start -->
+                    <div class="sidebar-widget mb-22">
+                        <div class="sidebar-title mb-20">
+                            <h3>Product Video</h3>
+                        </div>
+                        <div class="sidebar-widget-body">
+                            @isset($product->video)
+                            <figure class="banner-media">
+                                <iframe style="border-radius: 10px!important" width="265" height="200" src="https://www.youtube.com/embed/{{$product->video}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>                                               
+                            </figure>
+                            @endisset  
+                        </div>
+                    </div>
+                    <!-- product Video end -->
+
+                    <!-- sidebar banner start -->
+                    <div class="sidebar-widget mb-22">
+                        <div class="img-container fix img-full mt-30">
+                            <a href="#"><img src="{{ asset('frontend') }}/img/banner/banner_shop.jpg" alt=""></a>
+                        </div>
+                    </div>
+                    <!-- sidebar banner end -->
+                </div>
+            </div>
+            <!-- sidebar end -->
+        </div>
+    </div>
+</div>
+<!-- product details wrapper end -->
+
+<!-- brand area start -->
+<div class="brand-area pt-28 pb-30 pt-md-14 pt-sm-14">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title mb-30">
+                    <div class="title-icon">
+                        <i class="fa fa-crop"></i>
+                    </div>
+                    <h3>Popular Brand</h3>
+                </div> <!-- section title end -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="brand-active slick-padding slick-arrow-style">
+                    <div class="brand-item text-center">
+                        <a href="#"><img src="{{ asset('frontend') }}/img/brand/br1.png" alt=""></a>
+                    </div>
+                    <div class="brand-item text-center">
+                        <a href="#"><img src="{{ asset('frontend') }}/img/brand/br2.png" alt=""></a>
+                    </div>
+                    <div class="brand-item text-center">
+                        <a href="#"><img src="{{ asset('frontend') }}/img/brand/br3.png" alt=""></a>
+                    </div>
+                    <div class="brand-item text-center">
+                        <a href="#"><img src="{{ asset('frontend') }}/img/brand/br4.png" alt=""></a>
+                    </div>
+                    <div class="brand-item text-center">
+                        <a href="#"><img src="{{ asset('frontend') }}/img/brand/br5.png" alt=""></a>
+                    </div>
+                    <div class="brand-item text-center">
+                        <a href="#"><img src="{{ asset('frontend') }}/img/brand/br6.png" alt=""></a>
+                    </div>
+                    <div class="brand-item text-center">
+                        <a href="#"><img src="{{ asset('frontend') }}/img/brand/br4.png" alt=""></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- brand area end -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+
+    //store coupon ajax call
+  $('#review_form').submit(function(e){
+      e.preventDefault();
+      var url = $(this).attr('action');
+      var request =$(this).serialize();
+    $.ajax({
+      url:url,
+      type:'post',
+      async:false,
+      data:request,
+      success:function(data){
+          if (data=='All fields are required!') {
+              toastr.warning(data);
+        }
+        else if (data=='Already review this product!') {
+            toastr.error(data);      
+        }else{
+            toastr.success(data);
+        }
+        $('#review_form')[0].reset();
+      }
+    });
+  });  
+
+</script>
     
 @endsection

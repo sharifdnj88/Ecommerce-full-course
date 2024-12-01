@@ -182,7 +182,7 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="form-group font-weight-bold">
-                                        <label>Video Embed Code</label>
+                                        <label>Video Embed Code <span class="text-danger"> (Only embed Code)</span></label>
                                         <input name="video" type="text" value="{{ old('video ') }}" class="form-control">
                                     </div>
                                 </div>

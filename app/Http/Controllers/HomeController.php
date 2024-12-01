@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -31,5 +32,13 @@ class HomeController extends Controller
         $bannerProduct=Product::where('product_slider',1)->take(5)->get(); 
         return view('frontend.index', compact('category','bannerProduct'));
     }
+
+    // Customer Logout
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->back();
+    }
+
     
 }
