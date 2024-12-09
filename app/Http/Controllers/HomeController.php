@@ -28,9 +28,9 @@ class HomeController extends Controller
     {
         $category=DB::table('categories')->get();
 
-        // $bannerProduct=DB::table('products')->where('product_slider',1)->take(5)->get(); 
         $bannerProduct=Product::where('product_slider',1)->take(5)->get(); 
-        return view('frontend.index', compact('category','bannerProduct'));
+        $featuredProduct=Product::where('featured',1)->orderBy('id', 'DESC')->take(5)->get(); 
+        return view('frontend.index', compact('category','bannerProduct','featuredProduct'));
     }
 
     // Customer Logout

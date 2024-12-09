@@ -22,6 +22,7 @@
                                         <th>Brand Name</th>
                                         <th>Brand Slug</th>
                                         <th>Brand Logo</th>
+                                        <th>Home Page</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -33,6 +34,11 @@
                                             <td>{{ $item -> brand_slug }}</td>
                                             <td>
                                                 <img class="img-thumbnail" src="{{url('storage/brands/' .$item -> brand_logo)}}" alt="" width="120" height="120">
+                                            </td>
+                                            <td>
+                                               @if ($item -> front_page==1)
+                                                   <span class="badge badge-success">Home Page</span>
+                                                @endif                                               
                                             </td>
                                             <td>
                                                 <a href="#" class="btn btn-sm btn-warning edit" data-id="{{ $item->id }}" data-toggle="modal" data-target="#editModal" ><i class="fa fa-edit" ></i></a>                                                
@@ -78,6 +84,14 @@
                     <label for="brand_logo">Brand Logo</label>
                     <input type="file" class="dropify" data-height="140" name="brand_logo" required="">
                 </div> 
+                <div class="form-group">
+                    <label for="front_page">Show on Homepage</label>
+                   <select class="form-control" name="front_page">
+                     <option value="1">Yes</option>
+                     <option value="0">No</option>
+                   </select>
+                    <small id="emailHelp" class="form-text text-muted">If yes it will be show on your home page</small>
+                  </div> 
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

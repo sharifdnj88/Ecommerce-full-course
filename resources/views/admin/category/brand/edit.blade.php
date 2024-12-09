@@ -17,6 +17,14 @@
           <input type="file"  class="dropify" data-height="140"  name="brand_logo" >
           <input type="hidden" name="old_logo" value="{{ $data->brand_logo }}">
         </div> 
+        <div class="form-group">
+          <label for="front_page">Show on Homepage</label>
+         <select class="form-control" name="front_page">
+           <option value="1" @if($data->front_page==1) selected @endif>Yes</option>
+           <option value="0" @if($data->front_page==0) selected @endif>No</option>
+         </select>
+          <small id="emailHelp" class="form-text text-muted">If yes it will be show on your home page</small>
+        </div> 
     </div>
     <div class="modal-footer">
       <button type="Submit" class="btn btn-primary"> <span class="d-none"> loading..... </span>  Update</button>

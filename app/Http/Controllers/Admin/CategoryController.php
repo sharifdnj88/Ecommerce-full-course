@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class CategoryController extends Controller
 {
@@ -34,20 +35,23 @@ class CategoryController extends Controller
             'category_name' => 'required|unique:categories|max:55',
         ]);
 
-        //query builder
-    	// $data=array();
-    	// $data['category_name']=$request->category_name;
-    	// $data['category_slug']=Str::slug($request->category_name, '-');
-    	// DB::table('categories')->insert($data);
+        $data=array();
+        $data['category_name']=$request->category_name;
+        $data['category_slug']=Str::slug($request->category_name, '-');
+        $data['home_page']=$request->home_page;
 
+        // Category photo upload
         $slug=Str::slug($request->category_name, '-');
-        Category::insert([
-            'category_name'=> $request->category_name,
-            'category_slug'=> $slug
-        ]);
+        $photo=$request->icon;
+        $photoname=$slug.'_'.md5( time(). rand() ).'.'.$photo->getClientOriginalExtension();
+        Image::make($photo)->resize(32,32)->save( storage_path('app/public/categories/'). $photoname );
+        $data['icon']=$photoname;
+
+        DB::table('categories')->insert($data);
 
         $notification=array('messege' => 'Category Inserted!', 'alert-type' => 'success');
         return redirect()->back()->with($notification);
+        
 
 
     }
@@ -56,28 +60,37 @@ class CategoryController extends Controller
     public function edit($id)
     {
     	// $data=DB::table('categories')->where('id',$id)->first();
-        $data=Category::findorfail($id);
-        return response()->json($data);
+        $edit=Category::findorfail($id);
+        return view('admin.category.category.edit', compact('edit'));
     }
 
     // Category Update Method
     public function update(Request $request){
-        // Query builder
-        // $id=$request->id;
-        // $data=array();
-        // $data['category_name']=$request->category_name;
-        // $data['category_slug']=Str::slug($request->category_name, '-');
-        // DB::table('categories')->where('id', $id)->update($data);
+        
+        $data=array();
+        $data['category_name']=$request->category_name;
+        $data['category_slug']=Str::slug($request->category_name, '-');
+        $data['home_page']=$request->home_page;
 
-        // Eloquent ORM
-        $category =Category::where('id', $request->id);
-        $category->update([
-            'category_name'=> $request->category_name,
-            'category_slug'=> Str::slug($request->category_name, '-')
-        ]);
+        if ($request->icon) {
+            if ($request->old_image ) {
+                  unlink('storage/campaigns/'. $request->old_image);
+              }
+          $slug=Str::slug($request->category_name, '-');
+          $photo=$request->icon;
+          $photoname=$slug.'_'.md5( time(). rand() ).'.'.$photo->getClientOriginalExtension();
+          Image::make($photo)->resize(32,32)->save( storage_path('app/public/categories/'). $photoname );
+          $data['icon']=$photoname; 
+          DB::table('categories')->where('id',$request->id)->update($data);
 
-        $notification=array('messege' => 'Category Update Successfully', 'alert-type' => 'success');
-    	return redirect()->back()->with($notification);
+          $notification=array('messege' => 'Category Update!', 'alert-type' => 'success');
+          return redirect()->back()->with($notification);
+      }else{
+        $data['icon']=$request->old_icon;
+        DB::table('categories')->where('id',$request->id)->update($data);
+        $notification=array('messege' => 'Category Update!', 'alert-type' => 'success');
+        return redirect()->back()->with($notification);
+      }  
 
     }
 

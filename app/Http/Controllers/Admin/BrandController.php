@@ -38,6 +38,7 @@ class BrandController extends Controller
         $data=array();
         $data['brand_name']=$request->brand_name;
         $data['brand_slug']=Str::slug($request->brand_name, '-');
+        $data['front_page']=$request->front_page;
 
         // Brand photo upload
         $slug=Str::slug($request->brand_name, '-');
@@ -67,6 +68,7 @@ class BrandController extends Controller
     	$data=array();
     	$data['brand_name']=$request->brand_name;
     	$data['brand_slug']=Str::slug($request->brand_name, '-');
+        $data['front_page']=$request->front_page;
 
 
     	if ($request->brand_logo) {

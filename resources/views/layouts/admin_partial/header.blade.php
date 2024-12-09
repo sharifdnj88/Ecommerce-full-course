@@ -5,12 +5,14 @@
     <!-- Logo -->
     <div class="header-left">
         <a href="{{route('admin.home')}}" class="logo">
+            @isset ($website->logo)
             <img src="{{url('storage/setting/' . $website->logo )}}" alt="Logo">
+            @endisset
         </a>
         <a href="{{route('admin.home')}}" class="logo logo-small">
-            @if ($website->favicon)
+            @isset ($website->favicon)
             <img src="{{url('storage/setting/' . $website->favicon )}}" alt="Logo" width="30" height="30">                
-            @endif
+            @endisset
         </a>
     </div>
     <!-- /Logo -->
@@ -107,6 +109,8 @@
             </div>
         </li>
         <!-- /Notifications -->
+
+        
         
         <!-- User Menu -->
         <li class="nav-item dropdown has-arrow">

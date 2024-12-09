@@ -30,10 +30,10 @@
                 </li>
                 {{-- =========================Offer Code Start========================= --}}
                 <li class="submenu">
-                    <a class="{{ request()->is('coupon') ? 's_active' : '' }}" href="#"><i class="fa fa-folder"></i> <span> Offer</span> <span class="menu-arrow"></span></a>
+                    <a class="{{ request()->is('coupon') ? 's_active' : '' }} {{ request()->is('campaign') ? 's_active' : '' }}" href="#"><i class="fa fa-folder"></i> <span> Offer</span> <span class="menu-arrow"></span></a>
                     <ul style="display: none;">
-                        <li class="{{ request()->is('coupon') ? 'active' : '' }}"><a href="{{route('coupon.index')}}"><i class="fa fa-circle-o"></i> Coupon</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i> E Campaign</a></li>                        
+                        <li class="{{ request()->is('coupon') ? 'active' : '' }}"><a href="{{route('coupon.index')}}"><i class="fa fa-circle-o"></i>Coupon</a></li>
+                        <li class="{{ request()->is('campaign') ? 'active' : '' }}"><a href="{{route('campaign.index')}}"><i class="fa fa-circle-o"></i>Campaign</a></li>                        
                     </ul>
                 </li>
                 {{-- =========================Pickup Point Code Start========================= --}}

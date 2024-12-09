@@ -44,7 +44,7 @@ class ReviewController extends Controller
         $data['product_id']=$request->product_id;
         $data['review']=$request->review;
         $data['rating']=$request->rating;
-        $data['review_date']=date('d-m-Y');
+         $data['review_date']=date("d-m-Y");
         $data['review_month']=date('F');
         $data['review_year']=date('Y');
         DB::table('reviews')->insert($data);

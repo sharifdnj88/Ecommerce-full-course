@@ -165,6 +165,10 @@
                                         <input type="checkbox" name="product_slider" value="1" data-bootstrap-switch data-off-color="danger" data-on-color="success">                                        
                                     </div>
                                     <div class="form-group font-weight-bold form-border">
+                                        <label>Product Trendy</label> <br>
+                                        <input type="checkbox" name="trendy" value="1" data-bootstrap-switch data-off-color="danger" data-on-color="success">                                        
+                                    </div>
+                                    <div class="form-group font-weight-bold form-border">
                                         <label>Status</label> <br>
                                         <input type="checkbox" name="status" value="1" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">                                        
                                     </div>
@@ -213,18 +217,18 @@ $("input[data-bootstrap-switch]").each(function(){
 
  //ajax request send for collect childcategory
  $("#subcategory_id").change(function(){
-        var id = $(this).val();
-        $.ajax({
-             url: "{{ url("/get-child-category/") }}/"+id,
-             type: 'get',
-             success: function(data) {
-                  $('select[name="childcategory_id"]').empty();
-                     $.each(data, function(key,data){
-                        $('select[name="childcategory_id"]').append('<option value="'+ data.id +'">'+ data.childcategory_name +'</option>');
-                  });
-             }
-          });
-       });       
+    var id = $(this).val();
+    $.ajax({
+            url: "{{ url("/get-child-category/") }}/"+id,
+            type: 'get',
+            success: function(data) {
+                $('select[name="childcategory_id"]').empty();
+                    $.each(data, function(key,data){
+                    $('select[name="childcategory_id"]').append('<option value="'+ data.id +'">'+ data.childcategory_name +'</option>');
+                });
+            }
+        });
+    });       
   
 
 

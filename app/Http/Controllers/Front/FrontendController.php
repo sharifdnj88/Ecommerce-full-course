@@ -15,17 +15,24 @@ class FrontendController extends Controller
     {
         $category=DB::table('categories')->get();
 
-        // $bannerProduct=DB::table('products')->where('product_slider',1)->take(5)->get(); 
-        $bannerProduct=Product::where('product_slider',1)->orderBy('id', 'DESC')->take(5)->get(); 
-        return view('frontend.index', compact('category','bannerProduct'));
+        $bannerProduct=Product::where('status',1)->where('product_slider',1)->orderBy('id', 'DESC')->take(5)->get(); 
+        $featuredProduct=Product::where('status',1)->where('featured',1)->orderBy('id', 'DESC')->take(20)->get(); 
+
+        $todayDeal=Product::where('status',1)->where('today_deal',1)->orderBy('id', 'DESC')->take(6)->get(); 
+        $popularProduct=Product::where('status',1)->orderBy('product_views', 'DESC')->take(16)->get(); 
+        $trendyProduct=Product::where('status',1)->where('trendy',1)->orderBy('id', 'DESC')->take(20)->get();
+        $randomProduct=Product::where('status',1)->inRandomOrder()->take(20)->get(); 
+        $home_category=DB::table('categories')->where('home_page',1)->orderBy('category_name', 'ASC')->get();
+        $reviews=DB::table('reviews')->where('rating',5)->orderBy('id', 'DESC')->take(5)->get();
+        $brand=DB::table('brands')->where('front_page',1)->inRandomOrder()->take(30)->get();
+        return view('frontend.index', compact('category','bannerProduct','featuredProduct','todayDeal','popularProduct','trendyProduct','home_category','brand','reviews','randomProduct'));
     }
 
     // Product Details Method
     public function productDetails($slug)
     {
         $product=DB::table('products')->where('slug', $slug)->first();
-
-        // dd($product);
+                 DB::table('products')->where('slug', $slug)->increment('product_views');
 
         $cat=DB::table('products')->leftJoin('categories', 'products.category_id', 'categories.id')
                 ->select('categories.category_name', 'products.*')->where('slug', $slug)->first();
@@ -47,7 +54,18 @@ class FrontendController extends Controller
         // Review Show
         $reviews=Review::where('product_id', $product->id)->orderBy('id', 'DESC')->get();
 
-        return view('frontend.product_details', compact('product', 'category', 'cat','subcat', 'brand', 'pick_point', 'related_product', 'reviews'));
+        return view('frontend.product.product_details', compact('product', 'category', 'cat','subcat', 'brand', 'pick_point', 'related_product', 'reviews'));
     }
+
+
+    // Product Quick View
+    public function productQuickView($id)
+    {
+        $product=Product::where('id', $id)->first();
+        return view('frontend.product.quick_view', compact('product'));
+    }     
+
+
+
 
 }

@@ -1,5 +1,5 @@
 @php
-    $category=DB::table('categories')->get();
+    $category=DB::table('categories')->where('home_page',1)->orderBy('id', 'DESC')->take(9)->get();
 @endphp
 <header>
     <!-- header top start -->
@@ -12,14 +12,14 @@
                             <i class="fa fa-envelope"></i>
                             khalifashopbd.com
                         </a>
-                        <a href="#">
+                        <a href="tel:+8801601153971">
                             <i class="fa fa-phone"></i>
                             +8801601153971
                         </a>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-7">
-                    <div class="header-top-right float-md-right float-none">
+                    <div class="header-top-right float-md-right float-none" id="loginReg">
                         <nav>
                             <ul>
                                 @guest
@@ -39,9 +39,23 @@
                                     </div>
                                 </li>
                                 @endguest
-                                
+
                                 <li>
-                                    <a href="#">my wishlist</a>
+                                   @if (Auth::check())
+                                    <div class="header-mini-wishlist">
+                                        <div class="mini-wishlist-btn">
+                                            <i class="fa fa-heart"></i>
+                                            <span class="wishlist-notification wishlist_qty"></span>                                          
+                                        </div>
+                                    </div> 
+                                    @else
+                                        <div class="header-mini-wishlist">
+                                            <div class="mini-wishlist-btn">
+                                                <i class="fa fa-heart-o"></i>
+                                                <span class="wishlist-notification">0</span>                                          
+                                            </div>
+                                        </div> 
+                                    @endif
                                 </li>
                                 <li>
                                     <a href="#">my cart</a>
@@ -79,11 +93,16 @@
                             <div class="header-mini-cart">
                                 <div class="mini-cart-btn">
                                     <i class="fa fa-shopping-cart"></i>
-                                    <span class="cart-notification">2</span>
+                                    <span class="cart-notification cart_qty"></span>
                                 </div>
-                                <div class="cart-total-price">
+                                <div class="cart-total-price" style="font-size: 12px">
+                                    <a class="text-white" href="{{route('cart')}}">
                                     <span>total</span>
-                                    $50.00
+                                    <div class="cart-total-area d-flex">
+                                        <span>{{$setting->currency}}</span>
+                                        <span class="cart_total"></span>
+                                    </div>
+                                    </a>
                                 </div>
                                 <ul class="cart-list">
                                     <li>
@@ -148,8 +167,10 @@
                                     @php
                                         $subcategory=DB::table('subcategories')->where('category_id', $item->id)->get();
                                     @endphp
-                                    <li class="menu-item-has-children"><a href="#"><i
-                                                class="fa fa-desktop"></i> {{$item->category_name}}</a>
+                                    <li class="menu-item-has-children">
+                                        <a href="#">
+                                            <img src="{{url('storage/categories/' .$item -> icon)}}" height="18" width="18" alt="{{$item->category_name}}">  {{$item->category_name}}
+                                        </a>                                        
                                         <!-- Mega Category Menu Start -->
                                         <ul class="category-mega-menu">
                                             @foreach ($subcategory as $item)  
@@ -157,7 +178,7 @@
                                                 $childcategory=DB::table('childcategories')->where('subcategory_id', $item->id)->get();
                                             @endphp                                                                                        
                                             <li class="menu-item-has-children sub-category-item">
-                                                <a href="#" class="btn btn-primary text-white"><i class="fa fa-list-alt"></i> {{$item->subcategory_name}}</a>
+                                                <a href="#"><i class="fa fa-list-alt"></i> {{$item->subcategory_name}}</a>
                                                 <ul>
                                                     @foreach ($childcategory as $item) 
                                                     <li><a href="#"><i class="fa fa-arrow-right"></i> {{$item->childcategory_name}}</a></li>
@@ -257,29 +278,30 @@
                                         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                             <div class="login-reg-form-wrap mt-md-34 mt-sm-34">
                                                 <h2>Register Form</h2>
-                                                <form action="#" method="post">
+                                                <form action="{{route('register')}}" method="post">
+                                                    @csrf
                                                     <div class="single-input-item">
-                                                        <input type="text" placeholder="Full Name" required="">
+                                                        <input name="name" type="text" placeholder="Full Name" required="">
                                                     </div>
                                                     <div class="single-input-item">
-                                                        <input type="email" placeholder="Enter your Email" required="">
+                                                        <input name="email" type="email" placeholder="Enter your Email" required="">
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <div class="single-input-item">
-                                                                <input type="password" placeholder="Enter your Password" required="">
+                                                                <input name="password" type="password" placeholder="Enter your Password" required="">
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6">
                                                             <div class="single-input-item">
-                                                                <input type="password" placeholder="Repeat your Password" required="">
+                                                                <input name="password_confirmation" type="password" placeholder="Repeat your Password" required="">
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="single-input-item">
                                                         <div class="login-reg-form-meta">
                                                             <div class="remember-meta">
-                                                                <div class="custom-control custom-checkbox">
+                                                                <div class="custom-control custom-checkbox text-left">
                                                                     <input type="checkbox" class="custom-control-input" id="subnewsletter">
                                                                     <label class="custom-control-label" for="subnewsletter">Subscribe Our Newsletter</label>
                                                                 </div>
@@ -333,7 +355,7 @@
                                     <div class="myaccount-content">
                                         <h3>Dashboard</h3>
                                         <div class="welcome">
-                                            <p>Hello, <strong> @isset(Auth::User()->name)                                               {{Auth::User()->name}}
+                                            <p>Hello, <strong> @isset(Auth::User()->name){{Auth::User()->name}}
                                             @endisset </strong> (If Not <strong>Tuntuni !</strong><a href="login-register.html" class="logout"> Logout</a>)</p>                                                
                                         </div>
                                         <p class="mb-0">From your account dashboard. you can easily check &amp; view your recent orders, manage your shipping and billing addresses and edit your password and account details.</p>
@@ -509,3 +531,44 @@
     <!-- My Account modal end -->
 
 </header>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script type="text/javascript" charset="utf-8">
+    function cart() {
+         $.ajax({
+            type:'get',
+            url:'{{ route('all.cart') }}', 
+            dataType: 'json',
+            success:function(data){
+               $('.cart_qty').empty();
+               $('.cart_total').empty();
+               $('.cart_qty').append(data.cart_qty);
+               $('.cart_total').append(data.cart_total);
+            }
+        });
+    }
+    $(document).ready(function(event) {
+        cart();        
+    });
+    
+ </script>
+
+<script type="text/javascript" charset="utf-8">
+    function wishlist() {
+         $.ajax({
+            type:'get',
+            url:'{{ route('all.wishlist') }}', 
+            dataType: 'json',
+            success:function(data){                
+               $('.wishlist_qty').empty();
+               $('.wishlist_qty').append(data.wishlist_qty);
+            }
+        });
+    }
+    $(document).ready(function(event) {
+        wishlist();        
+    });
+    
+ </script>

@@ -38,6 +38,9 @@
 
     $sum_rating=App\Models\Review::where('product_id',$product->id)->sum('rating');
     $count_rating=App\Models\Review::where('product_id',$product->id)->count('rating');
+    $total_review=App\Models\Review::where('product_id',$product->id)->count('review');
+
+    // $average=$sum_rating/$count_rating;
 @endphp
 <!-- product details wrapper start -->
 <div class="product-details-wrapper">
@@ -49,16 +52,24 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="product-large-slider mb-20 slick-arrow-style_2">
+                                @if($gallery_photo)
                                 @foreach ($gallery_photo as $gallery)
                                 <div class="pro-large-img img-zoom" id="img1">
                                     <img src="{{url('storage/products/' .$gallery)}}" alt="{{$product->name}}" />
                                 </div>                               
                                 @endforeach
+                                @else
+                                <div class="pro-large-img img-zoom" id="img1">
+                                    <img src="{{url('storage/products/' .$product->thumbnail)}}" alt="{{$product->name}}" />
+                                </div>
+                                @endif
                             </div>
                             <div class="pro-nav slick-padding2 slick-arrow-style_2">
+                                @isset($gallery_photo)
                                 @foreach ($gallery_photo as $gallery)
                                 <div class="pro-nav-thumb"><img src="{{url('storage/products/' .$gallery)}}" alt="{{$product->name}}" /></div>
                                 @endforeach
+                                @endisset
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -78,18 +89,67 @@
                                         <span class="regular-price">{{$setting->currency}}{{$product->selling_price}}</span>
                                     @else
                                         <span class="regular-price">{{$setting->currency}}{{$product->selling_price}}</span>
-                                        <del class="old-price">{{$setting->currency}}{{$product->discount_price}}</del>
+                                        <del class="old-price text-dark font-weight-bold">{{$setting->currency}}{{$product->discount_price}}</del>
                                     @endif
                                 </div>
                                 <div class="ratings">
-                                    <span class="good"><i class="fa fa-star"></i></span>
-                                    <span class="good"><i class="fa fa-star"></i></span>
-                                    <span class="good"><i class="fa fa-star"></i></span>
-                                    <span class="good"><i class="fa fa-star"></i></span>
-                                    <span><i class="fa fa-star"></i></span>
-                                    <div class="pro-review">
-                                        <span class="ratings-count">(3 Reviews)</span>
+                                    @if($sum_rating !=null)
+                                    @if(intval($sum_rating/$count_rating) >= 5)
+                                    <div class="ratings" data-toggle="tooltip" title="5.00" >
+                                        <span class="one_star"><i class="fa fa-star"></i></span>
+                                        <span class="two_star"><i class="fa fa-star"></i></span>
+                                        <span class="three_star"><i class="fa fa-star"></i></span>
+                                        <span class="four_star"><i class="fa fa-star"></i></span>
+                                        <span class="five_star"><i class="fa fa-star"></i></span>
+                                        <span class="ratings-count">({{$total_review}} Reviews)</span>
                                     </div>
+                                    @elseif(intval($sum_rating/$count_rating) >= 4 && intval($sum_rating/5) <$count_rating)
+                                    <div class="ratings" data-toggle="tooltip" title="4.00" >
+                                        <span class="one_star"><i class="fa fa-star"></i></span>
+                                        <span class="two_star"><i class="fa fa-star"></i></span>
+                                        <span class="three_star"><i class="fa fa-star"></i></span>
+                                        <span class="four_star"><i class="fa fa-star"></i></span>
+                                        <span><i class="fa fa-star"></i></span>
+                                        <span class="ratings-count">({{$total_review}} Reviews)</span>
+                                    </div>
+                                    @elseif(intval($sum_rating/$count_rating) >= 3 && intval($sum_rating/5) <$count_rating)
+                                    <div class="ratings" data-toggle="tooltip" title="3.00" >
+                                        <span class="one_star"><i class="fa fa-star"></i></span>
+                                        <span class="two_star"><i class="fa fa-star"></i></span>
+                                        <span class="three_star"><i class="fa fa-star"></i></span>
+                                        <span><i class="fa fa-star"></i></span>
+                                        <span><i class="fa fa-star"></i></span>
+                                        <span class="ratings-count">({{$total_review}} Reviews)</span>
+                                    </div>
+                                    @elseif(intval($sum_rating/$count_rating) >= 2 && intval($sum_rating/5) <$count_rating)
+                                    <div class="ratings" data-toggle="tooltip" title="2.00" >
+                                        <span class="one_star"><i class="fa fa-star"></i></span>
+                                        <span class="two_star"><i class="fa fa-star"></i></span>
+                                        <span><i class="fa fa-star"></i></span>
+                                        <span><i class="fa fa-star"></i></span>
+                                        <span><i class="fa fa-star"></i></span>
+                                        <span class="ratings-count">({{$total_review}} Reviews)</span>
+                                    </div>
+                                    @else
+                                    <div class="ratings" data-toggle="tooltip" title="1.00" >
+                                        <span class="one_star"><i class="fa fa-star"></i></span>
+                                        <span><i class="fa fa-star"></i></span>
+                                        <span><i class="fa fa-star"></i></span>
+                                        <span><i class="fa fa-star"></i></span>
+                                        <span><i class="fa fa-star"></i></span>
+                                        <span class="ratings-count">({{$total_review}} Reviews)</span>
+                                    </div>
+                                    @endif 
+                                    @else
+                                    <div class="ratings" data-toggle="tooltip" title="0.00" >
+                                        <span><i class="fa fa-star"></i></span>
+                                        <span><i class="fa fa-star"></i></span>
+                                        <span><i class="fa fa-star"></i></span>
+                                        <span><i class="fa fa-star"></i></span>
+                                        <span><i class="fa fa-star"></i></span>
+                                        <span class="ratings-count">(0 Reviews)</span>
+                                    </div>
+                                    @endif 
                                 </div>
                                 <div class="availability mt-10">
                                     @if ($product->stock_quantity>1)
@@ -131,12 +191,18 @@
                                         </div>
                                     </div>                                    
                                 </div>
-                                <div class="quantity-cart-box d-flex align-items-center">
+                                <div class="quantity-cart-box d-flex align-items-center w-100">
                                     <div class="quantity">
                                         <div class="pro-qty"><input type="text" value="1"></div>
                                     </div>
                                     <div class="action_link w-100">
-                                        <a class="buy-btn w-100" href="#">add to cart<i class="fa fa-shopping-cart"></i></a>
+                                        <a class="buy-btn" style="width: 95%" href="#">add to cart<i class="fa fa-shopping-cart"></i></a>
+                                    </div>
+                                    <div class="wishlist">
+                                        <form action="{{route('add.wishlist', $product->id)}}" id="wishlist_btn" method="POST">
+                                            @csrf                                            
+                                            <button type="submit" class="btn btn-danger w-100"><i class="fa fa-heart-o"></i></button>                                            
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -188,11 +254,16 @@
                                     <div class="tab-pane fade" id="tab_three">                                       
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div class="brand-rating-details d-flex">
-                                                 <span class="text-danger font-weight-bold" style="font-size:40px;margin-right:10px;margin-top:10px">{{round($sum_rating/$count_rating)}}</span>
+                                                <div class="brand-rating-details d-flex align-items-center">
+                                                @if($sum_rating !=null && $count_rating !=null ) 
+                                                 <span class="text-danger font-weight-bold" style="font-size:40px;margin-right:10px;margin-top:10px">{{number_format($sum_rating/$count_rating,1)}}</span> 
+                                                 @else
+                                                 <span class="text-danger font-weight-bold" style="font-size:40px;margin-right:10px;margin-top:10px">0</span> 
+                                                 @endif                                                
                                                 <div class="brand-rating d-flex flex-column">
                                                     <div class="review-box">
                                                         <strong>Avarage Ratings</strong>
+                                                        @if($sum_rating !=null)
                                                         @if(intval($sum_rating/$count_rating) >= 5)
                                                         <div class="ratings" data-toggle="tooltip" title="5.00" >
                                                             <span class="one_star"><i class="fa fa-star"></i></span>
@@ -200,7 +271,7 @@
                                                             <span class="three_star"><i class="fa fa-star"></i></span>
                                                             <span class="four_star"><i class="fa fa-star"></i></span>
                                                             <span class="five_star"><i class="fa fa-star"></i></span>
-                                                            <span class="ratings-count">({{$sum_rating}} Rating)</span>
+                                                            <span class="ratings-count">({{$total_review}} Reviews)</span>
                                                         </div>
                                                         @elseif(intval($sum_rating/$count_rating) >= 4 && intval($sum_rating/5) <$count_rating)
                                                         <div class="ratings" data-toggle="tooltip" title="4.00" >
@@ -209,7 +280,7 @@
                                                             <span class="three_star"><i class="fa fa-star"></i></span>
                                                             <span class="four_star"><i class="fa fa-star"></i></span>
                                                             <span><i class="fa fa-star"></i></span>
-                                                            <span class="ratings-count">({{$sum_rating}} Rating)</span>
+                                                            <span class="ratings-count">({{$total_review}} Reviews)</span>
                                                         </div>
                                                         @elseif(intval($sum_rating/$count_rating) >= 3 && intval($sum_rating/5) <$count_rating)
                                                         <div class="ratings" data-toggle="tooltip" title="3.00" >
@@ -218,7 +289,7 @@
                                                             <span class="three_star"><i class="fa fa-star"></i></span>
                                                             <span><i class="fa fa-star"></i></span>
                                                             <span><i class="fa fa-star"></i></span>
-                                                            <span class="ratings-count">({{$sum_rating}} Rating)</span>
+                                                            <span class="ratings-count">({{$total_review}} Reviews)</span>
                                                         </div>
                                                         @elseif(intval($sum_rating/$count_rating) >= 2 && intval($sum_rating/5) <$count_rating)
                                                         <div class="ratings" data-toggle="tooltip" title="2.00" >
@@ -227,7 +298,7 @@
                                                             <span><i class="fa fa-star"></i></span>
                                                             <span><i class="fa fa-star"></i></span>
                                                             <span><i class="fa fa-star"></i></span>
-                                                            <span class="ratings-count">({{$sum_rating}} Rating)</span>
+                                                            <span class="ratings-count">({{$total_review}} Reviews)</span>
                                                         </div>
                                                         @else
                                                         <div class="ratings" data-toggle="tooltip" title="1.00" >
@@ -236,8 +307,18 @@
                                                             <span><i class="fa fa-star"></i></span>
                                                             <span><i class="fa fa-star"></i></span>
                                                             <span><i class="fa fa-star"></i></span>
-                                                            <span class="ratings-count">({{$sum_rating}} Rating)</span>
+                                                            <span class="ratings-count">({{$total_review}} Reviews)</span>
                                                         </div>
+                                                        @endif     
+                                                        @else
+                                                        <div class="ratings" data-toggle="tooltip" title="0.00" >
+                                                            <span><i class="fa fa-star"></i></span>
+                                                            <span><i class="fa fa-star"></i></span>
+                                                            <span><i class="fa fa-star"></i></span>
+                                                            <span><i class="fa fa-star"></i></span>
+                                                            <span><i class="fa fa-star"></i></span>
+                                                            <span class="ratings-count">(0 Reviews)</span>
+                                                        </div>                                                  
                                                         @endif                                                       
                                                     </div>
                                                 </div>
@@ -316,7 +397,7 @@
                                                       <input type="hidden" name="product_id" value="{{$product->id}}">
                                                       <div class="form-group d-flex flex-column">
                                                         <label>Select your Rating <span class="text-danger">*</span> </label>
-                                                        <select name="rating" class="form-control">
+                                                        <select name="rating" class="form-control">                                                            
                                                             <option value="5">5 Star</option>
                                                             <option value="4">4 Star</option>
                                                             <option value="3">3 Star</option>
@@ -328,7 +409,7 @@
                                                         @if (Auth::check())
                                                             <button type="submit" class="btn btn-danger"><i class="fa fa-star"></i> Submit</button>                                                            
                                                         @else
-                                                        <span class="btn btn-success"><i class="fa fa-star"></i> Please login first</span>
+                                                        <a href="#" data-target="#loginReg" class="btn btn-success"><i class="fa fa-star"></i> Please login first</a>
                                                         @endif
                                                       </div>
                                                 </form>
@@ -422,6 +503,19 @@
                     <div class="featured-carousel-active slick-padding slick-arrow-style">
                         <!-- product single item start -->
                         @foreach ($related_product as $item)   
+                        @php
+                        $review_5=App\Models\Review::where('product_id',$item->id)->where('rating',5)->count();
+                        $review_4=App\Models\Review::where('product_id',$item->id)->where('rating',4)->count();
+                        $review_3=App\Models\Review::where('product_id',$item->id)->where('rating',3)->count();
+                        $review_2=App\Models\Review::where('product_id',$item->id)->where('rating',2)->count();
+                        $review_1=App\Models\Review::where('product_id',$item->id)->where('rating',1)->count();
+
+                        $sum_rating=App\Models\Review::where('product_id',$item->id)->sum('rating');
+                        $count_rating=App\Models\Review::where('product_id',$item->id)->count('rating');
+                        $total_review=App\Models\Review::where('product_id',$item->id)->count('review');
+
+                        // $average=$sum_rating/$count_rating;
+                    @endphp
                         <div class="product-item fix">
                             <div class="product-thumb">
                                 <a href="#">                                       
@@ -432,9 +526,15 @@
                                     <span>New</span>
                                 </div>
                                 <div class="product-action-link">
-                                    <a href="#" data-toggle="modal" data-target="#quick_view"> <span data-toggle="tooltip" data-placement="left" title="Quick view"><i class="fa fa-search"></i></span> </a>
-                                    <a href="#" data-toggle="tooltip" data-placement="left" title="Wishlist"><i class="fa fa-heart-o"></i></a>
-                                    <a href="#" data-toggle="tooltip" data-placement="left" title="Compare"><i class="fa fa-refresh"></i></a>
+                                    <a href="#" class="quick_view_product" id="{{$item->id}}" data-toggle="modal" data-target="#quick_view"> <span data-toggle="tooltip"
+                                        data-placement="left" title="Quick view"><i class="fa fa-search"></i></span>
+                                    </a>
+                                    <a href="#" data-toggle="tooltip" data-placement="left" title="Wishlist">
+                                        <form action="{{route('add.wishlist', $item->id)}}" id="wishlist_btn" method="POST">
+                                            @csrf                                            
+                                            <button type="submit" class="home-wishlist-btn"><i class="fa fa-heart-o"></i></button>                                            
+                                        </form>
+                                    </a>                                    
                                     <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>
                                 </div>
                             </div>
@@ -442,22 +542,71 @@
                                 <h4><a href="{{route('product.details', $item->slug)}}"> {!! Str::of( htmlspecialchars_decode( $item->name ))-> words(3, '...') !!} </a></h4>
                                 <div class="pricebox">
                                     <span class="regular-price">
-                                    @if($product->discount_price==null)
-                                        <span class="regular-price">{{$setting->currency}}{{$product->selling_price}}</span>
+                                    @if($item->discount_price==null)
+                                        <span class="regular-price">{{$setting->currency}}{{$item->selling_price}}</span>
                                     @else
-                                        <span class="regular-price">{{$setting->currency}}{{$product->selling_price}}</span>
-                                        <del class="old-price">{{$setting->currency}}{{$product->discount_price}}</del>
+                                        <span class="regular-price">{{$setting->currency}}{{$item->selling_price}}</span>
+                                        <del class="old-price text-dark">{{$setting->currency}}{{$item->discount_price}}</del>
                                     @endif
                                     </span>
                                     <div class="ratings">
-                                        <span class="good"><i class="fa fa-star"></i></span>
-                                        <span class="good"><i class="fa fa-star"></i></span>
-                                        <span class="good"><i class="fa fa-star"></i></span>
-                                        <span class="good"><i class="fa fa-star"></i></span>
-                                        <span><i class="fa fa-star"></i></span>
-                                        <div class="pro-review">
-                                            <span class="ratings-count">10 (Reviews)</span>
+                                        @if($sum_rating !=null)
+                                        @if(intval($sum_rating/$count_rating) >= 5)
+                                        <div class="ratings" data-toggle="tooltip" title="5.00" >
+                                            <span class="one_star"><i class="fa fa-star"></i></span>
+                                            <span class="two_star"><i class="fa fa-star"></i></span>
+                                            <span class="three_star"><i class="fa fa-star"></i></span>
+                                            <span class="four_star"><i class="fa fa-star"></i></span>
+                                            <span class="five_star"><i class="fa fa-star"></i></span>
+                                            <span class="ratings-count">({{$total_review}} Reviews)</span>
                                         </div>
+                                        @elseif(intval($sum_rating/$count_rating) >= 4 && intval($sum_rating/5) <$count_rating)
+                                        <div class="ratings" data-toggle="tooltip" title="4.00" >
+                                            <span class="one_star"><i class="fa fa-star"></i></span>
+                                            <span class="two_star"><i class="fa fa-star"></i></span>
+                                            <span class="three_star"><i class="fa fa-star"></i></span>
+                                            <span class="four_star"><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <span class="ratings-count">({{$total_review}} Reviews)</span>
+                                        </div>
+                                        @elseif(intval($sum_rating/$count_rating) >= 3 && intval($sum_rating/5) <$count_rating)
+                                        <div class="ratings" data-toggle="tooltip" title="3.00" >
+                                            <span class="one_star"><i class="fa fa-star"></i></span>
+                                            <span class="two_star"><i class="fa fa-star"></i></span>
+                                            <span class="three_star"><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <span class="ratings-count">({{$total_review}} Reviews)</span>
+                                        </div>
+                                        @elseif(intval($sum_rating/$count_rating) >= 2 && intval($sum_rating/5) <$count_rating)
+                                        <div class="ratings" data-toggle="tooltip" title="2.00" >
+                                            <span class="one_star"><i class="fa fa-star"></i></span>
+                                            <span class="two_star"><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <span class="ratings-count">({{$total_review}} Reviews)</span>
+                                        </div>
+                                        @else
+                                        <div class="ratings" data-toggle="tooltip" title="1.00" >
+                                            <span class="one_star"><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <span class="ratings-count">({{$total_review}} Reviews)</span>
+                                        </div>
+                                        @endif 
+                                        @else
+                                        <div class="ratings" data-toggle="tooltip" title="0.00" >
+                                            <span><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <span class="ratings-count">(0 Reviews)</span>
+                                        </div>
+                                        @endif 
                                     </div>
                                 </div>
                             </div>
@@ -824,6 +973,21 @@
 </div>
 <!-- brand area end -->
 
+    <!-- Quick view modal start -->
+    <div class="modal" id="quick_view">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" id="quick_view_body">
+                {{-- Data Come from product quick_view --}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Quick view modal end -->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
@@ -838,19 +1002,59 @@
       type:'post',
       async:false,
       data:request,
-      success:function(data){
-          if (data=='All fields are required!') {
+      success:function(data){        
+          if (data=='All fields are required!') {        
               toastr.warning(data);
         }
-        else if (data=='Already review this product!') {
-            toastr.error(data);      
+        else if (data=='Already review this product!') { 
+            toastr.error(data);    
         }else{
             toastr.success(data);
         }
-        $('#review_form')[0].reset();
+        $('#review_form')[0].reset();    
       }
     });
   });  
+
+    //Wishlist form submit
+    $(document).on('click', '#wishlist_btn', function(e){ 
+      e.preventDefault();
+      var url = $(this).attr('action');
+      var request =$(this).serialize();
+    $.ajax({
+      url:url,
+      type:'post',
+      async:false,
+      data:request,
+      success:function(data){
+          if (data=='Please login!') {
+              toastr.info(data);
+        }
+        else if (data=='Already added in wishlist!') {
+            toastr.warning(data);      
+        }else{
+            toastr.success(data);
+            wishlist();
+        }
+      }
+    });
+  });  
+
+  // Product Quick View
+  $(document).on('click', '.quick_view_product', function(){  
+        var id = $(this).attr('id');
+        $.ajax({
+                url: "{{ url("/product-quick-view/") }}/"+id,
+                type: 'get',
+                success: function(data) {
+                    $("#quick_view_body").html(data);
+                }
+            });
+    });  
+
+
+
+
 
 </script>
     

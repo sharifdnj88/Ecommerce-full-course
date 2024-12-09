@@ -222,6 +222,7 @@ class productController extends Controller
         $data['size']=$request->size;
         $data['featured']=$request->featured;
         $data['product_slider']=$request->product_slider;
+        $data['trendy']=$request->trendy;
         $data['today_deal']=$request->today_deal;
         $data['status']=$request->status;
         $data['admin_id']=Auth::id();
