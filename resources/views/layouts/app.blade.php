@@ -302,6 +302,7 @@
     <script src="{{ asset('frontend') }}/js/main.js"></script>
     <!-- Switcher JS [Please Remove this when Choose your Final Projct] -->
     <script src="{{ asset('frontend') }}/js/switcher.js"></script>
+    <script src="{{ asset('frontend') }}/js/custom.js"></script>
 </body>
 
 

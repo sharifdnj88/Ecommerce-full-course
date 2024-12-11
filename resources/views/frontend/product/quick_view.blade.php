@@ -205,7 +205,7 @@
         $('.loader').css("display", "none");
       }, 500);
     });
-    </script>  
+</script>  
 
 <script type="text/javascript">
 

@@ -304,7 +304,7 @@
                                             <span class="five_star"><i class="fa fa-star"></i></span>
                                         </div>
                                         @endif
-                                        <p> {{$rev->review_month}}, {{$rev->review_year}}</p>
+                                        <p> {{date('d F, Y'), strtotime($rev->review_date)}}</p>
                                     </div>
                                     <hr>
                                     <p>{{ substr($rev->review,0,100) }}</p>
@@ -726,7 +726,7 @@
                     @foreach ($home_category as $item)
                     <div class="brand-item text-center">
                         <div class="top-category-img d-flex flex-column" style="padding: 10px 0px;cursor: pointer;">
-                            <a href="#"><img src="{{url('storage/categories/' .$item -> icon)}}" alt="{{$item->category_name}}" width="40px"></a>
+                            <a href="{{route('categorywise.product',$item->id)}}"><img src="{{url('storage/categories/' .$item -> icon)}}" alt="{{$item->category_name}}" width="40px"></a>
                             <strong>{{ substr($item->category_name,0,20) }}</strong>
                         </div>
                         </div>
@@ -1011,7 +1011,7 @@
                 <div class="brand-active slick-padding slick-arrow-style">
                     @foreach ($brand as $item)                    
                     <div class="brand-item text-center">
-                        <a href="#"><img src="{{url('storage/brands/' .$item -> brand_logo)}}" alt="{{$item->brand_name}}" width="100%"></a>
+                        <a href="{{route('brandwise.product',$item->id)}}"><img src="{{url('storage/brands/' .$item -> brand_logo)}}" alt="{{$item->brand_name}}" width="100%"></a>
                     </div>                    
                     @endforeach
                 </div>

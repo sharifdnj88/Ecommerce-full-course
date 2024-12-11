@@ -44,8 +44,10 @@
                                    @if (Auth::check())
                                     <div class="header-mini-wishlist">
                                         <div class="mini-wishlist-btn">
+                                            <a href="{{route('wishlist')}}">
                                             <i class="fa fa-heart"></i>
-                                            <span class="wishlist-notification wishlist_qty"></span>                                          
+                                            <span class="wishlist-notification wishlist_qty"></span>
+                                            </a>                                          
                                         </div>
                                     </div> 
                                     @else
@@ -168,7 +170,7 @@
                                         $subcategory=DB::table('subcategories')->where('category_id', $item->id)->get();
                                     @endphp
                                     <li class="menu-item-has-children">
-                                        <a href="#">
+                                        <a href="{{route('categorywise.product',$item->id)}}">
                                             <img src="{{url('storage/categories/' .$item -> icon)}}" height="18" width="18" alt="{{$item->category_name}}">  {{$item->category_name}}
                                         </a>                                        
                                         <!-- Mega Category Menu Start -->
@@ -178,10 +180,10 @@
                                                 $childcategory=DB::table('childcategories')->where('subcategory_id', $item->id)->get();
                                             @endphp                                                                                        
                                             <li class="menu-item-has-children sub-category-item">
-                                                <a href="#"><i class="fa fa-list-alt"></i> {{$item->subcategory_name}}</a>
+                                                <a href="{{route('subcategorywise.product',$item->id)}}"><i class="fa fa-list-alt"></i> {{$item->subcategory_name}}</a>
                                                 <ul>
                                                     @foreach ($childcategory as $item) 
-                                                    <li><a href="#"><i class="fa fa-arrow-right"></i> {{$item->childcategory_name}}</a></li>
+                                                    <li><a href="{{route('childcategorywise.product',$item->id)}}"><i class="fa fa-arrow-right"></i> {{$item->childcategory_name}}</a></li>
                                                     @endforeach
                                                 </ul>
                                             </li>

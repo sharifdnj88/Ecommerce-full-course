@@ -30,15 +30,13 @@ class cartController extends Controller
     //all cart
     public function AllCart()
     {
-        // $cart=DB::table('carts')->where('rowId', Auth::id())->first();
+        // $cart=DB::table('carts')->where('rowId', Auth::id())->first();       
+
         $data=array();
         $data['cart_qty']=Cart::count();
         $data['cart_total']=Cart::total();
-        // $data['cart_qty']=$cart->count();
-        // $data['cart_total']=$cart->total();
         return response()->json($data);
     }
-
 
     // My Cart Method
     public function myCart()
@@ -49,14 +47,58 @@ class cartController extends Controller
         return view('frontend.cart.cart', compact('content','brand'));
     }
 
+
+    // Update Cart quantity data without page reload
+    public function updatetocart(Request $request)
+    {
+        $prod_id = $request->input('product_id');
+        $quantity = $request->input('qty');
+        
+        Cart::update($prod_id, ['qty' => $quantity]);
+        return response()->json(['status'=>'Cart quantity Updateed!']);
+        
+    }
+
+    // Update Cart color data without page reload
+    public function updateCartColor(Request $request)
+    {
+        $color_id = $request->input('color_id');
+        $color = $request->input('color');
+        $product=Cart::get($color_id);
+        $thumbnail=$product->options->thumbnail;
+        $size=$product->options->size;
+
+        Cart::update($color_id, ['options'  => ['color' => $color, 'thumbnail' => $thumbnail, 'size' => $size]]);        
+        return response()->json(['status'=>'Product Color Updated!']);
+        
+    }
+
+    // Update Cart Size data without page reload
+    public function updateCartSize($rowId,$size)
+    {
+        $product=Cart::get($rowId);
+        $thumbnail=$product->options->thumbnail;
+        $color=$product->options->color;
+        Cart::update($rowId, ['options'  => ['size' => $size , 'thumbnail'=>$thumbnail ,'color'=>$color]]);
+        return response()->json('Product Size Updated!');
+        
+    }
+
+    // Delete Cart data without page reload
     public function deletefromcart(Request $request)
     {
         $prod_id = $request->input('product_id');
         Cart::remove($prod_id);
         return response()->json(['status'=>'Item Removed from Cart']);
-        
-
        
+    }
+
+    // All Cart Item Remove
+    public function cartEmpty()
+    {
+        Cart::destroy();
+        $notification=array('messege' => 'Cart item clear', 'alert-type' => 'success');
+        return redirect()->to('/')->with($notification); 
     }
 
 

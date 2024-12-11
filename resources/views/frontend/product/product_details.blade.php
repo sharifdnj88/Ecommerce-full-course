@@ -88,8 +88,8 @@
                                     @if($product->discount_price==null)
                                         <span class="regular-price">{{$setting->currency}}{{$product->selling_price}}</span>
                                     @else
-                                        <span class="regular-price">{{$setting->currency}}{{$product->selling_price}}</span>
-                                        <del class="old-price text-dark font-weight-bold">{{$setting->currency}}{{$product->discount_price}}</del>
+                                        <span class="regular-price">{{$setting->currency}}{{$product->discount_price}}</span>
+                                        <del class="old-price text-dark font-weight-bold">{{$setting->currency}}{{$product->selling_price}}</del>
                                     @endif
                                 </div>
                                 <div class="ratings">
@@ -930,7 +930,7 @@
 <!-- product details wrapper end -->
 
 <!-- brand area start -->
-<div class="brand-area pt-28 pb-30 pt-md-14 pt-sm-14">
+<div class="brand-area pt-28 pb-30">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -945,27 +945,11 @@
         <div class="row">
             <div class="col-12">
                 <div class="brand-active slick-padding slick-arrow-style">
+                    @foreach ($brands as $item)                    
                     <div class="brand-item text-center">
-                        <a href="#"><img src="{{ asset('frontend') }}/img/brand/br1.png" alt=""></a>
-                    </div>
-                    <div class="brand-item text-center">
-                        <a href="#"><img src="{{ asset('frontend') }}/img/brand/br2.png" alt=""></a>
-                    </div>
-                    <div class="brand-item text-center">
-                        <a href="#"><img src="{{ asset('frontend') }}/img/brand/br3.png" alt=""></a>
-                    </div>
-                    <div class="brand-item text-center">
-                        <a href="#"><img src="{{ asset('frontend') }}/img/brand/br4.png" alt=""></a>
-                    </div>
-                    <div class="brand-item text-center">
-                        <a href="#"><img src="{{ asset('frontend') }}/img/brand/br5.png" alt=""></a>
-                    </div>
-                    <div class="brand-item text-center">
-                        <a href="#"><img src="{{ asset('frontend') }}/img/brand/br6.png" alt=""></a>
-                    </div>
-                    <div class="brand-item text-center">
-                        <a href="#"><img src="{{ asset('frontend') }}/img/brand/br4.png" alt=""></a>
-                    </div>
+                        <a href="{{route('brandwise.product',$item->id)}}"><img src="{{url('storage/brands/' .$item -> brand_logo)}}" alt="{{$item->brand_name}}" width="100%"></a>
+                    </div>                    
+                    @endforeach
                 </div>
             </div>
         </div>

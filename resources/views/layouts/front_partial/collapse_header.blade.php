@@ -45,10 +45,12 @@
                                     @if (Auth::check())
                                     <div class="header-mini-wishlist">
                                         <div class="mini-wishlist-btn">
+                                            <a href="{{route('wishlist')}}">
                                             <i class="fa fa-heart"></i>
-                                            <span class="wishlist-notification wishlist_qty"></span>                                          
+                                            <span class="wishlist-notification wishlist_qty"></span>
+                                            </a>                                          
                                         </div>
-                                    </div> 
+                                    </div>  
                                     @else
                                         <div class="header-mini-wishlist">
                                             <div class="mini-wishlist-btn">
