@@ -143,8 +143,11 @@
                                                 <button type="submit" class="home-wishlist-btn"><i class="fa fa-heart-o"></i></button>                                            
                                             </form>
                                         </a>                                    
-                                        <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i
-                                                class="fa fa-shopping-cart"></i></a>
+                                    @if ($item->stock_quantity==0)
+                                        <button data-toggle="tooltip" data-placement="left" title="Out of Stock" class="btn btn-dark btn-sm" disabled><i class="fa fa-shopping-cart"></i></button>    
+                                    @else
+                                        <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>                                        
+                                    @endif 
                                     </div>
                                 </div>
                                 <div class="product-content">  
@@ -275,7 +278,7 @@
                     <!-- testimonial area start -->
                     <div class="main-sidebar testimonial-area pb-sm-70">
                         <div class="section-title-2 mb-28">
-                            <h3>Clients Say</h3>
+                            <h3>Best Product Review</h3>
                         </div> <!-- section title end -->                        
                         <div class="testimonial-carousel-active slick-dot-style">                            
                             @foreach ($reviews as $rev)                            
@@ -362,8 +365,11 @@
                                             <button type="submit" class="home-wishlist-btn"><i class="fa fa-heart-o"></i></button>                                            
                                         </form>
                                     </a>                                    
-                                    <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i
-                                            class="fa fa-shopping-cart"></i></a>
+                                    @if ($item->stock_quantity==0)
+                                        <button data-toggle="tooltip" data-placement="left" title="Out of Stock" class="btn btn-dark btn-sm" disabled><i class="fa fa-shopping-cart"></i></button>    
+                                    @else
+                                        <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>                                        
+                                    @endif 
                                 </div>
                             </div>
                             <div class="product-content">                                
@@ -495,8 +501,11 @@
                                             <button type="submit" class="home-wishlist-btn"><i class="fa fa-heart-o"></i></button>                                            
                                         </form>
                                     </a>                                    
-                                    <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i
-                                            class="fa fa-shopping-cart"></i></a>
+                                    @if ($item->stock_quantity==0)
+                                        <button data-toggle="tooltip" data-placement="left" title="Out of Stock" class="btn btn-dark btn-sm" disabled><i class="fa fa-shopping-cart"></i></button>    
+                                    @else
+                                        <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>                                        
+                                    @endif 
                                 </div>
                             </div>
                             <div class="product-content">                                
@@ -619,8 +628,11 @@
                                             <button type="submit" class="home-wishlist-btn"><i class="fa fa-heart-o"></i></button>                                            
                                         </form>
                                     </a>                                    
-                                    <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i
-                                            class="fa fa-shopping-cart"></i></a>
+                                    @if ($item->stock_quantity==0)
+                                        <button data-toggle="tooltip" data-placement="left" title="Out of Stock" class="btn btn-dark btn-sm" disabled><i class="fa fa-shopping-cart"></i></button>    
+                                    @else
+                                        <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>                                        
+                                    @endif 
                                 </div>
                             </div>
                             <div class="product-content">                                
@@ -781,7 +793,11 @@
                                 <button type="submit" class="home-wishlist-btn"><i class="fa fa-heart-o"></i></button>                                            
                             </form>
                         </a>                        
-                        <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>
+                        @if ($item->stock_quantity==0)
+                            <button data-toggle="tooltip" data-placement="left" title="Out of Stock" class="btn btn-dark btn-sm" disabled><i class="fa fa-shopping-cart"></i></button>    
+                        @else
+                            <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>                                        
+                        @endif 
                     </div>
                 </div>
                 <div class="product-content">
@@ -910,7 +926,11 @@
                                 <button type="submit" class="home-wishlist-btn"><i class="fa fa-heart-o"></i></button>                                            
                             </form>
                         </a>                        
-                        <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>
+                        @if ($item->stock_quantity==0)
+                            <button data-toggle="tooltip" data-placement="left" title="Out of Stock" class="btn btn-dark btn-sm" disabled><i class="fa fa-shopping-cart"></i></button>    
+                        @else
+                            <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>                                        
+                        @endif 
                     </div>
                 </div>
                 <div class="product-content">
@@ -1020,6 +1040,86 @@
     </div>
 </div>
 <!-- brand area end -->
+
+
+ <!-- Client Say start -->
+ <div class="latest-product">
+    <div class="container">
+        <div class="title-box text-center mb-10">
+            <h3>Client Say</h3>
+        </div>
+        <!-- featured category start -->
+        <div class="client-say-active slick-padding slick-arrow-style mb-30">
+            <!-- product single item start -->
+            @foreach ($website_rev as $item)     
+            <div class="product-item fix">
+                <div class="product-content">
+                    <div class="card-group" style="width: 90%;min-height:450px!important">
+                    <div class="card">
+                        <div class="card-header client-img text-center">
+                            <img class="m-auto card-img-top" src="{{asset('frontend')}}/avatar.jpg" alt="">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ substr($item->name,0,50) }}</h5>
+                            <p class="card-text">{{ substr($item->review,0,200) }}...</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between">
+                            <span>{{$item->review_date}}</span>
+                            @if($item->rating==5)
+                            <div class="ratings" data-toggle="tooltip" title="5.00" >
+                                <span class="one_star"><i class="fa fa-star"></i></span>
+                                <span class="two_star"><i class="fa fa-star"></i></span>
+                                <span class="three_star"><i class="fa fa-star"></i></span>
+                                <span class="four_star"><i class="fa fa-star"></i></span>
+                                <span class="five_star"><i class="fa fa-star"></i></span>
+                            </div>
+                            @elseif($item->rating==4)
+                            <div class="ratings" data-toggle="tooltip" title="4.00" >
+                                <span class="one_star"><i class="fa fa-star"></i></span>
+                                <span class="two_star"><i class="fa fa-star"></i></span>
+                                <span class="three_star"><i class="fa fa-star"></i></span>
+                                <span class="four_star"><i class="fa fa-star"></i></span>
+                                <span><i class="fa fa-star"></i></span>
+                            </div>
+                            @elseif($item->rating==3)
+                            <div class="ratings" data-toggle="tooltip" title="3.00" >
+                                <span class="one_star"><i class="fa fa-star"></i></span>
+                                <span class="two_star"><i class="fa fa-star"></i></span>
+                                <span class="three_star"><i class="fa fa-star"></i></span>
+                                <span><i class="fa fa-star"></i></span>
+                                <span><i class="fa fa-star"></i></span>
+                            </div>
+                            @elseif($item->rating==2)
+                            <div class="ratings" data-toggle="tooltip" title="2.00" >
+                                <span class="one_star"><i class="fa fa-star"></i></span>
+                                <span class="two_star"><i class="fa fa-star"></i></span>
+                                <span><i class="fa fa-star"></i></span>
+                                <span><i class="fa fa-star"></i></span>
+                                <span><i class="fa fa-star"></i></span>
+                            </div>
+                            @else
+                            <div class="ratings" data-toggle="tooltip" title="1.00" >
+                                <span class="one_star"><i class="fa fa-star"></i></span>
+                                <span><i class="fa fa-star"></i></span>
+                                <span><i class="fa fa-star"></i></span>
+                                <span><i class="fa fa-star"></i></span>
+                                <span><i class="fa fa-star"></i></span>
+                            </div>
+                            @endif
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+            <!-- product single item end -->
+        </div>
+        <!-- featured category end -->
+    </div>
+</div>
+<!-- Client Say end -->
+
+
 
     <!-- Quick view modal start -->
     <div class="modal" id="quick_view">

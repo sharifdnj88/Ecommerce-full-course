@@ -183,9 +183,14 @@
                         </div>
                     </div>
                     <div class="action_link w-100 quick-view-button-area">
+                        @if ($product->stock_quantity==0)                                        
+                            <button class="btn btn-outline-danger" style="width: 80%" disabled> Buy Another Product<i class="fa fa-shopping-cart"></i></button>
+                        @else
                         <a href="#" class="buy-btn">
                             <button  type="submit">add to cart<i class="fa fa-shopping-cart" style="background-color: transparent!important"></i></button>
                         </a>
+                        @endif
+
                     </div>
                 </div>
             </form>

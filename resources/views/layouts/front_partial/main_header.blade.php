@@ -101,8 +101,10 @@
                                     <a class="text-white" href="{{route('cart')}}">
                                     <span>total</span>
                                     <div class="cart-total-area d-flex">
+                                        @isset($setting->currency)
                                         <span>{{$setting->currency}}</span>
                                         <span class="cart_total"></span>
+                                        @endisset                                        
                                     </div>
                                     </a>
                                 </div>
@@ -325,6 +327,7 @@
         </div>
     </div>
     <!-- My Account modal end -->
+
     <!-- Sign / Register modal start -->
     <div class="modal" id="myaccount">
         <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -344,6 +347,8 @@
                                     Method</a>
                                 <a href="#address-edit" data-toggle="tab" class=""><i class="fa fa-map-marker"></i> address</a>
                                 <a href="#account-info" data-toggle="tab" class=""><i class="fa fa-user"></i> Account Details</a>
+                                <a href="#open-ticket" data-toggle="tab" class=""><i class="fa fa-pencil-square-o"></i> Open Ticket</a>
+                                <a href="#write-review" data-toggle="tab" class=""><i class="fa fa-pencil-square-o"></i> Write Review</a>
                                 <a href="{{route('customer.logout')}}"><i class="fa fa-sign-out"></i> Logout</a>
                             </div>
                         </div>
@@ -470,54 +475,151 @@
                                 <!-- Single Tab Content Start -->
                                 <div class="tab-pane fade" id="account-info" role="tabpanel">
                                     <div class="myaccount-content">
-                                        <h3>Account Details</h3>
+                                        <h3 class="font-weight-bold">Your Default Credentials</h3>
                                         <div class="account-details-form">
                                             <form action="#">
                                                 <div class="row">
                                                     <div class="col-lg-6">
                                                         <div class="single-input-item">
-                                                            <label for="first-name" class="required">First Name</label>
-                                                            <input type="text" id="first-name" placeholder="First Name">
+                                                            <label for="shipping_name" class="required">Shipping Name</label>
+                                                            <input name="shipping_name" type="text" id="shipping_name" placeholder="Shipping Name">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <div class="single-input-item">
-                                                            <label for="last-name" class="required">Last Name</label>
-                                                            <input type="text" id="last-name" placeholder="Last Name">
+                                                            <label for="shipping_phone" class="required">Shipping Phone</label>
+                                                            <input name="shipping_phone" type="text" id="shipping_phone" placeholder="Shipping Phone">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="single-input-item">
+                                                            <label for="shipping_country" class="required">Shipping Country</label>
+                                                            <input name="shipping_country" type="text" id="shipping_country" placeholder="Shipping Country">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="single-input-item">
+                                                            <label for="shipping_city" class="required">Shipping City</label>
+                                                            <input name="shipping_city" type="text" id="shipping_city" placeholder="Shipping City">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="single-input-item">
-                                                    <label for="display-name" class="required">Display Name</label>
-                                                    <input type="text" id="display-name" placeholder="Display Name">
+                                                    <label for="shipping_zipcode" class="required">Shiiping Zipcode</label>
+                                                    <input name="shipping_zipcode" type="text" id="shipping_zipcode" placeholder="Code">
                                                 </div>
                                                 <div class="single-input-item">
-                                                    <label for="email" class="required">Email Addres</label>
-                                                    <input type="email" id="email" placeholder="Email Address">
+                                                    <label for="shipping_address" class="required">Shiiping Address</label>
+                                                    <input name="shipping_address" type="text" id="shipping_address" placeholder="Shipping Address">
                                                 </div>
-                                                <fieldset>
-                                                    <legend>Password change</legend>
+                                                <div class="single-input-item">
+                                                    <label for="email" class="required">Shipping Email</label>
+                                                    {{-- <input name="shipping_email" type="email" id="email" value="{{Auth::User()->email}}" placeholder="Shipping Email"> --}}
+                                                </div>
+                                                <div class="single-input-item">
+                                                    <button class="check-btn sqr-btn ">Submit</button>
+                                                </div>
+                                                </form>
+
+                                                <form action="{{route('customer.password.change')}}" id="customer_pass_form" method="POST">
+                                                @csrf
+                                                <fieldset class="mt-40">
+                                                    <legend class="font-weight-bold">Password change</legend>
                                                     <div class="single-input-item">
-                                                        <label for="current-pwd" class="required">Current Password</label>
-                                                        <input type="password" id="current-pwd" placeholder="Current Password">
+                                                        <label for="old_password" class="required">Current Password</label>
+                                                        <input name="old_password" type="password" id="old_password" placeholder="Current Password">
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <div class="single-input-item">
-                                                                <label for="new-pwd" class="required">New Password</label>
-                                                                <input type="password" id="new-pwd" placeholder="New Password">
+                                                                <label for="password" class="required">New Password</label>
+                                                                <input name="password" type="password" id="password" placeholder="New Password">
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6">
                                                             <div class="single-input-item">
-                                                                <label for="confirm-pwd" class="required">Confirm Password</label>
-                                                                <input type="password" id="confirm-pwd" placeholder="Confirm Password">
+                                                                <label for="password_confirmation" class="required">Confirm Password</label>
+                                                                <input name="password_confirmation" type="password" id="password_confirmation" placeholder="Confirm Password">
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </fieldset>
                                                 <div class="single-input-item">
                                                     <button class="check-btn sqr-btn ">Save Changes</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div> <!-- Single Tab Content End -->
+                                <!-- Single Tab Content Start -->
+                                <div class="tab-pane fade" id="open-ticket" role="tabpanel">
+                                    <div class="card">
+                                        <div class="card-header text-center">
+                                            <strong class="text-success">Product Problem</strong>
+                                        </div>
+                                        <div class="card-body">
+                                            <form action="{{route('webreview.store')}}" method="POST" id="open_ticket">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <label>Customer Name</label>
+                                                    @isset(Auth::User()->name)
+                                                        <input name="name" type="text" value="{{Auth::User()->name}}" class="form-control" readonly>                                                        
+                                                    @endisset
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Write Review <span class="text-danger">*</span> </label>
+                                                    <textarea name="review" class="form-control"></textarea>
+                                                </div>
+                                                <div class="form-group d-flex flex-column">
+                                                    <label>Ratings <span class="text-danger">*</span> </label>
+                                                    <select name="rating" class="form-control w-100">
+                                                        <option value="5">5 Star</option>
+                                                        <option value="4">4 Star</option>
+                                                        <option value="3">3 Star</option>
+                                                        <option value="2">2 Star</option>
+                                                        <option value="1">1 Star</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-danger"> <i class="fa fa-star"></i> Submit Review</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div> <!-- Single Tab Content End -->
+                                <!-- Single Tab Content Start -->
+                                <div class="tab-pane fade" id="write-review" role="tabpanel">
+                                    <div class="card">
+                                        <div class="card-header text-center">
+                                            <strong class="text-success">Send your valuable Review base on our product quality and services</strong>
+                                        </div>
+                                        <div class="card-body">
+                                            <form action="{{route('webreview.store')}}" method="POST" id="web_review_form">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <label>Customer Name</label>
+                                                    @isset(Auth::User()->name)
+                                                        <input name="name" type="text" value="{{Auth::User()->name}}" class="form-control" readonly>                                                        
+                                                    @endisset
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Write Review <span class="text-danger">*</span> </label>
+                                                    <textarea name="review" class="form-control"></textarea>
+                                                </div>
+                                                <div class="form-group d-flex flex-column">
+                                                    <label>Ratings <span class="text-danger">*</span> </label>
+                                                    <select name="rating" class="form-control w-100">
+                                                        <option value="5">5 Star</option>
+                                                        <option value="4">4 Star</option>
+                                                        <option value="3">3 Star</option>
+                                                        <option value="2">2 Star</option>
+                                                        <option value="1">1 Star</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-danger"> <i class="fa fa-star"></i> Submit Review</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -536,6 +638,63 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script type="text/javascript" charset="utf-8">
+    //store Website Review ajax call
+  $('#web_review_form').submit(function(e){
+      e.preventDefault();
+      var url = $(this).attr('action');
+      var request =$(this).serialize();
+    $.ajax({
+      url:url,
+      type:'post',
+      async:false,
+      data:request,
+      success:function(data){        
+          if (data=='All fields are required!') {        
+              toastr.warning(data);
+        }
+        else if (data=='Review already exist!') { 
+            toastr.error(data);    
+        }else{
+            toastr.success(data);
+        }
+        $('#web_review_form')[0].reset();    
+      }
+    });
+  });  
+
+    // Customer Password Change
+  $('#customer_pass_form').submit(function(e){
+      e.preventDefault();
+      var url = $(this).attr('action');
+      var request =$(this).serialize();
+    $.ajax({
+      url:url,
+      type:'post',
+      async:false,
+      data:request,
+      success:function(data){        
+          if (data=='All fields are required!') {        
+              toastr.warning(data);
+        }else if(data=='Password Confirmation not match!'){
+            toastr.error(data);
+        }
+        else if (data=='Old Password Not Matched!') { 
+            toastr.error(data);    
+        }else{
+            toastr.success(data);
+            $('#myaccount').modal('hide');
+        }
+        $('#customer_pass_form')[0].reset();    
+      }
+    });
+  });
+
+
+ </script>
+
+ 
 
 <script type="text/javascript" charset="utf-8">
     function cart() {
@@ -574,3 +733,4 @@
     });
     
  </script>
+

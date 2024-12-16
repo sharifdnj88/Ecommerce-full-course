@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class FrontendController extends Controller
@@ -14,6 +15,7 @@ class FrontendController extends Controller
     public function home()
     {
         $category=DB::table('categories')->get();
+        $website_rev=DB::table('webreviews')->where('status',1)->orderBy('id','DESC')->take(16)->get();
 
         $bannerProduct=Product::where('status',1)->where('product_slider',1)->orderBy('id', 'DESC')->take(5)->get(); 
         $featuredProduct=Product::where('status',1)->where('featured',1)->orderBy('id', 'DESC')->take(20)->get(); 
@@ -25,7 +27,7 @@ class FrontendController extends Controller
         $home_category=DB::table('categories')->where('home_page',1)->orderBy('category_name', 'ASC')->get();
         $reviews=DB::table('reviews')->where('rating',5)->orderBy('id', 'DESC')->take(5)->get();
         $brand=DB::table('brands')->where('front_page',1)->inRandomOrder()->take(30)->get();
-        return view('frontend.index', compact('category','bannerProduct','featuredProduct','todayDeal','popularProduct','trendyProduct','home_category','brand','reviews','randomProduct'));
+        return view('frontend.index', compact('category','bannerProduct','featuredProduct','todayDeal','popularProduct','trendyProduct','home_category','brand','reviews','randomProduct','website_rev'));
     }
 
     // Product Details Method
@@ -111,6 +113,34 @@ class FrontendController extends Controller
         $products=DB::table('products')->where('brand_id',$id)->paginate(60);
         $randomProduct=Product::where('status',1)->inRandomOrder()->limit(16)->get();
         return view('frontend.product.brandwise_product',compact('categories','brands','products','randomProduct','brand'));
+    }
+
+
+    //_____Footer page view method
+    public function FooterPage($id)
+    {
+        $page=DB::table('pages')->where('id',$id)->first();
+        return view('layouts.footer.edit',compact('page'));
+    }
+
+    //_________News Letter Method
+    public function NewsLetter(Request $request)
+    {
+        $email=$request->email;
+
+        if ($email=='') {
+            return response()->json('Email is required!');
+        }
+
+        $check=DB::table('newsletters')->where('email', $email)->first();
+        if ($check) {
+            return response()->json('Email already exists');
+        }else{
+            $data=array();
+            $data['email']=$email;
+            DB::table('newsletters')->insert($data);
+            return response()->json('Thanks for subscribe');
+        }
     }
 
 

@@ -26,11 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $category=DB::table('categories')->get();
-
-        $bannerProduct=Product::where('product_slider',1)->take(5)->get(); 
-        $featuredProduct=Product::where('featured',1)->orderBy('id', 'DESC')->take(5)->get(); 
-        return view('frontend.index', compact('category','bannerProduct','featuredProduct'));
+        return redirect()->route('customer.logout');
     }
 
     // Customer Logout

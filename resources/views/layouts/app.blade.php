@@ -25,11 +25,11 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('backend/plugins/toastr/toastr.css') }}">
     <!-- Main Style CSS -->
     <link href="{{ asset('frontend') }}/css/style.css" rel="stylesheet">
-    <link href="{{ asset('frontend') }}/css/skin-default.css" rel="stylesheet" id="galio-skin">
+    <link href="{{ asset('frontend') }}/css/skin-default.css" rel="stylesheet" id="galio-skin"> 
 </head>
 
 <body>
-    <!-- color switcher start -->
+
     <div class="color-switcher">
         <div class="color-switcher-inner">
             <div class="switcher-icon">
@@ -108,9 +108,10 @@
                                 </div>
                             </div>
                             <div class="newsletter__box">
-                                <form id="mc-form">
-                                    <input type="email" id="mc-email" autocomplete="off" placeholder="Email">
-                                    <button id="mc-submit">subscribe!</button>
+                                <form action="{{route('newsletter.store')}}" method="POST" id="newsletter_form">
+                                    @csrf
+                                    <input name="email" type="email" id="mc-email" autocomplete="off" placeholder="Email">
+                                    <button type="submit" id="mc-submit">subscribe!</button>
                                 </form>
                             </div>
                             <!-- mailchimp-alerts Start -->
@@ -122,11 +123,11 @@
                             <!-- mailchimp-alerts end -->
                         </div>
                         <div class="social-icons">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="fa fa-instagram"></i></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Google-plus"><i class="fa fa-google-plus"></i></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Youtube"><i class="fa fa-youtube"></i></a>
+                            <a href="{{$setting->facebook}}" target="_blank" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a>
+                            <a href="{{$setting->twitter}}" target="_blank" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a>
+                            <a href="{{$setting->instagram}}" target="_blank" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="fa fa-instagram"></i></a>
+                            <a href="{{$setting->linkedin}}" target="_blank" data-toggle="tooltip" data-placement="top" title="Linkedin"><i class="fa fa-linkedin"></i></a>
+                            <a href="{{$setting->youtube}}" target="_blank" data-toggle="tooltip" data-placement="top" title="Youtube"><i class="fa fa-youtube"></i></a>
                         </div>
                     </div>
                 </div>
@@ -134,6 +135,10 @@
             <!-- footer top end -->
 
             <!-- footer main start -->
+            @php
+                $page_1=DB::table('pages')->where('page_position',1)->get();
+                $page_2=DB::table('pages')->where('page_position',2)->get();
+            @endphp
             <div class="footer-widget-area pt-40 pb-38 pb-sm-10">
                 <div class="container">
                     <div class="row">
@@ -160,11 +165,9 @@
                                 </div>
                                 <div class="widget-body">
                                     <ul>
-                                        <li><a href="#">my account</a></li>
-                                        <li><a href="#">my cart</a></li>
-                                        <li><a href="#">checkout</a></li>
-                                        <li><a href="#">my wishlist</a></li>
-                                        <li><a href="#">login</a></li>
+                                        @foreach ($page_1 as $item)                                        
+                                        <li><a data-id="{{$item->id}}" class="footer_edit" data-toggle="modal" data-target="#footerpage" href="#" >{{$item->page_name}}</a></li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div> <!-- single widget end -->
@@ -176,11 +179,9 @@
                                 </div>
                                 <div class="widget-body">
                                     <ul>
-                                        <li><a href="#">gallery</a></li>
-                                        <li><a href="#">accordion</a></li>
-                                        <li><a href="#">carousel</a></li>
-                                        <li><a href="#">map</a></li>
-                                        <li><a href="#">tab</a></li>
+                                        @foreach ($page_2 as $item)                                  
+                                        <li><a data-id="{{$item->id}}" class="footer_edit" data-toggle="modal" data-target="#footerpage" href="#">{{$item->page_name}}</a></li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div> <!-- single widget end -->
@@ -225,6 +226,21 @@
         <!-- footer area end -->
 
     </div>
+
+
+    {{-- Footer Page Modal start --}}
+    <div class="modal" id="footerpage">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div id="footer_modal_body">
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- Footer Page Modal end --}}
 
 
 
@@ -303,6 +319,45 @@
     <!-- Switcher JS [Please Remove this when Choose your Final Projct] -->
     <script src="{{ asset('frontend') }}/js/switcher.js"></script>
     <script src="{{ asset('frontend') }}/js/custom.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+    <script type="text/javascript">
+        $('body').on('click', '.footer_edit', function(){
+            let footer_id =$(this).data('id');
+            $.get('page/'+footer_id, function(data){
+                $('#footer_modal_body').html(data); 
+            });
+        });
+
+        
+
+        $('#newsletter_form').submit(function(e){
+            e.preventDefault();
+            let url = $(this).attr('action');
+            let request = $(this).serialize();
+            $.ajax({
+                url:url,
+                type:'post',
+                async:false,
+                data:request,
+                success:function(data){
+                    if (data=='Email already exists') {
+                        toastr.error(data);
+                    }else if(data=='Email is required!'){
+                        toastr.warning(data);
+                    }else{
+                        toastr.success(data);
+                        $('#newsletter_form')[0].reset();
+                    }
+                }
+
+            });
+
+        });
+
+    </script>
 </body>
 
 

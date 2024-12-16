@@ -154,10 +154,10 @@
                                 <div class="availability mt-10">
                                     @if ($product->stock_quantity>1)
                                     <h5>Availability:</h5> 
-                                    <span class="badge badge-success badge-sm text-white">{{$product->stock_quantity}} {{$product->unit}} in Stock </span>                                        
+                                    <span class="text-success">{{$product->stock_quantity}} {{$product->unit}} in Stock </span>                                        
                                     @else
                                     <h5>Availability:</h5> 
-                                    <span class="badge badge-danger text-white">Out of Stock</span>                                                
+                                    <span class="text-danger">Out of Stock</span>                                                
                                     @endif
                                 </div>
                                 
@@ -195,8 +195,12 @@
                                     <div class="quantity">
                                         <div class="pro-qty"><input type="text" value="1"></div>
                                     </div>
-                                    <div class="action_link w-100">
+                                    <div class="action_link w-100 text-center">
+                                        @if ($product->stock_quantity==0)                                        
+                                        <button class="btn btn-outline-danger" style="width: 95%" disabled> Buy Another Product<i class="fa fa-shopping-cart"></i></button>
+                                        @else
                                         <a class="buy-btn" style="width: 95%" href="#">add to cart<i class="fa fa-shopping-cart"></i></a>
+                                        @endif
                                     </div>
                                     <div class="wishlist">
                                         <form action="{{route('add.wishlist', $product->id)}}" id="wishlist_btn" method="POST">
@@ -534,8 +538,12 @@
                                             @csrf                                            
                                             <button type="submit" class="home-wishlist-btn"><i class="fa fa-heart-o"></i></button>                                            
                                         </form>
-                                    </a>                                    
-                                    <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>
+                                    </a>      
+                                    @if ($item->stock_quantity==0)
+                                        <button data-toggle="tooltip" data-placement="left" title="Out of Stock" class="btn btn-dark btn-sm" disabled><i class="fa fa-shopping-cart"></i></button>    
+                                    @else
+                                        <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>                                        
+                                    @endif                               
                                 </div>
                             </div>
                             <div class="product-content">
@@ -976,7 +984,7 @@
 
 <script>
 
-    //store coupon ajax call
+//store coupon ajax call
   $('#review_form').submit(function(e){
       e.preventDefault();
       var url = $(this).attr('action');

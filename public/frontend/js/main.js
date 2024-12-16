@@ -324,6 +324,37 @@
 		]
 	});
 
+	// latest product carousel active js
+	$('.client-say-active').slick({
+		autoplay: true,
+		infinite: true,
+		fade: false,
+		dots: false,
+		arrows: true,
+		prevArrow: '<button type="button" class="slick-prev"><i class="fa fa-angle-left"></i></button>',
+		nextArrow: '<button type="button" class="slick-next"><i class="fa fa-angle-right"></i></button>',
+		slidesToShow: 3,
+		responsive: [{
+				breakpoint: 992,
+				settings: {
+					slidesToShow: 3,
+				}
+			},
+			{
+				breakpoint: 768,
+				settings: {
+					slidesToShow: 2,
+				}
+			},
+			{
+				breakpoint: 480,
+				settings: {
+					slidesToShow: 1,
+				}
+			},
+		]
+	});
+
 	// testimonial carousel active js
 	$('.testimonial-carousel-active').slick({
 		autoplay: true,

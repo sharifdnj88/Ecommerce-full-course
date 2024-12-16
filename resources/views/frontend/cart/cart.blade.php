@@ -95,11 +95,9 @@
                                 <input type="hidden" class="product_id" value="{{$item->rowId}}">
                                 <td class="pro-subtotal">
                                     <span>{{$setting->currency}} {{$item->price*$item->qty }} </span>                                    
-                                </td>  
-
-
-                                <td class="pro-remove" style="font-size: 16px;gap:10px">
-                                    <a href="#" type="button" class="update_cart_data mx-2 text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Update"><i class="fa fa-refresh"></i></a>
+                                </td>                                
+                                
+                                <td class="pro-remove" style="font-size: 16px;gap:10px">                                    
                                     <a href="#" type="button" class="delete_cart_data text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete" class="mx-2 text-danger"><i class="fa fa-trash-o"></i></a>                                    
                                 </td>
                                 
@@ -123,7 +121,7 @@
                         </div>
                         <div class="cart-update mt-sm-16">
                             <a href="{{route('all.cart.item.destroy')}}" class="btn btn-outline-danger">Empty Cart</a>
-                            <a href="#" class="sqr-btn ">Proced to Checkout</a>
+                            <a href="{{route('checkout')}}" class="sqr-btn ">Proced to Checkout</a>
                         </div>
                     </div>                    
                 </div>
@@ -178,7 +176,7 @@
                 <div class="brand-active slick-padding slick-arrow-style">
                     @foreach ($brand as $item)                    
                     <div class="brand-item text-center">
-                        <a href="#"><img src="{{url('storage/brands/' .$item -> brand_logo)}}" alt="{{$item->brand_name}}" width="100%"></a>
+                        <a href="{{route('brandwise.product',$item->id)}}"><img src="{{url('storage/brands/' .$item -> brand_logo)}}" alt="{{$item->brand_name}}" width="100%"></a>
                     </div>                    
                     @endforeach
                 </div>
@@ -258,7 +256,7 @@ $('.changeQuantity').click(function (e) {
     $('.cart-table-body').hide();
 
     var qty = $(this).closest(".cartpage").find('.qty-input').val();
-    var product_id = $(this).closest(".cartpage").find('.cart_quantity_id').val(); 
+    var product_id = $(this).closest(".cartpage").find('.cart_quantity_id').val();    
 
     var data = {
         '_token': $('input[name=_token]').val(),

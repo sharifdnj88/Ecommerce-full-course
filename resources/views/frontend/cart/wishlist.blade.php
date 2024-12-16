@@ -119,7 +119,7 @@
                 <div class="brand-active slick-padding slick-arrow-style">
                     @foreach ($brand as $item)                    
                     <div class="brand-item text-center">
-                        <a href="#"><img src="{{url('storage/brands/' .$item -> brand_logo)}}" alt="{{$item->brand_name}}" width="100%"></a>
+                        <a href="{{route('brandwise.product',$item->id)}}"><img src="{{url('storage/brands/' .$item -> brand_logo)}}" alt="{{$item->brand_name}}" width="100%"></a>
                     </div>                    
                     @endforeach
                 </div>
