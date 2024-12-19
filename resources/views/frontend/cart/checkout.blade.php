@@ -11,21 +11,26 @@
             <div class="col-12">
                 <!-- Checkout Login Coupon Accordion Start -->
                 <div class="checkoutaccordion my-3" id="checkOutAccordion">
+                    @if(Session::has('coupon'))
+                    <h3> <span style="color: #28a745!important"><i class="fa fa-check"></i></span> Coupon Applied Successfully Done</h3>
+                    @else
                     <div class="card">
                         <h3>Have A Coupon? <span data-toggle="collapse" data-target="#couponaccordion">Click Here To Enter Your Code</span></h3>
                         <div id="couponaccordion" class="collapse" data-parent="#checkOutAccordion">
                             <div class="card-body">
                                 <div class="cart-update-option">
                                     <div class="apply-coupon-wrapper">
-                                        <form action="#" method="post" class=" d-block d-md-flex">
-                                            <input type="text" placeholder="Enter Your Coupon Code" required />
-                                            <button class="check-btn sqr-btn">Apply Coupon</button>
+                                        <form action="{{route('coupon.apply')}}" method="POST" class=" d-block d-md-flex">
+                                        @csrf
+                                            <input name="coupon" type="text" placeholder="Enter Your Coupon Code" required />
+                                            <button type="submit" class="check-btn sqr-btn">Apply Coupon</button>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @endif
                 </div>
                 <!-- Checkout Login Coupon Accordion End -->
             </div>
@@ -37,58 +42,59 @@
                 <div class="checkout-billing-details-wrap">
                     <h2>Billing Details</h2>
                     <div class="billing-form-wrap">
-                        <form action="#">
+                        <form action="{{route('order.place')}}" method="POST">
+                        @csrf
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="single-input-item">
                                         <label class="required">Customer Name</label>
-                                        <input name="name" value="{{Auth::User()->name}}" type="text" id="f_name" required />
+                                        <input name="c_name" value="{{Auth::User()->name}}" type="text" required />
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="single-input-item">
                                         <label class="required">Customer Phone</label>
-                                        <input name="phone" value="{{Auth::User()->phone}}" type="text" required />
+                                        <input name="c_phone" value="{{Auth::User()->phone}}" type="text" required />
                                     </div>
                                 </div>
                             </div>
 
                             <div class="single-input-item">
                                 <label class="required">Email Address</label>
-                                <input name="email" value="{{Auth::User()->email}}" type="email" placeholder="Email Address" required />
+                                <input name="c_email" value="{{Auth::User()->email}}" type="email" placeholder="Email Address" required />
                             </div>
 
                             <div class="single-input-item">
                                 <label class="required pt-20">Shipping address</label>
-                                <input name="address" type="text" placeholder="Street address" required />
+                                <input name="c_address" type="text" placeholder="Street address" required />
                             </div>
 
                             <div class="single-input-item">
                                 <label class="required">Town / City</label>
-                                <input name="city" type="text"  placeholder="Town / City" required />
+                                <input name="c_city" type="text"  placeholder="Town / City" required />
                             </div>
 
                             <div class="single-input-item">
-                                <label>State / Divition</label>
-                                <input name="division" type="text"  placeholder="State / Divition" />
+                                <label>Extra Phone</label>
+                                <input name="c_extra_phone" type="text"  placeholder="extra phone" />
                             </div>
 
                             <div class="single-input-item">
                                 <label>Country</label>
-                                <input name="country" type="text" value="Bangladesh"  placeholder="Country" />
+                                <input name="c_country" type="text" value="Bangladesh"  placeholder="Country" />
                             </div>
 
                             <div class="single-input-item">
                                 <label class="required">Postcode / ZIP</label>
-                                <input name="zipcode" type="text" placeholder="Postcode / ZIP" required />
+                                <input name="c_zipcode" type="text" placeholder="Postcode / ZIP" required />
                             </div> 
 
                             <div class="single-input-item">
                                 <label for="ordernote">Order Note</label>
                                 <textarea name="ordernote" id="ordernote" cols="30" rows="3" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
                             </div>
-                        </form>
+                        {{-- </form> --}}
                     </div>
                 </div>
             </div>
@@ -120,28 +126,53 @@
                                         <td>Sub Total</td>
                                         <td><strong>{{$setting->currency}}{{Cart::subtotal()}}</strong></td>
                                     </tr>
+                                    @if(Session::has('coupon') && Cart::count() )
+                                    <tr>
+                                        <td>Coupon Discount</td>
+                                        <td><strong>{{$setting->currency}}{{Session::get('coupon')['discount']}} <a href="{{route('remove.coupon')}}" class="text-danger"> <i class="fa fa-times"></i> </a> </strong></td>
+                                    </tr>
+                                    @endif
                                     <tr>
                                         <td>Shipping</td>
                                         <td class="d-flex justify-content-center">
+                                            @if(Session::has('coupon'))
                                             <ul class="shipping-type">
                                                 <li>
                                                     <div class="custom-control custom-radio">
-                                                        <input name="shipping_charge" value="100" type="radio" id="in_dhaka" class="custom-control-input" checked />
+                                                        <input name="shipping_charge" value="in_dhaka" type="radio" id="in_dhaka" class="custom-control-input" checked disabled />
+                                                        <label class="custom-control-label" for="in_dhaka">Charge: {{$setting->currency}}100</label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            @else
+                                            <ul class="shipping-type">
+                                                <li>
+                                                    <div class="custom-control custom-radio">
+                                                        <input name="shipping_charge" value="in_dhaka" type="radio" id="in_dhaka" class="custom-control-input" checked />
                                                         <label class="custom-control-label" for="in_dhaka">Inside Dhaka: {{$setting->currency}}100</label>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="custom-control custom-radio">
-                                                        <input name="shipping_charge" value="150" type="radio" id="out_dhaka" class="custom-control-input" />
+                                                        <input name="shipping_charge" value="out_dhaka" type="radio" id="out_dhaka" class="custom-control-input" />
                                                         <label class="custom-control-label" for="out_dhaka">Outside Dhaka: {{$setting->currency}}150</label>
                                                     </div>
                                                 </li>
                                             </ul>
+                                            @endif
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Total Amount</td>
-                                        <td><strong>{{$setting->currency}}<span class="shipping_charge_total">{{ Cart::total()+Cart::count() *100 }} </span> </strong></td>
+                                        @if(Session::has('coupon') && Cart::count() )
+                                        <td>
+                                            <strong>{{$setting->currency}}<span class="shipping_charge_total">{{ (Cart::total()+Cart::count() *100) - (Session::get('coupon')['discount']) }}  </span> </strong>                                            
+                                        </td>
+                                        @else
+                                        <td>
+                                            <strong>{{$setting->currency}}<span class="shipping_charge_total">{{ Cart::total()+Cart::count() *100 }} </span> </strong>
+                                        </td>
+                                        @endif
                                     </tr>
                                 </tfoot>
                             </table>
@@ -151,32 +182,31 @@
                             <div class="single-payment-method show">
                                 <div class="payment-method-name">
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="cashon" name="paymentmethod" value="cash" class="custom-control-input" checked  />
+                                        <input type="radio" id="cashon" name="payment_type" value="Hand Cash" class="custom-control-input" checked  />
                                         <label class="custom-control-label" for="cashon">Cash On Delivery</label>
                                     </div>
-                                </div>
-                                <div class="payment-method-details" data-method="cash">
-                                    <p>Pay with cash upon delivery.</p>
                                 </div>
                             </div>
                             <div class="single-payment-method">
                                 <div class="payment-method-name">
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="directbank" name="paymentmethod" value="bank" class="custom-control-input" />
-                                        <label class="custom-control-label" for="directbank">SSL Commerz</label>
+                                        <input type="radio" id="directbank" name="payment_type" value="Aamarpay" class="custom-control-input" />
+                                        <label class="custom-control-label" for="directbank">Bkash/Rocket/Nagad</label>
                                     </div>
-                                </div>
-                                <div class="payment-method-details" data-method="bank">
-                                    <p>Bkash/Nagad/Rocket</p>
                                 </div>
                             </div>
                             <div class="summary-footer-area">
                                 <button type="submit" class="check-btn sqr-btn">Place Order</button>
+                                <button class="check-btn sqr-btn" type="button" disabled>
+                                    <span class="fa-spin text-white fa fa-spinner"></span>
+                                    Processing...
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </form>
         </div>
     </div>
 </div>
@@ -206,18 +236,21 @@
 
  <script>
     $('#in_dhaka').click(function (){
-        let charge = $(this).val();
+        let charge = 100;
         $.get('shipping-charge/'+charge, function(data){
             $('.shipping_charge_total').html(data);            
         });
 
     });
     $('#out_dhaka').click(function (){
-        let charge = $(this).val();
+        let charge = 150;
         $.get('shipping-charge/'+charge, function(data){
             $('.shipping_charge_total').html(data);            
         });
     });
+
+
+
  </script>
 
 

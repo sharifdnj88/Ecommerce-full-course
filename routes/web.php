@@ -46,6 +46,9 @@ Route::group(['namespace'=>'App\Http\Controllers\Front'], function(){
     //____________________Checkout Route
     Route::get('checkout','CheckoutController@Checkout')->name('checkout');
     Route::get('shipping-charge/{charge}','CheckoutController@shippingCharge');
+    Route::post('coupon-store-checkout','CheckoutController@CouponApply')->name('coupon.apply');
+    Route::get('remove-coupon','CheckoutController@RemoveCoupon')->name('remove.coupon');
+    Route::post('order-place','CheckoutController@OrderPlace')->name('order.place');
 
     // ____________________Review Rotes
     Route::post('/review-store', 'ReviewController@store')->name('review.store');  
