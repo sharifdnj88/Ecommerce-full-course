@@ -95,13 +95,22 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin', 'middleware'=>'is_admin
 		Route::post('/update','CampaignController@update')->name('campaign.update');
 	});
 
-    //Coupon Routes
+    //Pickup Routes
 	Route::group(['prefix'=>'pickup-point'], function(){
 		Route::get('/','PickupController@index')->name('pickup.point.index');
 		Route::post('/store','PickupController@store')->name('pickup.point.store');
 		Route::delete('/delete/{id}','PickupController@destroy')->name('pickup.point.delete');
 		Route::get('/edit/{id}','PickupController@edit');
 		Route::post('/update','PickupController@update')->name('pickup.point.update');
+	});
+
+    //Ticket Routes
+	Route::group(['prefix'=>'ticket'], function(){
+		Route::get('/','TicketController@index')->name('ticket.index');
+		Route::get('/ticket-show/{id}','TicketController@show')->name('admin.ticket.show');
+        Route::post('/ticket-reply','TicketController@ReplyTicketStore')->name('admin.reply.store');
+        Route::get('/ticket/close/{id}','TicketController@CloseTicket')->name('admin.close.ticket');
+        Route::delete('/ticket/delete/{id}','TicketController@destroy')->name('admin.ticket.delete');
 	});
 
     // Setting Route

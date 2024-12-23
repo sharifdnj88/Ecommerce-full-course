@@ -66,6 +66,11 @@ Route::group(['namespace'=>'App\Http\Controllers\Front'], function(){
     // ____________________Setting Rotes
     Route::post('/customer-password-change','ProfileController@CustomerPasswordChange')->name('customer.password.change');
 
+    //_____________________Ticket
+    Route::post('/ticket-store','ProfileController@TicketStore')->name('ticket.store');
+    Route::get('/show-ticket/{id}','ProfileController@TicketShow')->name('show.ticket');
+    Route::post('/reply-ticket','ProfileController@ReplyTicket')->name('reply.ticket');
+
 
    
 
@@ -74,3 +79,7 @@ Route::group(['namespace'=>'App\Http\Controllers\Front'], function(){
 Route::get('cart-destroy', function(){
     Cart::destroy();
 });
+
+// Route::get('cart-content', function(){
+//    return Cart::content();
+// });

@@ -43,9 +43,18 @@
                         <li class="{{ request()->is('pickup-point') ? 'active' : '' }}"><a href="{{route('pickup.point.index')}}"><i class="fa fa-circle-o"></i> P_Point</a></li>                                                
                     </ul>
                 </li>
+
+                {{-- =========================Ticket Start========================= --}}
+                <li class="submenu">
+                    <a class="{{ request()->is('pickup-point') ? 's_active' : '' }}" href="#"><i class="fa fa-folder"></i> <span> Ticket</span> <span class="menu-arrow"></span></a>
+                    <ul style="display: none;">
+                        <li class="{{ request()->is('pickup-point') ? 'active' : '' }}"><a href="{{route('ticket.index')}}"><i class="fa fa-circle-o"></i> Ticket</a></li>                                                
+                    </ul>
+                </li>
                 <li class="menu-title"> 
                     <span>Profile</span>
                 </li>
+
                 {{-- =========================Settings Code Start========================= --}}
                 <li class="submenu">
                     <a class="{{ request()->is('setting/website') ? 's_active' : '' }} {{ request()->is('setting/seo') ? 's_active' : '' }} {{ request()->is('setting/smtp') ? 's_active' : '' }} {{ request()->is('setting/page') ? 's_active' : '' }}" href="#"><i class="fa fa-folder"></i> <span> Settings</span> <span class="menu-arrow"></span></a>

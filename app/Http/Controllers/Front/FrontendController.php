@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class FrontendController extends Controller
@@ -27,7 +28,16 @@ class FrontendController extends Controller
         $home_category=DB::table('categories')->where('home_page',1)->orderBy('category_name', 'ASC')->get();
         $reviews=DB::table('reviews')->where('rating',5)->orderBy('id', 'DESC')->take(5)->get();
         $brand=DB::table('brands')->where('front_page',1)->inRandomOrder()->take(30)->get();
-        return view('frontend.index', compact('category','bannerProduct','featuredProduct','todayDeal','popularProduct','trendyProduct','home_category','brand','reviews','randomProduct','website_rev'));
+
+        $orders=DB::table('orders')->where('user_id', Auth::id())->orderBy('id', 'DESC')->take(10)->get();
+        $total_order=DB::table('orders')->where('user_id', Auth::id())->count();
+        $complete_order=DB::table('orders')->where('user_id', Auth::id())->where('status',3)->count();
+        $cancel_order=DB::table('orders')->where('user_id', Auth::id())->where('status',5)->count();
+        $return_order=DB::table('orders')->where('user_id', Auth::id())->where('status',4)->count();
+
+        $ticket=DB::table('tickets')->where('user_id',Auth::id())->orderBy('id','DESC')->take(10)->get();
+
+        return view('frontend.index', compact('category','bannerProduct','featuredProduct','todayDeal','popularProduct','trendyProduct','home_category','brand','reviews','randomProduct','website_rev','orders','total_order','complete_order','cancel_order','return_order','ticket'));
     }
 
     // Product Details Method

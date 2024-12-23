@@ -1,5 +1,6 @@
 @php
     $category=DB::table('categories')->where('home_page',1)->orderBy('id', 'DESC')->take(9)->get();
+    $webreviews=DB::table('webreviews')->where('user_id', Auth::id())->first();
 @endphp
 <header>
     <!-- header top start -->
@@ -330,7 +331,7 @@
 
     <!-- Sign / Register modal start -->
     <div class="modal" id="myaccount">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -347,8 +348,11 @@
                                     Method</a>
                                 <a href="#address-edit" data-toggle="tab" class=""><i class="fa fa-map-marker"></i> address</a>
                                 <a href="#account-info" data-toggle="tab" class=""><i class="fa fa-user"></i> Account Details</a>
+                                <a href="#show-ticket" data-toggle="tab" class=""><i class="fa fa-eye"></i> Show Ticket</a>
                                 <a href="#open-ticket" data-toggle="tab" class=""><i class="fa fa-pencil-square-o"></i> Open Ticket</a>
+                                @if(!$webreviews)
                                 <a href="#write-review" data-toggle="tab" class=""><i class="fa fa-pencil-square-o"></i> Write Review</a>
+                                @endif
                                 <a href="{{route('customer.logout')}}"><i class="fa fa-sign-out"></i> Logout</a>
                             </div>
                         </div>
@@ -361,11 +365,48 @@
                                 <div class="tab-pane fade active show" id="dashboad" role="tabpanel">
                                     <div class="myaccount-content">
                                         <h3>Dashboard</h3>
-                                        <div class="welcome">
-                                            <p>Hello, <strong> @isset(Auth::User()->name){{Auth::User()->name}}
-                                            @endisset </strong> (If Not <strong>Tuntuni !</strong><a href="login-register.html" class="logout"> Logout</a>)</p>                                                
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="card text-center">
+                                                    <div class="card-header">
+                                                        <strong class="text-primary">Total Order</strong>                                                        
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <strong>{{$total_order}}</strong>    
+                                                    </div>                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="card text-center">
+                                                    <div class="card-header">
+                                                        <strong class="text-success">Complete Order</strong>                                                        
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <strong>{{$complete_order}}</strong>    
+                                                    </div>                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="card text-center">
+                                                    <div class="card-header">
+                                                        <strong class="text-danger">Cancel Order</strong>                                                        
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <strong>{{$cancel_order}}</strong>    
+                                                    </div>                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="card text-center">
+                                                    <div class="card-header">
+                                                        <strong class="text-warning">Return Order</strong>                                                        
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <strong>{{$return_order}}</strong>    
+                                                    </div>                                                    
+                                                </div>
+                                            </div>
                                         </div>
-                                        <p class="mb-0">From your account dashboard. you can easily check &amp; view your recent orders, manage your shipping and billing addresses and edit your password and account details.</p>
                                     </div>
                                 </div>
                                 <!-- Single Tab Content End -->
@@ -378,35 +419,39 @@
                                             <table class="table table-bordered">
                                                 <thead class="thead-light">
                                                     <tr>
-                                                        <th>Order</th>
+                                                        <th>Order Id</th>
                                                         <th>Date</th>
-                                                        <th>Status</th>
                                                         <th>Total</th>
+                                                        <th>Payment Type</th>
+                                                        <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    @foreach ($orders as $item)                                                   
                                                     <tr>
-                                                        <td>1</td>
-                                                        <td>Aug 22, 2018</td>
-                                                        <td>Pending</td>
-                                                        <td>$3000</td>
+                                                        <td>{{$item->order_id}}</td>
+                                                        <td>{{ date('d F , Y'), strtotime($item->date) }}</td>
+                                                        <td>{{$setting->currency}}{{$item->subtotal}}</td>
+                                                        <td>{{$item->payment_type}}</td>
+                                                        <td>
+                                                            @if($item->status==0)
+                                                                <span class="badge badge-danger">Pending</span>
+                                                            @elseif($item->status==1)
+                                                                <span class="badge badge-info">Order Received</span>
+                                                            @elseif($item->status==2)
+                                                                <span class="badge badge-success">Order Shipped</span>
+                                                            @elseif($item->status==3)
+                                                                <span class="badge badge-success">Order Done</span>
+                                                            @elseif($item->status==4)
+                                                                <span class="badge badge-warning">Order Return</span>
+                                                            @elseif($item->status==5)
+                                                                <span class="badge badge-danger">Order Cancel</span>
+                                                            @endif
+                                                        </td>                                                        
                                                         <td><a href="cart.html" class="check-btn sqr-btn ">View</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>July 22, 2018</td>
-                                                        <td>Approved</td>
-                                                        <td>$200</td>
-                                                        <td><a href="cart.html" class="check-btn sqr-btn ">View</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td>June 12, 2017</td>
-                                                        <td>On Hold</td>
-                                                        <td>$990</td>
-                                                        <td><a href="cart.html" class="check-btn sqr-btn ">View</a></td>
-                                                    </tr>
+                                                    </tr>                                                   
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
@@ -552,44 +597,101 @@
                                             </form>
                                         </div>
                                     </div>
-                                </div> <!-- Single Tab Content End -->
+                                </div> 
+                                <!-- Single Tab Content End -->
+
+                                <!-- Single Tab Content Start -->
+                                <div class="tab-pane fade" id="show-ticket" role="tabpanel">
+                                    <div class="myaccount-content">
+                                        <h3>All Tickets</h3>
+                                        <div class="myaccount-table table-responsive text-center">
+                                            <table class="table table-bordered">
+                                                <thead class="thead-light">
+                                                    <tr>
+                                                        <th>Date</th>
+                                                        <th>Service</th>
+                                                        <th>Subject</th>
+                                                        <th>Status</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($ticket as $item)                                                   
+                                                    <tr>
+                                                        <td>{{date('d F , Y'), strtotime($item->date) }}</td>                                                      
+                                                        <td>{{$item->service}}</td>                                                      
+                                                        <td>{{$item->subject}}</td>                                                      
+                                                        <td>
+                                                            @if($item->status==0)
+                                                                <span class="badge badge-danger">Pending</span>
+                                                            @elseif($item->status==1)
+                                                                <span class="badge badge-success">Replied</span>
+                                                            @elseif($item->status==2)
+                                                                <span class="badge badge-danger">Closed</span>
+                                                            @endif     
+                                                        </td>                                                      
+                                                        <td>
+                                                            <a href="#" id="{{$item->id}}" data-toggle="modal" data-target="#show_ticket" class="btn btn-warning btn-sm show_ticket_click"> <i class="fa fa-eye"></i> </a>                                                            
+                                                        </td>
+                                                    </tr>                                                   
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Single Tab Content End -->
+
                                 <!-- Single Tab Content Start -->
                                 <div class="tab-pane fade" id="open-ticket" role="tabpanel">
                                     <div class="card">
                                         <div class="card-header text-center">
-                                            <strong class="text-success">Product Problem</strong>
+                                            <strong class="text-success">Submit your ticket we will reply very soon</strong>
                                         </div>
                                         <div class="card-body">
-                                            <form action="{{route('webreview.store')}}" method="POST" id="open_ticket">
+                                            <form action="{{route('ticket.store')}}" method="POST" id="open_ticket" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="form-group">
-                                                    <label>Customer Name</label>
-                                                    @isset(Auth::User()->name)
-                                                        <input name="name" type="text" value="{{Auth::User()->name}}" class="form-control" readonly>                                                        
-                                                    @endisset
+                                                    <label>Subject</label>
+                                                    <input name="subject" type="text"  class="form-control" placeholder="write your subject">                                                                                                            
+                                                </div>
+                                                <div class="row my-3">
+                                                    <div class="col-md-6">
+                                                        <label>Priority <span class="text-danger">*</span> </label>
+                                                        <select name="priority" class="form-control">
+                                                            <option value="Low">Low</option>
+                                                            <option value="Medium">Medium</option>
+                                                            <option value="High">High</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label>Service <span class="text-danger">*</span> </label>
+                                                        <select name="service" class="form-control">
+                                                            <option value="Technical">Technical</option>
+                                                            <option value="Payment">Payment</option>
+                                                            <option value="Affiliate">Affiliate</option>
+                                                            <option value="Return">Return</option>
+                                                            <option value="Refund">Refund</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Write Review <span class="text-danger">*</span> </label>
-                                                    <textarea name="review" class="form-control"></textarea>
-                                                </div>
-                                                <div class="form-group d-flex flex-column">
-                                                    <label>Ratings <span class="text-danger">*</span> </label>
-                                                    <select name="rating" class="form-control w-100">
-                                                        <option value="5">5 Star</option>
-                                                        <option value="4">4 Star</option>
-                                                        <option value="3">3 Star</option>
-                                                        <option value="2">2 Star</option>
-                                                        <option value="1">1 Star</option>
-                                                    </select>
+                                                    <label>Message <span class="text-danger">*</span> </label>
+                                                    <textarea name="message" class="form-control"></textarea>
                                                 </div>
                                                 <div class="form-group">
-                                                    <button type="submit" class="btn btn-danger"> <i class="fa fa-star"></i> Submit Review</button>
+                                                    <label>Images <span class="text-danger">*</span> </label>
+                                                    <input name="image" type="file" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-danger">Submit</button>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
                                 </div> <!-- Single Tab Content End -->
                                 <!-- Single Tab Content Start -->
+                                @if(!$webreviews)
                                 <div class="tab-pane fade" id="write-review" role="tabpanel">
                                     <div class="card">
                                         <div class="card-header text-center">
@@ -625,9 +727,25 @@
                                         </div>
                                     </div>
                                 </div> <!-- Single Tab Content End -->
+                                @endif
                             </div>
                         </div> <!-- My Account Tab Content End -->
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- My Account modal end -->
+
+    <!-- Sign / Register modal start -->
+    <div class="modal" id="show_ticket">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" id="show_ticket_modal">
+                     {{-- Data Come from show ticket quick_view --}}
                 </div>
             </div>
         </div>
@@ -690,6 +808,19 @@
       }
     });
   });
+
+
+  // Show Ticket View
+  $(document).on('click', '.show_ticket_click', function(){  
+        var id = $(this).attr('id');
+        $.ajax({
+                url: "{{ url("/show-ticket/") }}/"+id,
+                type: 'get',
+                success: function(data) {
+                    $("#show_ticket_modal").html(data);
+                }
+            });
+    }); 
 
 
  </script>

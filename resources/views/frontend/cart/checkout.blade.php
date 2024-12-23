@@ -42,7 +42,7 @@
                 <div class="checkout-billing-details-wrap">
                     <h2>Billing Details</h2>
                     <div class="billing-form-wrap">
-                        <form action="{{route('order.place')}}" method="POST">
+                        <form action="{{route('order.place')}}" method="POST" id="order_place">
                         @csrf
                             <div class="row">
                                 <div class="col-md-6">
@@ -60,36 +60,51 @@
                                 </div>
                             </div>
 
-                            <div class="single-input-item">
-                                <label class="required">Email Address</label>
-                                <input name="c_email" value="{{Auth::User()->email}}" type="email" placeholder="Email Address" required />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="single-input-item">
+                                        <label class="required">Email Address</label>
+                                        <input name="c_email" value="{{Auth::User()->email}}" type="email" placeholder="Email Address" required />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="single-input-item">
+                                        <label class="required">Shipping address</label>
+                                        <input name="c_address" type="text" placeholder="Street address" required />
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="single-input-item">
-                                <label class="required pt-20">Shipping address</label>
-                                <input name="c_address" type="text" placeholder="Street address" required />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="single-input-item">
+                                        <label class="required">Town / City</label>
+                                        <input name="c_city" type="text"  placeholder="Town / City" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="single-input-item">
+                                        <label class="required">Postcode / ZIP</label>
+                                        <input name="c_zipcode" type="text" placeholder="Postcode / ZIP" required />
+                                    </div> 
+                                </div>
                             </div>
 
-                            <div class="single-input-item">
-                                <label class="required">Town / City</label>
-                                <input name="c_city" type="text"  placeholder="Town / City" required />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="single-input-item">
+                                        <label>Country</label>
+                                        <input name="c_country" type="text" value="Bangladesh"  placeholder="Country" />
+                                    </div>        
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="single-input-item">
+                                        <label>Extra Phone</label>
+                                        <input name="c_extra_phone" type="text"  placeholder="extra phone" />
+                                    </div>
+                                </div>
                             </div>
-
-                            <div class="single-input-item">
-                                <label>Extra Phone</label>
-                                <input name="c_extra_phone" type="text"  placeholder="extra phone" />
-                            </div>
-
-                            <div class="single-input-item">
-                                <label>Country</label>
-                                <input name="c_country" type="text" value="Bangladesh"  placeholder="Country" />
-                            </div>
-
-                            <div class="single-input-item">
-                                <label class="required">Postcode / ZIP</label>
-                                <input name="c_zipcode" type="text" placeholder="Postcode / ZIP" required />
-                            </div> 
-
                             <div class="single-input-item">
                                 <label for="ordernote">Order Note</label>
                                 <textarea name="ordernote" id="ordernote" cols="30" rows="3" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
@@ -197,7 +212,7 @@
                             </div>
                             <div class="summary-footer-area">
                                 <button type="submit" class="check-btn sqr-btn">Place Order</button>
-                                <button class="check-btn sqr-btn" type="button" disabled>
+                                <button class="check-btn sqr-btn d-none" type="button" disabled>
                                     <span class="fa-spin text-white fa fa-spinner"></span>
                                     Processing...
                                 </button>
